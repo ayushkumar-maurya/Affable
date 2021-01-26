@@ -1,98 +1,4 @@
 <?php
-	include "connection.php";
-	
-	// User registration Entry Validation
-	if(isset($_POST['register'])) {
-		$name = trim($_POST['reg-name']);
-		$email = trim($_POST['reg-email']);
-		$phoneNumber = trim($_POST['reg-phone']);
-		$password = $_POST['reg-password'];
-		$confirm_password = $_POST['reg-cpassword'];
-
-		if(strlen($name) == 0)
-			$_SESSION['reg_error'] = "Please enter your name";
-		elseif(!filter_var($email, FILTER_VALIDATE_EMAIL))
-			$_SESSION['reg_error'] = "Please enter valid Email address";
-		elseif (!isset($phoneNumber) || !preg_match('/^[0-9]{10}$/', $phoneNumber))
-			$_SESSION['reg_error'] = "Please enter valid Phone number";
-		elseif(strlen($password) == 0)
-			$_SESSION['reg_error'] = "Please fill out password field";
-		elseif(strlen($confirm_password) == 0)
-			$_SESSION['reg_error'] = "Please fill out confirm password field";
-		elseif($password !== $confirm_password)
-			$_SESSION['reg_error'] = "Passwords do not match";
-		else {
-			// Validating the unavailability of email address
-			$stmt = $conn->prepare("SELECT email FROM user WHERE email = :email");
-			$stmt->execute(array(":email" => $email));
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-			if($stmt->rowCount() == 1)
-				$_SESSION['reg_error'] = "$email is not available";
-		}
-
-		if(isset($_SESSION['reg_error'])) {
-			// Error alert
-			echo "<script>alert('".$_SESSION['reg_error']."');</script>";
-			unset($_SESSION['reg_error']);
-		}
-		else {
-			// Sending confirmation email
-			$subject = 'SME User Registration Confirmation';
-			$message = "You are registered to SME Portal.";
-			$headers = "From: <Website's email id> \r\n";
-			$headers .= "MIME-Version: 1.0 \r\n";
-			$headers .= "Content-Type: text/html; charset=UTF-8 \r\n";
-			//mail($email, $subject, $message, $headers);
-
-			// Inserting user data in database
-			$hash = password_hash($password, PASSWORD_DEFAULT);
-			$sql = "INSERT INTO user (email, name, phoneNumber, password) VALUES (:email, :name, :phoneNumber, :hash)";
-			$stmt = $conn->prepare($sql);
-			$stmt->execute(array(
-				':email' => $email,
-				':name' => $name,
-				':phoneNumber' => $phoneNumber,
-				':hash' => $hash
-			));
-			// Success alert
-			echo "<script>alert('Registraion Successful');</script>";
-		}
-	}
-
-
-	// User Sign In Entry Validation
-	if(isset($_POST['signin'])) {
-		$email = trim($_POST['signin-email']);
-		$password = $_POST['signin-password'];
-		
-		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-			$_SESSION['signin_error'] = "Please enter valid Email address";
-		elseif(strlen($password) == 0)
-			$_SESSION['signin_error'] = "Please fill out password field";
-		else {
-			$stmt = $conn->prepare("SELECT name, email, password FROM user WHERE email = :email");
-			$stmt->execute(array(":email" => $email));
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-			
-			// Validating the credentials
-			if($stmt->rowCount() == 0)
-				$_SESSION['signin_error'] = "Account $email does not exist";
-			elseif(!password_verify($password, $row['password']))
-				$_SESSION['signin_error'] = "Incorrect Password";
-		}		
-
-		if(isset($_SESSION['signin_error'])) {
-			// Error alert
-			echo "<script>alert('".$_SESSION['signin_error']."');</script>";
-			unset($_SESSION['signin_error']);
-		}
-		else {
-			// Success alert
-			echo "<script>alert('Logged in Successfully');</script>";
-		}
-	}
-
-
 	// Write to us
 	if(isset($_POST['send-message'])) {
 		$name = trim($_POST['writetous-name']);
@@ -109,9 +15,7 @@
 		$headers .= "MIME-Version: 1.0 \r\n";
 		$headers .= "Content-Type: text/html; charset=UTF-8 \r\n";
 		
-		//mail("<Reciever's email add>", $subject, $body, $headers);
-		// Success alert
-		echo "<script>alert('Message sent.');</script>";
+		mail("ayushskmaurya@gmail.com", $subject, $body, $headers);
 	}
 ?>
 
@@ -125,25 +29,22 @@
       <!-- Site Title -->
       <title>AFFABLE || HOME</title>
       <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:400,500" rel="stylesheet">
-      
       <!--fontawesome-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap">
-
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
       <link rel="stylesheet" href="css/bootstrap.css">
-
       <!-- Owl carousel --->
       <link rel="stylesheet" href="css/owl.carousel.css">
-      
       <!--Flickity carousel --->
       <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-
       <!--Page css -->
-      <link rel="stylesheet" href="css/style.css"> 
-   </head>
+	  <link rel="stylesheet" href="css/style.css">
+	  <!--jQuery Script-->
+	  <script src="js/jquery-2.2.4.min.js"></script>
+	</head>
    <body data-spy="scroll" data-target=".navbar" data-offset="50">
       <!-- Start Header Area -->
       <header class="default-header">
@@ -187,7 +88,6 @@
          </nav>
       </header>
       <!-- End Header Area -->
-
       <!-- modal for user registration --->
       <div class="modal fade" id="registerUser" role="dialog">
          <div class="modal-dialog">
@@ -210,26 +110,28 @@
                      <div class="form_separator">
                         <span>OR</span>
                      </div>
-                     <form action="" method="post">
+                     <form action="" method="">
                         <div class="form">
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your name" name="reg-name" required="">
+                              <input type="text" class="input" placeholder="Enter your name" id="reg-name" name="reg-name" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Email" name="reg-email" required="">
+                              <input type="text" class="input" placeholder="Enter your Email" id="reg-email" name="reg-email" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Mobile number" name="reg-phone">
+                              <input type="text" class="input" placeholder="Enter your Mobile number" id="reg-phone" name="reg-phone">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Create your password" name="reg-password" required="">
+                              <input type="password" class="input" placeholder="Create your password" id="reg-password" name="reg-password" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Confirm your password" name="reg-cpassword" required="">
+                              <input type="password" class="input" placeholder="Confirm your password" id="reg-cpassword" name="reg-cpassword" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="submit" value="Register as user" class="btn" name="register">
-                           </div>
+                              <input type="button" value="Register as user" class="btn" id="register" name="register">
+						   </div>
+						   <div class="alert alert-danger" role="alert" id="reg-error" style="display: none;">
+						   </div>
                            <!-- <div class="inputfield terms">
                               <p>By joining I agree to the terms and conditions of Affable</p>
                               </div> -->
@@ -244,9 +146,39 @@
                </div>
             </div>
          </div>
-      </div>
-      <!--end modal for user registration --->
+	  </div>
+	  	<script>
+			$(document).ready(function() {
+				$('#register').click(function() {
+					var name = $('#reg-name').val();
+					var email = $('#reg-email').val();
+					var phone = $('#reg-phone').val();
+					var password = $('#reg-password').val();
+					var cpassword = $('#reg-cpassword').val();
+					$.ajax({
+						url: "user_registration_validation.php",
+						method: "POST",
+						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
+						success: function(error) {
+							if(error == 0) {
+								window.location.replace("/Affable");
+								$.ajax({
+									url: "user_registration_entry.php",
+									method: "POST",
+									data: {name:name, email:email, phone:phone, password:password}
+								});
+							}
+							else {
+								document.getElementById("reg-error").innerHTML = error;
+								document.getElementById("reg-error").style.display = "block";
+							}
+						}
+					});
+				});
+			});
+		</script>
 
+      <!--end modal for user registration --->
       <!-- modal for SME registration --->
       <div class="modal fade" id="registerSME" role="dialog">
          <div class="modal-dialog">
@@ -305,7 +237,6 @@
          </div>
       </div>
       <!-- end modal for SME registration --->
-
       <!-- modal for user login --->
       <div class="modal fade" id="signInUser" role="dialog">
          <div class="modal-dialog" id="otp_modal_dialogue_user">
@@ -327,17 +258,22 @@
                      <div class="form_separator">
                         <span>OR</span>
                      </div>
-                     <form method="post">
+                     <form method="">
                         <div class="form">
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Email" name="signin-email" required="">
+                              <input type="text" class="input" placeholder="Enter your Email" id="signin-email" name="signin-email" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Enter your password" name="signin-password" required="">
+                              <input type="password" class="input" placeholder="Enter your password" id="signin-password" name="signin-password" required="">
+                           </div>
+                           <div class="inputfield terms forgot_password_link" style="margin-bottom: -10px;">
+                              <p onclick="forgotPassworduser();">Forgot password</p>
                            </div>
                            <div class="inputfield">
-                              <input type="submit" value="LOGIN AS USER" class="btn" name="signin">
-                           </div>
+                              <input type="button" value="LOGIN AS USER" class="btn" id="signin" name="signin">
+						   </div>
+						   <div class="alert alert-danger" role="alert" id="signin-error" style="display: none;">
+						   </div>
                         </div>
                      </form>
                      <div class="form_separator">
@@ -386,10 +322,50 @@
                   </div>
                </div>
             </div>
+            <div class="modal-content otp_modal_content" id="forgot_password_modal_content_user">
+               <div class="modal-header">
+                  <h2 class="modal_title">Recover Password</h2>
+               </div>
+               <div class="modal-body">
+                  <form>
+                     <div class="form">
+                        <div class="inputfield">
+                           <input type="text" class="input" placeholder="Enter your email id to get new password" name="mobile">
+                        </div>
+                        <div class="inputfield">
+                           <input value="SUMBIT" class="btn" name="submit" type="button">
+                        </div>
+                     </div>
+                  </form>
+                  <div class="inputfield terms forgot_password_link" style="margin-top: 7px; margin-bottom: -10px;">
+                     <p>Check your registered email id to get new password and return to login</p>
+                  </div>
+               </div>
+            </div>
          </div>
-      </div>
+	  </div>
+	  <script>
+		$(document).ready(function() {
+			$('#signin').click(function() {
+				var email = $('#signin-email').val();
+				var password = $('#signin-password').val();
+				$.ajax({
+					url: "user_signin_validation.php",
+					method: "POST",
+					data: {email:email, password:password},
+					success: function(error) {
+						if(error == 0)
+							window.location.replace("/Affable");
+						else {
+							document.getElementById("signin-error").innerHTML = error;
+							document.getElementById("signin-error").style.display = "block";
+						}
+					}
+				});
+			});
+		});
+	  </script>
       <!-- end modal for user login --->
-
       <!-- modal for SME login --->
       <div class="modal fade" id="signInSME" role="dialog">
          <div class="modal-dialog" id="otp_modal_dialogue_sme">
@@ -417,7 +393,10 @@
                               <input type="text" class="input" placeholder="Enter your Email" name="email" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Enter your password" name="password" required="">
+                              <input type="password" class="input" placeholder="Enter your password" name="password">
+                           </div>
+                           <div class="inputfield terms forgot_password_link" style="margin-bottom: -10px;">
+                              <p onclick="forgotPasswordsme();">Forgot password</p>
                            </div>
                            <div class="inputfield">
                               <input type="submit" value="LOGIN AS SME" class="btn" name="submit">
@@ -470,10 +449,29 @@
                   </div>
                </div>
             </div>
+            <div class="modal-content otp_modal_content" id="forgot_password_modal_content_sme">
+               <div class="modal-header">
+                  <h2 class="modal_title">Recover Password</h2>
+               </div>
+               <div class="modal-body">
+                  <form>
+                     <div class="form">
+                        <div class="inputfield">
+                           <input type="text" class="input" placeholder="Enter your email id to get new password" name="mobile">
+                        </div>
+                        <div class="inputfield">
+                           <input value="SUMBIT" class="btn" name="submit" type="button">
+                        </div>
+                     </div>
+                  </form>
+                  <div class="inputfield terms forgot_password_link" style="margin-top: 7px; margin-bottom: -10px;">
+                     <p>Check your registered email id to get new password and return to login</p>
+                  </div>
+               </div>
+            </div>
          </div>
       </div>
       <!-- end modal for SME login --->
-
       <!-- start banner Area -->
       <section class="home-banner-area relative" id="home" data-parallax="scroll" data-image-src="images/header-bg.jpg">
          <div class="overlay-bg overlay"></div>
@@ -492,7 +490,6 @@
          </div>
       </section>
       <!-- End banner Area -->
-
       <!-- Start brands Area -->
       <section class="brands-area">
          <div class="container no-padding">
@@ -518,7 +515,6 @@
          </div>
       </section>
       <!-- End brands Area -->
-
       <!-- Start About Area -->
       <section class="about-area section-gap" id="section1">
          <div class="container">
@@ -543,7 +539,6 @@
          </div>
       </section>
       <!-- End About Area -->
-
       <!-- Start how we work Area -->
       <section class="features-area section-gap-top" id="section2">
          <div class="container">
@@ -581,7 +576,6 @@
          </div>
       </section>
       <!-- End how we work Area -->
-
       <!-- Start SME section -->
       <section id="section3">
          <div class="container-fluid">
@@ -663,7 +657,6 @@
          </div>
       </section>
       <!-- end SME section -->
-
       <!-- Start FAQ section -->
       <section id="section4">
          <div class="container faqs">
@@ -709,7 +702,6 @@
          </div>
       </section>
       <!-- end FAQ section -->
-
       <!-- Start write to us section -->
       <section class="contact_area section-gap" id="section5">
          <h1>Write to us</h1>
@@ -728,37 +720,33 @@
                <div class="col-lg-4">
                   <img src="images/write_to_us.jpg" style="max-width: 100%;">
                </div>
-
-
                <div class="col-lg-5">
                   <form class="contact_form" method="post" id="contactForm" novalidate="novalidate">
                      <div class="form-group">
                         <input type="text" class="form-control" id="name" name="writetous-name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" required=""/>
-                     </div>   
+                     </div>
                      <div class="form-group">
-                           <input type="email" class="form-control" id="email" name="writetous-email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" required=""/>
-                        </div>
-                        
-                        <div class="form-group">
-                           <textarea
-                              class="form-control"
-                              name="writetous-message"
-                              id="message"
-                              rows="1"
-                              placeholder="Enter Message"
-                              onfocus="this.placeholder = ''"
-                              onblur="this.placeholder = 'Enter Message'"
-                              required=""
-                              ></textarea>
-                        </div>
-                        <div>
-                           <button type="submit" value="submit" class="btn primary-btn" name="send-message" style="color: #38489E;">
-                           Send Message
-                           </button>
-                        </div> 
-                  </form> 
+                        <input type="email" class="form-control" id="email" name="writetous-email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" required=""/>
+                     </div>
+                     <div class="form-group">
+                        <textarea
+                           class="form-control"
+                           name="writetous-message"
+                           id="message"
+                           rows="1"
+                           placeholder="Enter Message"
+                           onfocus="this.placeholder = ''"
+                           onblur="this.placeholder = 'Enter Message'"
+                           required=""
+                           ></textarea>
+                     </div>
+                     <div>
+                        <button type="submit" value="submit" class="btn primary-btn" name="send-message" style="color: #38489E;">
+                        Send Message
+                        </button>
+                     </div>
+                  </form>
                </div>
-
                <div class="col-lg-3">
                   <div class="contact_info">
                      <div class="info_item">
@@ -778,13 +766,10 @@
                      </div>
                   </div>
                </div>
-               
             </div>
          </div>
       </section>
       <!-- end write to us section -->
-
-
       <!-- Start footer -->
       <footer style="background-color: #f2f2f2">
          <!-- <div class="container-fluid breadcrumbs">
@@ -862,13 +847,8 @@
          </div>
       </footer>
       <!-- end footer -->
-
-
       <!--- Scripts section --->
-
-
       <!-- sticky nav -->
-      <script src="js/jquery-2.2.4.min.js"></script>
       <script src="js/parallax.min.js"></script>
       <script src="js/owl.carousel.min.js"></script>
       <script src="js/isotope.pkgd.min.js"></script>
@@ -876,12 +856,10 @@
       <script src="js/jquery.sticky.js"></script>
       <script src="js/main.js"></script>
       <script src="js/pageHandler.js"></script>
-
       <!-- For carousel --->
       <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
       <!-- For accordion in FAQ section --->
       <script>
          const accordion = document.getElementsByClassName('contentBx');

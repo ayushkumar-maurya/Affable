@@ -1191,6 +1191,11 @@ th {
     color: #F3834B
 }
 
+.sme_dashboard_navbar a:hover,
+.sme_dashboard_navbar a.active{
+    color: #fff;
+}
+
 @media (max-width: 992px) {
     .navbar-nav {
         margin-top: 10px
@@ -4318,8 +4323,8 @@ footer{
     background: #4267b2;
     border: 1px solid #4267b2;
     border-radius: 4px;
-    padding: 10px;
-    padding: 8px 20px 8px 12px;
+    /* padding: 10px;
+    padding: 8px 20px 8px 12px; */
     width: 100%;
 }
 
@@ -4333,7 +4338,7 @@ footer{
     background-color: white;
     border: 1px solid #7a7d85;
     border-radius: 4px;
-    padding: 8px 24px 8px 12px;
+    /* padding: 8px 24px 8px 12px; */
     width: 100%;
 }
 
@@ -4381,6 +4386,14 @@ footer{
     font-weight: 600;
     padding: 0;
     text-align: center;
+}
+
+.google_button p,
+.google_button span,
+.facebook_button p,
+.facebook_button span{
+    margin-top: 6px;
+    margin-bottom: 2px;
 }
 
 .form {
@@ -4454,6 +4467,7 @@ footer{
 
 .modal_content_footer_body p {
     font-size: 18px;
+    margin-bottom: -35px;
 }
 
 .link_button {
@@ -4517,6 +4531,12 @@ footer{
 .otp_message {
     margin-bottom: 10px;
     color: #95103b;
+}
+
+.forgot_password_link{
+    color: #95103b;
+    margin-top: -12px;
+    cursor: pointer;
 }
 
 
@@ -4653,4 +4673,17 @@ footer{
 .contact_area .col-lg-5 button{
     margin-bottom: 25px;
 }
+}
+
+@media (max-width: 991px) {
+    .notifications,
+    .profile{
+        display: none;
+    }
+}
+@media (min-width: 991px) {
+    .notifications_humberger,
+    .profile_humberger{
+        display: none;
+    }
 }
