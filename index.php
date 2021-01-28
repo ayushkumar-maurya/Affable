@@ -1,26 +1,3 @@
-<?php
-	include "base.php";
-	
-	// Write to us
-	if(isset($_POST['send-message'])) {
-		$name = trim($_POST['writetous-name']);
-		$email = trim($_POST['writetous-email']);
-		$message = trim($_POST['writetous-message']);
-
-		$subject = 'Write to us';
-		
-		$body = "<b>Name:</b> ".$name."<br>";
-		$body .= "<b>From:</b> ".$email."<br><br>";
-		$body .= "<b>Message:</b><br>".$message;
-
-		$header = "MIME-Version: 1.0 \r\n";
-		$header .= "Content-Type: text/html; charset=UTF-8 \r\n";
-		
-		mail(RECIPIENT_EMAIL, $subject, $body, $header);
-	}
-?>
-
-
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
    <head>
@@ -724,18 +701,18 @@
                   <img src="images/write_to_us.jpg" style="max-width: 100%;">
                </div>
                <div class="col-lg-5">
-                  <form class="contact_form" method="post" id="contactForm" novalidate="novalidate">
+                  <form class="contact_form" id="contactForm" novalidate="novalidate">
                      <div class="form-group">
-                        <input type="text" class="form-control" id="name" name="writetous-name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" required=""/>
+                        <input type="text" class="form-control" id="writetous-name" name="name" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" required=""/>
                      </div>
                      <div class="form-group">
-                        <input type="email" class="form-control" id="email" name="writetous-email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" required=""/>
+                        <input type="email" class="form-control" id="writetous-email" name="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" required=""/>
                      </div>
                      <div class="form-group">
                         <textarea
                            class="form-control"
-                           name="writetous-message"
-                           id="message"
+                           name="message"
+                           id="writetous-message"
                            rows="1"
                            placeholder="Enter Message"
                            onfocus="this.placeholder = ''"
@@ -746,7 +723,7 @@
 					 <div class="alert alert-success" id="notify" role="alert" style="display: none;">
 					 </div>
                      <div>
-                        <button type="submit" onclick="notify()" value="submit" class="btn primary-btn" name="send-message" style="color: #38489E;">
+                        <button type="button" value="submit" class="btn primary-btn" id="send-message" name="submit" style="color: #38489E;">
                         Send Message
                         </button>
                      </div>
@@ -775,10 +752,24 @@
          </div>
       </section>
 	  <script>
-	  	function notify() {
-			document.getElementById("notify").innerHTML = "Message has been sent.";
-			document.getElementById("notify").style.display = "block";
-		}
+		$(document).ready(function() {
+			$('#send-message').click(function() {
+				var name = $('#writetous-name').val();
+				var email = $('#writetous-email').val();
+				var message = $('#writetous-message').val();
+				$.ajax({
+					url: "writetous.php",
+					method: "POST",
+					data: {name:name, email:email, message:message},
+					success: function(status) {
+						if(status == 1) {
+							document.getElementById("notify").innerHTML = "Message has been sent.";
+							document.getElementById("notify").style.display = "block";
+						}
+					}
+				});
+			});
+		});
 	  </script>
       <!-- end write to us section -->
       <!-- Start footer -->
