@@ -743,8 +743,10 @@
                            required=""
                            ></textarea>
                      </div>
+					 <div class="alert alert-success" id="notify" role="alert" style="display: none;">
+					 </div>
                      <div>
-                        <button type="submit" value="submit" class="btn primary-btn" name="send-message" style="color: #38489E;">
+                        <button type="submit" onclick="notify()" value="submit" class="btn primary-btn" name="send-message" style="color: #38489E;">
                         Send Message
                         </button>
                      </div>
@@ -772,6 +774,12 @@
             </div>
          </div>
       </section>
+	  <script>
+	  	function notify() {
+			document.getElementById("notify").innerHTML = "Message has been sent.";
+			document.getElementById("notify").style.display = "block";
+		}
+	  </script>
       <!-- end write to us section -->
       <!-- Start footer -->
       <footer style="background-color: #f2f2f2">
