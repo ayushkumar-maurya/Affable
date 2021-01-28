@@ -1,4 +1,5 @@
 <?php
+	include "base.php";
 	include "connection.php";
 
 	// Inserting user data in database
@@ -23,11 +24,10 @@
 	$subject = 'SME User Registration Verification';
 	
 	$message = "You have been registered for SME Portal.<br>";
-	$message .= "Please <a href='http://localhost/Affable/user_registration_verification.php?vkey=".$vkey."&email=".$email."'>click here</a> to confirm your registration.";
+	$message .= "Please <a href='".BASE_URL."/user_registration_verification.php?vkey=".$vkey."&email=".$email."'>click here</a> to confirm your registration.";
 	
-	$headers = "From: <Website's email address> \r\n";
-	$headers .= "MIME-Version: 1.0 \r\n";
-	$headers .= "Content-Type: text/html; charset=UTF-8 \r\n";
+	$header = "MIME-Version: 1.0 \r\n";
+	$header .= "Content-Type: text/html; charset=UTF-8 \r\n";
 	
-	mail($email, $subject, $message, $headers);
+	mail($email, $subject, $message, $header);
 ?>

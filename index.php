@@ -1,4 +1,6 @@
 <?php
+	include "base.php";
+	
 	// Write to us
 	if(isset($_POST['send-message'])) {
 		$name = trim($_POST['writetous-name']);
@@ -11,11 +13,10 @@
 		$body .= "<b>From:</b> ".$email."<br><br>";
 		$body .= "<b>Message:</b><br>".$message;
 
-		$headers = "From: <Website's email add> \r\n";
-		$headers .= "MIME-Version: 1.0 \r\n";
-		$headers .= "Content-Type: text/html; charset=UTF-8 \r\n";
+		$header = "MIME-Version: 1.0 \r\n";
+		$header .= "Content-Type: text/html; charset=UTF-8 \r\n";
 		
-		mail("<Email add>", $subject, $body, $headers);
+		mail(RECIPIENT_EMAIL, $subject, $body, $header);
 	}
 ?>
 
@@ -161,7 +162,7 @@
 						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
 						success: function(error) {
 							if(error == 0) {
-								window.location.replace("/Affable");
+								window.location.replace("/");
 								$.ajax({
 									url: "user_registration_entry.php",
 									method: "POST",
@@ -355,7 +356,7 @@
 					data: {email:email, password:password},
 					success: function(error) {
 						if(error == 0)
-							window.location.replace("/Affable");
+							window.location.replace("/");
 						else {
 							document.getElementById("signin-error").innerHTML = error;
 							document.getElementById("signin-error").style.display = "block";
