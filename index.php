@@ -131,7 +131,7 @@
                            <div class="inputfield">
                               <input type="button" value="Register as user" class="btn" id="register" name="register">
 						   </div>
-						   <div class="alert alert-danger" role="alert" id="reg-error" style="display: none;">
+						   <div class="alert success" role="alert" id="reg-message" style="display: none;">
 						   </div>
                            <!-- <div class="inputfield terms">
                               <p>By joining I agree to the terms and conditions of Affable</p>
@@ -162,7 +162,8 @@
 						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
 						success: function(error) {
 							if(error == 0) {
-								window.location.replace("index.php");
+								document.getElementById("reg-message").innerHTML = "Verification mail has been sent to its registered email id";
+								document.getElementById('reg-message').setAttribute('class', 'alert alert-success');
 								$.ajax({
 									url: "user_registration_entry.php",
 									method: "POST",
@@ -170,9 +171,10 @@
 								});
 							}
 							else {
-								document.getElementById("reg-error").innerHTML = error;
-								document.getElementById("reg-error").style.display = "block";
+								document.getElementById("reg-message").innerHTML = error;
+								document.getElementById('reg-message').setAttribute('class', 'alert alert-danger');
 							}
+							document.getElementById("reg-message").style.display = "block";
 						}
 					});
 				});
