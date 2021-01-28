@@ -720,8 +720,8 @@
                            required=""
                            ></textarea>
                      </div>
-					 <div class="alert alert-success" id="notify" role="alert" style="display: none;">
-					 </div>
+					 <center><progress max="100" id="progress" style="display: none;"></progress></center>
+					 <div class="alert alert-success" id="notify" role="alert" style="display: none;"></div>
                      <div>
                         <button type="button" value="submit" class="btn primary-btn" id="send-message" name="submit" style="color: #38489E;">
                         Send Message
@@ -754,6 +754,8 @@
 	  <script>
 		$(document).ready(function() {
 			$('#send-message').click(function() {
+				document.getElementById("notify").style.display = "none";
+				document.getElementById("progress").style.display = "block";
 				var name = $('#writetous-name').val();
 				var email = $('#writetous-email').val();
 				var message = $('#writetous-message').val();
@@ -764,8 +766,9 @@
 					success: function(status) {
 						if(status == 1) {
 							document.getElementById("notify").innerHTML = "Message has been sent.";
+							document.getElementById("progress").style.display = "none";
 							document.getElementById("notify").style.display = "block";
-						}
+						}							
 					}
 				});
 			});
