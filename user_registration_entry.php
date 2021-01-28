@@ -24,7 +24,7 @@
 	$subject = 'SME User Registration Verification';
 	
 	$message = "You have been registered for SME Portal.<br>";
-	$message .= "Please <a href='".BASE_URL."/user_registration_verification.php?vkey=".$vkey."&email=".$email."'>click here</a> to confirm your registration.";
+	$message .= "Please <a href='".BASE_URL."/user_registration_verification.php?vkey=".$vkey."&email=".$email."'>click here</a> to Login.";
 	
 	$header = "MIME-Version: 1.0 \r\n";
 	$header .= "Content-Type: text/html; charset=UTF-8 \r\n";

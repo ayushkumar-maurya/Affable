@@ -162,7 +162,7 @@
 						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
 						success: function(error) {
 							if(error == 0) {
-								window.location.replace("/");
+								window.location.replace("index.php");
 								$.ajax({
 									url: "user_registration_entry.php",
 									method: "POST",
@@ -356,7 +356,7 @@
 					data: {email:email, password:password},
 					success: function(error) {
 						if(error == 0)
-							window.location.replace("/");
+							window.location.replace("index.php");
 						else {
 							document.getElementById("signin-error").innerHTML = error;
 							document.getElementById("signin-error").style.display = "block";
