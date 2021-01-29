@@ -5,15 +5,14 @@
 		$category = $_POST['category'];
 		$topic = trim($_POST['topic']);
 		$question = trim($_POST['question']);
-		// $email = $_SESSION['email'];
-
+		
 		$sql = "INSERT INTO userquestion(category, topic, question, email) values(:category, :topic, :question, :email)";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute(array(
 			':category' => $category,
 			':topic' => $topic,
 			':question' => $question,
-			':email' => $email
+			':email' => $_SESSION['email']
 		));
 	
 		echo "<script>alert('Your question has been sent to our SME for review.');</script>";
@@ -24,7 +23,7 @@
 		$header = "MIME-Version: 1.0 \r\n";
 		$header .= "Content-Type: text/html; charset=UTF-8 \r\n";
 		
-		// mail($email, $subject, $message, $header);
+		mail($_SESSION['email'], $subject, $message, $header);
 	}
 ?>
 
@@ -50,7 +49,7 @@
 <html>
 	<body>
 		<form onsubmit="return validate()" action="/Affable/userQuestion.php" method="post">
-			<input type="text" name="client-email" placeholder="Email">
+			<input type="text" name="client-email" placeholder="<?= $_SESSION['email'] ?>" disabled>
 			<br><br>
 			<select name="category">
 			<?php

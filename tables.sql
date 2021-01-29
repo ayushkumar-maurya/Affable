@@ -32,6 +32,7 @@ create table userquestion (
 	topic text not null,
 	question text not null,
 	email varchar(100),
+	status varchar(100),
 	primary key(questionid),
 	foreign key (category) references category(categoryName)
 );

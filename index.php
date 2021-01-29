@@ -139,7 +139,7 @@
 						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
 						success: function(error) {
 							if(error == 0) {
-								document.getElementById("reg-message").innerHTML = "Verification mail has been sent to its registered email id";
+								document.getElementById("reg-message").innerHTML = "Verification mail has been sent to your registered email id";
 								document.getElementById('reg-message').setAttribute('class', 'alert alert-success');
 								$.ajax({
 									url: "user_registration_entry.php",

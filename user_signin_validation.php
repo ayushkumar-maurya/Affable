@@ -22,7 +22,9 @@
 			echo "Incorrect Password";
 		elseif($row['verified'] == 0)
 			echo "Account $email is not verified";
-		else
+		else {
+			$_SESSION['email'] = $email;
 			echo 0;
+		}
 	}
 ?>
