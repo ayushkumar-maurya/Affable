@@ -4687,3 +4687,173 @@ footer{
         display: none;
     }
 }
+
+
+
+.profile_section{
+  /* max-width: 500px; */
+  width: 100%;
+  background: #fff;
+  margin: 20px auto;
+  /* box-shadow: 1px 1px 2px rgba(0,0,0,0.125); */
+  padding: 30px;
+}
+
+.profile_section .title{
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #38489E;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.profile_section .form{
+  width: 100%;
+}
+
+.profile_section .form .inputfield{
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.profile_section .form .inputfield label{
+   width: 200px;
+   color: #38489E;
+   margin-right: 10px;
+  font-size: 14px;
+}
+
+.profile_section .form .inputfield .input,
+.profile_section .form .inputfield .textarea{
+  width: 100%;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.profile_section .form .inputfield .textarea{
+  width: 100%;
+  height: 125px;
+  resize: none;
+}
+
+.profile_section .form .inputfield .custom_select{
+  position: relative;
+  width: 100%;
+  height: 37px;
+}
+
+.profile_section .form .inputfield .custom_select:before{
+  content: "";
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  border: 8px solid;
+  border-color: #d5dbd9 transparent transparent transparent;
+  pointer-events: none;
+}
+
+.profile_section .form .inputfield .custom_select select{
+  -webkit-appearance: none;
+  -moz-appearance:   none;
+  appearance:        none;
+  outline: none;
+  width: 100%;
+  height: 100%;
+  border: 0px;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #d5dbd9;
+  border-radius: 3px;
+}
+
+
+.profile_section .form .inputfield .input:focus,
+.profile_section .form .inputfield .textarea:focus,
+.profile_section .form .inputfield .custom_select select:focus{
+  border: 1px solid #38489E;
+}
+
+.profile_section .form .inputfield p{
+  margin-top: 9px;
+   font-size: 14px;
+   color: #38489E;
+   margin-right: 10px;
+}
+.profile_section .form .inputfield .check{
+  width: 15px;
+  height: 15px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.profile_section .form .inputfield .check input[type="checkbox"]{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.profile_section .form .inputfield .check .checkmark{
+  width: 15px;
+  height: 15px;
+  border: 1px solid #38489E;
+  display: block;
+  position: relative;
+}
+.profile_section .form .inputfield .check .checkmark:before{
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 2px;
+  width: 8px;
+  height: 2px;
+  border: 2px solid;
+  border-color: transparent transparent #fff #fff;
+  transform: rotate(-45deg);
+  display: none;
+}
+.profile_section .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark{
+  background: #38489E;
+}
+
+.profile_section .form .inputfield .check input[type="checkbox"]:checked ~ .checkmark:before{
+  display: block;
+}
+
+.profile_section .form .inputfield .btn{
+  width: 100%;
+   padding: 8px 10px;
+  font-size: 15px; 
+  border: 0px;
+  background:  #38489E;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}
+
+/* .profile_section .form .inputfield .btn:hover{
+  background: #ffd658;
+} */
+
+.profile_section .form .inputfield:last-child{
+  margin-bottom: 0;
+}
+
+@media (max-width:420px) {
+  .profile_section .form .inputfield{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile_section .form .inputfield label{
+    margin-bottom: 5px;
+  }
+  .profile_section .form .inputfield.terms{
+    flex-direction: row;
+  }
+}

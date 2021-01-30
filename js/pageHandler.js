@@ -43,3 +43,12 @@ function forgotPasswordsme(){
 	document.getElementById('otp_modal_content_sme').setAttribute('style', 'display: none');
 	document.getElementById('otp_modal_dialogue_sme').setAttribute('class', 'modal-dialog modal-sm');
 }
+
+function sme_dashboard(){
+	document.getElementById('sme_profile').setAttribute('style', 'display: none;');
+}
+
+function viewSMEprofile(){
+	document.getElementById('section1').setAttribute('style', 'display: none;');
+	document.getElementById('sme_profile').setAttribute('style', 'display: block;');
+}
