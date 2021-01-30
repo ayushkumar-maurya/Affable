@@ -109,32 +109,78 @@
                         <form>
                            <div class="inputfield">
                               <label>Current Password</label>
-                              <input type="Password" class="input" required="">
+                              <input type="Password" class="input pwd" id="old-password" required="">
                            </div>
                            <div class="inputfield">
                               <label>New Password</label>
-                              <input type="Password" class="input" required="">
+                              <input type="Password" class="input pwd" id="new-password" required="">
                            </div>
                            <div class="inputfield">
                               <label>Confirm Password</label>
-                              <input type="Password" class="input" required="">
+                              <input type="Password" class="input pwd" id="cpassword" required="">
                            </div>
                            <div class="row">
                               <div class="col-sm-3"></div>
                               <div class="col-sm-6">
                                  <div class="inputfield">
-                                    <input type="submit" value="SAVE PASSWORD" class="btn">
+                                    <input type="button" value="SAVE PASSWORD" id="update-password" class="btn">
                                  </div>
                               </div>
                               <div class="col-sm-3"></div>
-                           </div>
+						   </div>
+						   <br><div class="alert alert-success" role="alert" id="status" style="display: none;"></div>
                         </form>
                      </div>
                   </div>
                </div>
             </div>
          </div>
-      </div>
+	  </div>
+	  <script>
+		$(document).ready(function() {
+			$('#update-password').click(function() {
+				var oldPassword = $('#old-password').val();
+				var newPassword = $('#new-password').val();
+				var cpassword = $('#cpassword').val();
+				var status = document.getElementById("status");
+				var error = 0;
+				
+				if(oldPassword.length == 0)
+					error = "Please fill out old password field";
+				else if(newPassword.length == 0)
+					error = "Please fill out new password field";
+				else if(newPassword != cpassword)
+					error = "Passwords do not match";	
+				
+				if(error != 0) {
+					status.innerHTML = error;
+					status.setAttribute("class", "alert alert-danger");
+					status.style.display = "block";
+				}
+				
+				else {
+					$.ajax({
+						url: "update_user_password.php",
+						method: "POST",
+						data: {oldPassword: oldPassword, newPassword: newPassword},
+						success: function(error) {
+							if(error != 0) {
+								status.innerHTML = error;
+								status.setAttribute("class", "alert alert-danger");
+							}
+							else {
+								for(var i=0; i<3; i++)
+									document.getElementsByClassName("pwd")[i].value="";
+								status.innerHTML = "Password updated successfully.";
+								status.setAttribute("class", "alert alert-success");
+							}
+							status.style.display = "block";
+						}
+					});
+				}
+			});
+		});
+	  </script>
       <!--end modal for user change password --->
       <!-- modal for post question --->
       <div class="modal fade" id="postQuestion" role="dialog">
@@ -153,7 +199,7 @@
                            <div class="inputfield">
                               <label>Category</label>
                               <div class="custom_select">
-                                 <select id="category" required="">
+                                 <select class="ques" id="category" required="">
 								 <option value="">Select category</option>
 								 <?php
 									$stmt = $conn->prepare("SELECT categoryName FROM category ORDER BY categoryName");
@@ -166,11 +212,11 @@
                            </div>
                            <div class="inputfield">
                               <label>Topic</label>
-                              <input type="text" class="input" id="topic" required="">
+                              <input type="text" class="input ques" id="topic" required="">
                            </div>
                            <div class="inputfield">
                               <label>Type your question</label>
-                              <textarea class="textarea" id="question" required=""></textarea>
+                              <textarea class="textarea ques" id="question" required=""></textarea>
                            </div>
                            <div class="inputfield">
                               <label class="check">
@@ -225,6 +271,8 @@
 						data: {do:"entry", category:category, topic: topic, question: question},
 						success: function(status) {
 							if(status == 1) {
+								for(var i=0; i<3; i++)
+									document.getElementsByClassName("ques")[i].value="";
 								quesStatus.innerHTML = "Your question has been sent to our SME for review.";
 								quesStatus.setAttribute("class", "alert alert-success");
 								quesStatus.style.display = "block";
