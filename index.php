@@ -47,7 +47,7 @@
                         Sign In
                         </a>
                         <div class="dropdown-menu">
-                           <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#signInUser" onclick="hideuserOTPsection();">Sign In as user</a>
+                           <a class="dropdown-item" href="#" type="button" id="userSignIn" data-toggle="modal" data-target="#signInUser" onclick="hideuserOTPsection();">Sign In as user</a>
                            <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#signInSME" onclick="hidesmeOTPsection();">Sign In as SME</a>
                         </div>
                      </li>
@@ -335,7 +335,7 @@
 					data: {email:email, password:password},
 					success: function(error) {
 						if(error == 0)
-							window.location.replace("index.php");
+							window.location.replace("client_dashboard.php");
 						else {
 							document.getElementById("signin-error").innerHTML = error;
 							document.getElementById("signin-error").style.display = "block";
@@ -867,6 +867,10 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <!-- For accordion in FAQ section --->
       <script>
+	  	if(<?= isset($_GET['usersignin']); ?>)
+			document.getElementById('userSignIn').click();
+	  </script>
+	  <script>
          const accordion = document.getElementsByClassName('contentBx');
          
          for(i=0; i< accordion.length; i++ ){

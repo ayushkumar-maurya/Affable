@@ -1,4 +1,8 @@
-<?php include "connection.php"; ?>
+<?php
+	include "connection.php";
+	if(!isset($_SESSION['email']))
+		header("Location: index.php");
+?>
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -60,7 +64,7 @@
                         <div class="dropdown-menu">
                            <!-- <a class="dropdown-item" href="#">View Profile</a> -->
                            <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#passwordChangeUser">Change Password</a>
-                           <a class="dropdown-item" href="#">Logout</a>
+                           <a class="dropdown-item" href="logout.php">Logout</a>
                         </div>
                      </li>
                   </ul>
