@@ -39,3 +39,18 @@ create table userquestion (
 
 -- UserQuestion Table Sample Data
 insert into userquestion(category, topic, question) values('IT', 'Web hosting', 'I need to know the best mode of web hosting');
+
+
+-- Consultation Table
+CREATE TABLE consultation (
+	consultationId int AUTO_INCREMENT,
+	clientEmailId varchar(100),
+	smeEmailId varchar(100),
+	questionId int,
+	`date` date,
+	`time` time,
+	PRIMARY KEY (consultationId),
+	FOREIGN KEY (clientEmailId) REFERENCES user(email),
+	FOREIGN KEY (smeEmailId) REFERENCES sme_profile(email),
+	FOREIGN KEY (questionId) REFERENCES userquestion(questionid)
+);

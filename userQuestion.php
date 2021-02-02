@@ -7,7 +7,7 @@
 		$topic = $_POST['topic'];
 		$question = $_POST['question'];
 		
-		$sql = "INSERT INTO userquestion(category, topic, question, email) values(:category, :topic, :question, :email)";
+		$sql = "INSERT INTO userquestion(category, topic, question, email, status) values(:category, :topic, :question, :email, 'In review')";
 		$stmt = $conn->prepare($sql);
 		$stmt->execute(array(
 			':category' => $category,
