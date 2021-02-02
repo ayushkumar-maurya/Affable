@@ -51,8 +51,9 @@ CREATE TABLE consultation (
 	`date` date,
 	fromTime time,
 	toTime time,
+	status varchar(100),
 	PRIMARY KEY (consultationId),
 	FOREIGN KEY (clientEmailId) REFERENCES user(email),
 	FOREIGN KEY (smeEmailId) REFERENCES sme_profile(email),
 	FOREIGN KEY (questionId) REFERENCES userquestion(questionid)
-);
+	);
