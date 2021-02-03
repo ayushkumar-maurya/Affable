@@ -42,7 +42,8 @@
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav sme_dashboard_navbar">
-                     <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li>
+				  	 <li><a href="#">CONSULTATIONS</a></li>
+					 <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li>
                      <li><a href="#section2">FAQS</a></li>
                      <li><a href="#section3">YOUR REQUESTS</a></li>
                      <li class="notifications_humberger"><a href="#section3">NOTIFICATIONS</a></li>
