@@ -11,7 +11,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta charset="UTF-8">
       <!-- Site Title -->
-      <title>AFFABLE || HOME</title>
+	  <title>AFFABLE || CLIENT</title>
       <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:400,500" rel="stylesheet">
       <!--fontawesome-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -45,7 +45,7 @@
 				  	 <li><a href="#">CONSULTATIONS</a></li>
 					 <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li>
                      <li><a href="#section2">FAQS</a></li>
-                     <li><a href="#section3">YOUR REQUESTS</a></li>
+                     <li><a href="#section4">YOUR REQUESTS</a></li>
                      <li class="notifications_humberger"><a href="#section3">NOTIFICATIONS</a></li>
                      <li class="dropdown profile_humberger">
                         <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -74,34 +74,71 @@
          </nav>
       </header>
       <!-- End Header Area -->
+	  <!-- Start client request section -->
       <br>
-      <!-- Start About Area -->
-      <section class="about-area section-gap" id="section1">
-         <div class="container">
-            <div class="row align-items-center justify-content-center">
-               <div class="col-lg-6 col-md-12 about-right">
-                  <div class="section-title text-left">
-                     <h2>Who are we?</h2>
-                     <h4>We are here to make it easier for you</h4>
-                     <!-- <h2>We are here <br /> to make it easier for you</h2> -->
+      <section class="section-gap" id="section4">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-12 col-lg-6 col-sm-12 client_request">
+                  <h1>Your Requests</h1>
+                  <button class="accordion">REQUEST ID 1</button>
+                  <div class="panel">
+                     <div class="profile_section">
+                        <div class="form">
+                           <form>
+                              <div class="inputfield terms">
+                                 <label>Request ID: </label>
+                                 <label style="width: 100%;">1150012</label>
+                              </div>
+                              <div class="inputfield terms">
+                                 <label>Category: </label>
+                                 <label style="width: 100%;">Real Estate</label>
+                              </div>
+                              <div class="inputfield">
+                                 <label>Question</label>
+                                 <label style="width: 100%;">How can I apply for a scholarship in Kemerovo state medical university?</label>
+                              </div>
+                              <div class="inputfield">
+                                 <label>Seen by</label>
+                                 <label style="width: 100%;">Pratiti Bera</label>
+                              </div>
+                              <div class="inputfield">
+                                 <label>Status</label>
+                                 <label style="width: 100%;">Accepted</label>
+                              </div>
+                              <div class="inputfield">
+                                 <label>SME's reply</label>
+                                 <label style="width: 100%;">Paragraphs are usually represented in visual media as blocks of text separated from adjacent blocks by blank lines and/or first-line indentation, but HTML paragraphs can be any structural grouping of related content, such as images or form fields.</label>
+                              </div>
+                              <div class="inputfield">
+                                 <label>Consultation status</label>
+                                 <label style="width: 100%;">Pending</label>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
                   </div>
-                  <div>
-                     <p>
-                        We connect you to Subject Matter Experts from various areas of expertise who will answer your questions and help you in taking right decisions in all your phases of life.
-                     </p>
-                  </div>
-                  <a href="#" class="primary-btn">Read More</a>
+                  <button class="accordion">REQUEST ID 2</button>
+                  <div class="panel"></div>
+                  <button class="accordion">REQUEST ID 3</button>
+                  <div class="panel"></div>
+                  <button class="accordion">REQUEST ID 4</button>
+                  <div class="panel"></div>
+                  <button class="accordion">REQUEST ID 5</button>
+                  <div class="panel"></div>
                </div>
-               <div class="col-lg-6 col-md-12 about-left">
-                  <!-- <img class="img-fluid" src="images/about.png" alt=""> -->
-                  <video controls class="img-fluid" loop autoplay muted>
+               <div class="col-12 col-lg-6 col-sm-12" style="padding: 50px;">
+                  <br>
+                  <img class="img-fluid" src="images/write_to_us.jpg" alt="">
+                  <!-- <video controls class="img-fluid" loop autoplay muted>
                      <source src="images/test_video.mp4" type="video/mp4">
-                  </video>
+                     </video> -->
                </div>
             </div>
          </div>
       </section>
-      <!-- End About Area -->
+      <br>
+      <!-- end client request section -->
       <!-- modal for user change password --->
       <div class="modal fade" id="passwordChangeUser" role="dialog">
          <div class="modal-dialog">
@@ -331,16 +368,19 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <!-- For accordion in FAQ section --->
       <script>
-         const accordion = document.getElementsByClassName('contentBx');
-         
-         for(i=0; i< accordion.length; i++ ){
-         
-           accordion[i].addEventListener('click', function(){
-         
-             this.classList.toggle('active')
-         
-           })
-         
+         var acc = document.getElementsByClassName("accordion");
+         var i;
+
+         for (i = 0; i < acc.length; i++) {
+           acc[i].addEventListener("click", function() {
+             this.classList.toggle("active");
+             var panel = this.nextElementSibling;
+             if (panel.style.display === "block") {
+               panel.style.display = "none";
+             } else {
+               panel.style.display = "block";
+             }
+           });
          }
       </script>
       <script>
