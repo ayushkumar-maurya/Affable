@@ -90,54 +90,85 @@
                </div>
                <div class="col-sm-9">
                   <div class="row">
-                     <div class="col-sm-6 client_request">
-                        <h1>requests</h1>
-                        <button class="accordion">Noise Pollution</button>
+					<div class="col-sm-6 client_request">
+					<h1>requests</h1>
+					
+					<?php						
+						// Retrieving user requests from table
+						$stmt1 = $conn->prepare("SELECT questionid, category, topic, question, status FROM userquestion WHERE email = :email");
+						$stmt1->execute(array(":email" => $_SESSION['email']));
+
+						while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+							$request = $row1;
+							
+							// Retrieving sme answer from table
+							$stmt2 = $conn->prepare("SELECT answered_by, answer FROM sme_answer WHERE questionId = :questionId");
+							$stmt2->execute(array(":questionId" => $request['questionid']));
+							if($stmt2->rowCount() == 0) {
+								$seen_by = "";
+								$answer = "";
+							}
+							else {
+								$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+								$answer = $row2['answer'];
+
+								// Retrieving sme name from table
+								$stmt3 = $conn->prepare("SELECT name FROM sme_profile WHERE email = :email");
+								$stmt3->execute(array(":email" => $row2['answered_by']));
+								$row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+								$seen_by = $row3['name'];
+							}
+							
+							// Retrieving consultancy status from table
+							$stmt4 = $conn->prepare("SELECT status FROM consultation WHERE questionId = :questionId");
+							$stmt4->execute(array(":questionId" => $request['questionid']));
+							if($stmt4->rowCount() == 0)
+								$status = "Pending";
+							else {
+								$row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
+								$status = $row4['status'];
+							}
+					?>
+
+                        <button class="accordion"><?= $request['topic'] ?></button>
                         <div class="panel">
                            <div class="profile_section">
                               <div class="form">
                                  <form>
                                     <div class="inputfield terms">
                                        <label>Request ID: </label>
-                                       <label style="width: 100%;">1150012</label>
+                                       <label style="width: 100%;"><?= $request['questionid'] ?></label>
                                     </div>
                                     <div class="inputfield terms">
                                        <label>Category: </label>
-                                       <label style="width: 100%;">Real Estate</label>
+                                       <label style="width: 100%;"><?= $request['category'] ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Question</label>
-                                       <label style="width: 100%;">How can I apply for a scholarship in Kemerovo state medical university?</label>
+                                       <label style="width: 100%;"><?= $request['question'] ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Seen by</label>
-                                       <label style="width: 100%;">Pratiti Bera</label>
+                                       <label style="width: 100%;"><?= $seen_by ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Status</label>
-                                       <label style="width: 100%;">Accepted</label>
+                                       <label style="width: 100%;"><?= $request['status'] ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>SME's reply</label>
-                                       <label style="width: 100%;">Paragraphs are usually represented in visual media as blocks of text separated from adjacent blocks by blank lines and/or first-line indentation, but HTML paragraphs can be any structural grouping of related content, such as images or form fields.</label>
+                                       <label style="width: 100%;"><?= $answer ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Consultation status</label>
-                                       <label style="width: 100%;">Pending</label>
+                                       <label style="width: 100%;"><?= $status ?></label>
                                     </div>
                                  </form>
                               </div>
 							</div>
                         </div>
-						<button class="accordion">Patriotism</button>
-                        <div class="panel"></div>
-                        <button class="accordion">Time and Tide Wait for none</button>
-                        <div class="panel"></div>
-                        <button class="accordion">Women Empowerment</button>
-                        <div class="panel"></div>
-                        <button class="accordion">Environment Pollution</button>
-                        <div class="panel"></div>
-                     </div>
+					<?php } ?>
+					</div>
 					 
 					 <div class="col-sm-6 client_request">
                      <h1>consultations</h1>
