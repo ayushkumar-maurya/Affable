@@ -75,67 +75,126 @@
       </header>
       <!-- End Header Area -->
 	  <!-- Start client request section -->
-      <br>
+      <br><br><br>
       <section class="section-gap" id="section4">
          <div class="container-fluid">
             <div class="row">
-               <div class="col-12 col-lg-6 col-sm-12 client_request">
-                  <h1>Your Requests</h1>
-                  <button class="accordion">REQUEST ID 1</button>
-                  <div class="panel">
-                     <div class="profile_section">
-                        <div class="form">
-                           <form>
-                              <div class="inputfield terms">
-                                 <label>Request ID: </label>
-                                 <label style="width: 100%;">1150012</label>
+			<div class="col-sm-3 post_request" style="/* box-shadow: -5px -4px 3px 0px rgba(255, 255, 255, 0.425),
+                  5px 4px 3px 0px rgba(88, 88, 88, 0.425); */ padding: 0px; background-color: #fff;">
+                  <div>
+                     <h1>Request for a SME</h1>
+                     <h5>Send the topic and question to consult our SME</h5>
+                     <img src="images/how_it_works_4.jpg">
+                  </div>
+                  <button class="btn" data-toggle="modal" data-target="#postQuestion">POST A REQUEST</button>
+               </div>
+               <div class="col-sm-9">
+                  <div class="row">
+                     <div class="col-sm-6 client_request">
+                        <h1>requests</h1>
+                        <button class="accordion">Noise Pollution</button>
+                        <div class="panel">
+                           <div class="profile_section">
+                              <div class="form">
+                                 <form>
+                                    <div class="inputfield terms">
+                                       <label>Request ID: </label>
+                                       <label style="width: 100%;">1150012</label>
+                                    </div>
+                                    <div class="inputfield terms">
+                                       <label>Category: </label>
+                                       <label style="width: 100%;">Real Estate</label>
+                                    </div>
+                                    <div class="inputfield">
+                                       <label>Question</label>
+                                       <label style="width: 100%;">How can I apply for a scholarship in Kemerovo state medical university?</label>
+                                    </div>
+                                    <div class="inputfield">
+                                       <label>Seen by</label>
+                                       <label style="width: 100%;">Pratiti Bera</label>
+                                    </div>
+                                    <div class="inputfield">
+                                       <label>Status</label>
+                                       <label style="width: 100%;">Accepted</label>
+                                    </div>
+                                    <div class="inputfield">
+                                       <label>SME's reply</label>
+                                       <label style="width: 100%;">Paragraphs are usually represented in visual media as blocks of text separated from adjacent blocks by blank lines and/or first-line indentation, but HTML paragraphs can be any structural grouping of related content, such as images or form fields.</label>
+                                    </div>
+                                    <div class="inputfield">
+                                       <label>Consultation status</label>
+                                       <label style="width: 100%;">Pending</label>
+                                    </div>
+                                 </form>
                               </div>
-                              <div class="inputfield terms">
-                                 <label>Category: </label>
-                                 <label style="width: 100%;">Real Estate</label>
-                              </div>
-                              <div class="inputfield">
-                                 <label>Question</label>
-                                 <label style="width: 100%;">How can I apply for a scholarship in Kemerovo state medical university?</label>
-                              </div>
-                              <div class="inputfield">
-                                 <label>Seen by</label>
-                                 <label style="width: 100%;">Pratiti Bera</label>
-                              </div>
-                              <div class="inputfield">
-                                 <label>Status</label>
-                                 <label style="width: 100%;">Accepted</label>
-                              </div>
-                              <div class="inputfield">
-                                 <label>SME's reply</label>
-                                 <label style="width: 100%;">Paragraphs are usually represented in visual media as blocks of text separated from adjacent blocks by blank lines and/or first-line indentation, but HTML paragraphs can be any structural grouping of related content, such as images or form fields.</label>
-                              </div>
-                              <div class="inputfield">
-                                 <label>Consultation status</label>
-                                 <label style="width: 100%;">Pending</label>
-                              </div>
-                           </form>
+							</div>
+                        </div>
+						<button class="accordion">Patriotism</button>
+                        <div class="panel"></div>
+                        <button class="accordion">Time and Tide Wait for none</button>
+                        <div class="panel"></div>
+                        <button class="accordion">Women Empowerment</button>
+                        <div class="panel"></div>
+                        <button class="accordion">Environment Pollution</button>
+                        <div class="panel"></div>
+                     </div>
+					 
+					 <div class="col-sm-6 client_request">
+                     <h1>consultations</h1>
+                     <button class="accordion">Consultation ID 1</button>
+                     <div class="panel">
+                        <div class="profile_section">
+                           <div class="form">
+                              <form>
+                                 <div class="inputfield terms">
+                                    <label>Consultation ID: </label>
+                                    <label style="width: 100%;">1150012</label>
+                                 </div>
+                                 <div class="inputfield terms">
+                                    <label>Category: </label>
+                                    <label style="width: 100%;">Real Estate</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <label>Question</label>
+                                    <label style="width: 100%;">How can I apply for a scholarship in Kemerovo state medical university?</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <label>SME</label>
+                                    <label style="width: 100%;">Pratiti Bera</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <label>Mode</label>
+                                    <label style="width: 100%;">Call</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <label>Date</label>
+                                    <label style="width: 100%;">27/02/2021</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <label>Time</label>
+                                    <label style="width: 100%;">10:00 am</label>
+                                 </div>
+                                 <div class="inputfield">
+                                    <input type="submit" value="Click to connect" class="btn">
+                                 </div>
+                              </form>
+                           </div>
                         </div>
                      </div>
+                     <button class="accordion">Consultation ID 2</button>
+                     <div class="panel"></div>
+                     <button class="accordion">Consultation ID 3</button>
+                     <div class="panel"></div>
+                     <button class="accordion">Consultation ID 4</button>
+                     <div class="panel"></div>
+                     <button class="accordion">Consultation ID 5</button>
+                     <div class="panel"></div>
                   </div>
-                  <button class="accordion">REQUEST ID 2</button>
-                  <div class="panel"></div>
-                  <button class="accordion">REQUEST ID 3</button>
-                  <div class="panel"></div>
-                  <button class="accordion">REQUEST ID 4</button>
-                  <div class="panel"></div>
-                  <button class="accordion">REQUEST ID 5</button>
-                  <div class="panel"></div>
-               </div>
-               <div class="col-12 col-lg-6 col-sm-12" style="padding: 50px;">
-                  <br>
-                  <img class="img-fluid" src="images/write_to_us.jpg" alt="">
-                  <!-- <video controls class="img-fluid" loop autoplay muted>
-                     <source src="images/test_video.mp4" type="video/mp4">
-                     </video> -->
                </div>
             </div>
          </div>
+
+		 </div>
       </section>
       <br>
       <!-- end client request section -->
@@ -332,6 +391,7 @@
 	  </script>
       <!--end modal for post question --->
       <!-- Start footer -->
+	  <br><br>
       <footer style="background-color: #f2f2f2">
          <div class="container">
             <div class="row">

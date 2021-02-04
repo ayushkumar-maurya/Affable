@@ -4175,6 +4175,7 @@ h6 {
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 25px;
+  font-family: Raleway;
   color: #38489E;
   text-transform: uppercase;
   text-align: center;
@@ -4404,10 +4405,11 @@ h6 {
 
 /* Client request section */
 .client_request h1{
+    font-size: 26px;
     color: #38489E;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 10px;
     margin-top: 60px;
 }
 .client_request .accordion {
@@ -4422,7 +4424,7 @@ h6 {
   background-color: #f4f4f4;
   color: #38489E;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
   box-shadow: -5px -4px 3px 0px rgba(255, 255, 255, 0.425),
     5px 4px 3px 0px rgba(88, 88, 88, 0.425);
@@ -4455,6 +4457,47 @@ h6 {
   color: #38489E;
 }
 
+
+/*Post request by client section */
+.post_request{
+    /* border: 1px solid #38489E; */
+    text-align: center;
+}
+.post_request h1{
+    font-size: 23px;
+    color: #38489E;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 60px;
+}
+
+.post_request h5{
+    font-size: 16px;
+    color: #38489E;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 35px;
+    margin-top: 20px;
+}
+.post_request img{
+    max-width: 100%;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}
+.post_request button{
+    margin-top: 20px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 0px;
+    background:#F3834B;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+
+}
 /* Alert box */
 .alert {
 	position: relative;
