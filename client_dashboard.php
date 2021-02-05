@@ -43,7 +43,7 @@
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav sme_dashboard_navbar">
 				  	 <li><a href="#">CONSULTATIONS</a></li>
-					 <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li>
+					 <!-- <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li> -->
                      <li><a href="#section2">FAQS</a></li>
                      <li><a href="#section4">YOUR REQUESTS</a></li>
                      <li class="notifications_humberger"><a href="#section3">NOTIFICATIONS</a></li>
@@ -163,6 +163,9 @@
                                        <label>Consultation status</label>
                                        <label style="width: 100%;"><?= $status ?></label>
                                     </div>
+									<div class="inputfield">
+                                    <input type="button" value="Confirm consultation" class="btn" data-toggle="modal" data-target="#chooseSlot">
+                                 </div>
                                  </form>
                               </div>
 							</div>
@@ -421,6 +424,62 @@
 		});
 	  </script>
       <!--end modal for post question --->
+	   <!-- modal for choose slot --->
+	   <div class="modal fade" id="chooseSlot" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body">
+                  <div class="profile_section choose_slot">
+                     <div class="title">Proposed slots by SME: 150021</div>
+                     <div class="subtitle">How can I start my own startup with the least investment?</div>
+                     <div class="form">
+                        <form>
+                           <div class="inputfield terms">
+                              <label class="check">
+                              <input type="checkbox" checked="">
+                              <span class="checkmark"></span>
+                              </label>
+                              <p><input type="button" value="10-02-2020" class="btn"></p>
+                              <p><input type="button" value="From 10:30am" class="btn"></p>
+                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                           </div>
+                           <div class="inputfield terms">
+                              <label class="check">
+                              <input type="checkbox">
+                              <span class="checkmark"></span>
+                              </label>
+                              <p><input type="button" value="10-02-2020" class="btn"></p>
+                              <p><input type="button" value="From 10:30am" class="btn"></p>
+                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                           </div>
+                           <div class="inputfield terms">
+                              <label class="check">
+                              <input type="checkbox">
+                              <span class="checkmark"></span>
+                              </label>
+                              <p><input type="button" value="10-02-2020" class="btn"></p>
+                              <p><input type="button" value="From 10:30am" class="btn"></p>
+                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                           </div>
+
+                           <div class="row">
+                              <div class="col-sm-4"></div>
+                              <div class="col-sm-4">
+                                 <div class="inputfield">
+                                    <input type="submit" value="Submit" class="btn">
+                                 </div>
+                              </div>
+                              <div class="col-sm-4"></div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--end modal for choose slot --->
       <!-- Start footer -->
 	  <br><br>
       <footer style="background-color: #f2f2f2">

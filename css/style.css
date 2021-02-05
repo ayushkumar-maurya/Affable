@@ -4176,7 +4176,7 @@ h6 {
   font-weight: 700;
   margin-bottom: 25px;
   font-family: Raleway;
-  color: #38489E;
+  color: #F3834B;
   text-transform: uppercase;
   text-align: center;
 }
@@ -4202,7 +4202,9 @@ h6 {
   display: flex;
   align-items: center;
 }
-
+.profile_section.cancel_consultation .form .inputfield{
+    margin-bottom: -8px;
+}
 .profile_section .form .inputfield label{
    width: 200px;
    color: #38489E;
@@ -4303,6 +4305,13 @@ h6 {
 .profile_section.edit_profile .form .inputfield p{
   margin-top: 10px;
 }
+.profile_section.cancel_consultation .form .inputfield p{
+    margin-top: 12px;
+}
+.profile_section.choose_slot .form .inputfield p{
+    margin-top: 12px;
+    margin-right: 10px;
+}
 .profile_section .form .inputfield .check{
   width: 15px;
   height: 15px;
@@ -4351,16 +4360,15 @@ h6 {
    padding: 8px 10px;
   font-size: 15px; 
   border: 0px;
-  background:  #38489E;
+  background: #F3834B;
   color: #fff;
   cursor: pointer;
   border-radius: 3px;
   outline: none;
 }
-
-/* .profile_section .form .inputfield .btn:hover{
-  background: #ffd658;
-} */
+.profile_section .form .inputfield p .btn{
+  background: #38489E;
+}
 
 .profile_section .form .inputfield:last-child{
   margin-bottom: 0;
@@ -4406,7 +4414,7 @@ h6 {
 /* Client request section */
 .client_request h1{
     font-size: 26px;
-    color: #38489E;
+    color: #F3834B;
     font-weight: bold;
     text-align: center;
     margin-bottom: 10px;
@@ -4465,7 +4473,7 @@ h6 {
 }
 .post_request h1{
     font-size: 23px;
-    color: #38489E;
+    color: #F3834B;
     font-weight: bold;
     text-align: center;
     margin-bottom: 35px;
