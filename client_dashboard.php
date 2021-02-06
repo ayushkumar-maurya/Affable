@@ -454,30 +454,39 @@
                         <form>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox" checked="">
-                              <span class="checkmark"></span>
+                              <!-- <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date1" id="date1"> -->
+                              <!-- <span class="checkmark"></span> -->
                               </label>
-                              <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="From 10:30am" class="btn"></p>
-                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                              <p style="margin-right: 10px; margin-left: 50px;">Date</p>
+                              <p style="margin-right: 35px; margin-left: 50px;">Start</p>
+                              <p style="margin-left: 25px;">End</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox">
+                              <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date1" id="date1">
                               <span class="checkmark"></span>
                               </label>
                               <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="From 10:30am" class="btn"></p>
-                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                              <p><input type="button" value="10:30am" class="btn"></p>
+                              <p><input type="button" value="11:30am" class="btn"></p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox">
+                              <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date2" id="date2">
                               <span class="checkmark"></span>
                               </label>
                               <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="From 10:30am" class="btn"></p>
-                              <p><input type="button" value="To 11:30am" class="btn"></p>
+                              <p><input type="button" value="10:30am" class="btn"></p>
+                              <p><input type="button" value="11:30am" class="btn"></p>
+                           </div>
+                           <div class="inputfield terms">
+                              <label class="check">
+                              <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date3" id="date3">
+                              <span class="checkmark"></span>
+                              </label>
+                              <p><input type="button" value="10-02-2020" class="btn"></p>
+                              <p><input type="button" value="10:30am" class="btn"></p>
+                              <p><input type="button" value="11:30am" class="btn"></p>
                            </div>
 
                            <div class="row">

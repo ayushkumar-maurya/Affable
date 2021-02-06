@@ -4409,6 +4409,10 @@ h6 {
 .profile_section.edit_profile .form .inputfield p{
   margin-top: -4px;
 }
+.profile_section.choose_slot .form .inputfield p{
+    margin-top: -10px;
+    margin-right: 10px;
+}
 }
 
 /* Client request section */

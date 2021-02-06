@@ -92,6 +92,17 @@ function onlyOne(checkbox) {
 	}
 }
 
+var date_id = "";
+
+function onlyOneDate(checkbox) {
+	date_id = checkbox.id;
+	var checkboxes = document.getElementsByName('date_choice')
+	checkboxes.forEach((item) => {
+		if (item !== checkbox) item.checked = false
+	})
+	// alert(date_id);
+}
+
 function finalValidation() {
 	console.log("final");
 	if (mode_id == '') {
@@ -194,6 +205,7 @@ function dateChecker(data) {
 		}
 
 		today = yyyy + '-' + mm + '-' + dd;
+		console.log(date, today);
 		var checkround = compare_dates(new Date(date), new Date(today));
 		console.log(checkround);
 		if (checkround == false) {
@@ -240,4 +252,58 @@ function timeChecker(data) {
 		document.getElementById(data.id).value = "";
 		document.getElementById("start" + data.id).value = "";
 	}
+}
+
+function cancelConsultation(id) {
+	//$('#cancelConsultation').modal('show');
+	var datesplit = id.split("_");
+	var fixed_date = document.getElementById('consultation_' + datesplit[1]).innerHTML;
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth() + 1;
+	var yyyy = today.getFullYear();
+
+	if (dd < 10) {
+		dd = '0' + dd;
+	}
+
+	if (mm < 10) {
+		mm = '0' + mm;
+	}
+
+	today = yyyy + '-' + mm + '-' + dd;
+
+	var check_duration = compare_duration(new Date(fixed_date), new Date(today));
+	if (check_duration == true) {
+		var check_duration2 = compare_duration2(new Date(fixed_date), new Date(today));
+		if (check_duration2 == true) {
+			alert("Cancel allowed");
+			$('#cancelConsultation').modal('show');
+		} else {
+			var consultation_time = document.getElementById('consultation_time_' + datesplit[1]).innerHTML;
+			var timeplit = consultation_time.split(":");
+			var d = new Date();
+			var h = d.getHours();
+			var timediff = parseInt(timeplit) - h;
+			if (timediff > 7) {
+				alert("cancel allowed");
+				$('#cancelConsultation').modal('show');
+			} else {
+				alert("cancel not allowed");
+
+			}
+		}
+	} else {
+		alert("cancel not allowed");
+
+	}
+}
+
+var compare_duration = function (check1, check2) {
+	if (check1 >= check2) return true;
+	else return false;
+}
+var compare_duration2 = function (check1, check2) {
+	if (check1 > check2) return true;
+	else return false;
 }
