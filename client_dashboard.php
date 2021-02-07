@@ -342,20 +342,24 @@
          <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
+              <!--  <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div> -->
                <div class="modal-body">
-                  <div class="profile_section">
-                     <div class="title">POST YOUR QUESTION</div>
+			   <div class="profile_section" style="padding: 10px;">
+                     <div class="title">POST YOUR REQUEST</div>
                      <div class="form">
                         <form>
                            <div class="inputfield">
-                              <label>Email Address</label>
+                              <label></label>
                               <label><?= $_SESSION['email'] ?></label>
                            </div>
                            <div class="inputfield">
-                              <label>Category</label>
+                              <label></label>
                               <div class="custom_select">
                                  <select class="ques" id="category" required="">
-								 <option value="">Select category</option>
+								 <option value="">select category</option>
 								 <?php
 									$stmt = $conn->prepare("SELECT categoryName FROM category ORDER BY categoryName");
 									$stmt->execute();
@@ -366,19 +370,19 @@
                               </div>
                            </div>
                            <div class="inputfield">
-                              <label>Topic</label>
-                              <input type="text" class="input ques" id="topic" required="">
+                              <label></label>
+                              <input type="text" class="input ques" id="topic" required="" placeholder="topic">
                            </div>
                            <div class="inputfield">
-                              <label>Type your question</label>
-                              <textarea class="textarea ques" id="question" required=""></textarea>
+                              <label></label>
+                              <textarea class="textarea ques" id="question" required="" placeholder="type your question"></textarea>
                            </div>
-                           <div class="inputfield">
+                           <div class="inputfield terms">
                               <label class="check">
                               <input type="checkbox" onchange="document.getElementById('post-question').disabled = !this.checked;" required="">
                               <span class="checkmark"></span>
                               </label>
-                              <p>I confirm to consult your SME</p>
+                              <p style="margin-top: -2px;">I confirm to consult your SME</p>
                            </div>
                            <div class="row">
                               <div class="col-sm-3"></div>
