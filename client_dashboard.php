@@ -2,6 +2,9 @@
 	include "connection.php";
 	if(!isset($_SESSION['email']))
 		header("Location: index.php");
+
+	if(isset($_SESSION['questionid']))
+		unset($_SESSION['questionid']);
 ?>
 
 <!DOCTYPE html>
@@ -100,10 +103,11 @@
 
 						while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 							$request = $row1;
+							$questionid = $request['questionid'];
 							
 							// Retrieving sme answer from table
 							$stmt2 = $conn->prepare("SELECT answered_by, answer FROM sme_answer WHERE questionId = :questionId");
-							$stmt2->execute(array(":questionId" => $request['questionid']));
+							$stmt2->execute(array(":questionId" => $questionid));
 							if($stmt2->rowCount() == 0) {
 								$seen_by = "";
 								$answer = "";
@@ -121,16 +125,25 @@
 							
 							// Retrieving consultancy status from table
 							$stmt4 = $conn->prepare("SELECT status FROM consultation WHERE questionId = :questionId");
-							$stmt4->execute(array(":questionId" => $request['questionid']));
+							$stmt4->execute(array(":questionId" => $questionid));
 							if($stmt4->rowCount() == 0)
 								$status = "Pending";
 							else {
 								$row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
 								$status = $row4['status'];
 							}
+
+							// Retrieving mode of consultation from table
+							$stmt5 = $conn->prepare("SELECT mode_of_cons FROM consultation_slots WHERE questionid = :questionid");
+							$stmt5->execute(array(":questionid" => $questionid));
+							$row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
+							if($stmt5->rowCount() == 0 || strcasecmp($row5['mode_of_cons'], "email") == 0)
+								$show_slots = 0;
+							else
+								$show_slots = 1;
 					?>
 
-                        <button class="accordion"><?= $request['topic'] ?></button>
+                        <button class="accordion"><?= htmlentities($request['topic']) ?></button>
                         <div class="panel">
                            <div class="profile_section">
                               <div class="form">
@@ -141,38 +154,68 @@
                                     </div>
                                     <div class="inputfield terms">
                                        <label>Category: </label>
-                                       <label style="width: 100%;"><?= $request['category'] ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($request['category']) ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Question</label>
-                                       <label style="width: 100%;"><?= $request['question'] ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($request['question']) ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Seen by</label>
-                                       <label style="width: 100%;"><?= $seen_by ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($seen_by) ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Status</label>
-                                       <label style="width: 100%;"><?= $request['status'] ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($request['status']) ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>SME's reply</label>
-                                       <label style="width: 100%;"><?= $answer ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($answer) ?></label>
                                     </div>
                                     <div class="inputfield">
                                        <label>Consultation status</label>
-                                       <label style="width: 100%;"><?= $status ?></label>
+                                       <label style="width: 100%;"><?= htmlentities($status) ?></label>
                                     </div>
+									<?php if($show_slots == 1) { ?>
 									<div class="inputfield">
-                                    <input type="button" value="Confirm consultation" class="btn" data-toggle="modal" data-target="#chooseSlot">
+                                    <input type="button" onclick="retrieve_slots('<?= $questionid ?>')" value="Confirm consultation" class="btn" data-toggle="modal" data-target="#chooseSlot">
                                  </div>
+								 <?php } ?>
                                  </form>
                               </div>
 							</div>
                         </div>
 					<?php } ?>
 					</div>
-					 
+
+					<script>
+						function retrieve_slots(questionid) {
+							$.ajax({
+								url: "consultation_slots.php",
+								method: "POST",
+								data: {do:"retreive_slots", questionid: questionid},
+								success: function(data) {
+									var data = JSON.parse(data);
+
+									document.getElementById("sme-code").innerHTML = "Proposed slots by SME: " + data['sme_code'];
+									document.getElementById("user-question").innerHTML = data['question'];
+
+									document.getElementById("slot1_date").setAttribute("value", data['slot1_date']);
+									document.getElementById("slot1_from_time").setAttribute("value", data['slot1_from_time']);
+									document.getElementById("slot1_to_time").setAttribute("value", data['slot1_to_time']);
+									document.getElementById("slot2_date").setAttribute("value", data['slot2_date']);
+									document.getElementById("slot2_from_time").setAttribute("value", data['slot2_from_time']);
+									document.getElementById("slot2_to_time").setAttribute("value", data['slot2_to_time']);
+									document.getElementById("slot3_date").setAttribute("value", data['slot3_date']);
+									document.getElementById("slot3_from_time").setAttribute("value", data['slot3_from_time']);
+									document.getElementById("slot3_to_time").setAttribute("value", data['slot3_to_time']);
+
+
+								}
+							});
+						}
+					</script>
+
 					 <div class="col-sm-6 client_request">
                      <h1>consultations</h1>
 
@@ -210,27 +253,27 @@
                                  </div>
                                  <div class="inputfield terms">
                                     <label>Category: </label>
-                                    <label style="width: 100%;"><?= $category ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($category) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <label>Question</label>
-                                    <label style="width: 100%;"><?= $question ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($question) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <label>SME</label>
-                                    <label style="width: 100%;"><?= $sme ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($sme) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <label>Mode</label>
-                                    <label style="width: 100%;"><?= $consultation['mode'] ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($consultation['mode']) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <label>Date</label>
-                                    <label style="width: 100%;"><?= $consultation['date'] ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($consultation['date']) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <label>Time</label>
-                                    <label style="width: 100%;"><?= $consultation['fromTime'] ?></label>
+                                    <label style="width: 100%;"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
                                  <div class="inputfield">
                                     <input type="submit" value="Click to connect" class="btn">
@@ -452,8 +495,8 @@
             <div class="modal-content">
                <div class="modal-body">
                   <div class="profile_section choose_slot">
-                     <div class="title">Proposed slots by SME: 150021</div>
-                     <div class="subtitle">How can I start my own startup with the least investment?</div>
+                     <div class="title" id="sme-code"></div>
+                     <div class="subtitle" id="user-question"></div>
                      <div class="form">
                         <form>
                            <div class="inputfield terms">
@@ -470,34 +513,34 @@
                               <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date1" id="date1">
                               <span class="checkmark"></span>
                               </label>
-                              <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="10:30am" class="btn"></p>
-                              <p><input type="button" value="11:30am" class="btn"></p>
+                              <p><input type="button" value="" class="btn" id="slot1_date"></p>
+                              <p><input type="button" value="" class="btn" id="slot1_from_time"></p>
+                              <p><input type="button" value="" class="btn" id="slot1_to_time"></p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
                               <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date2" id="date2">
                               <span class="checkmark"></span>
                               </label>
-                              <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="10:30am" class="btn"></p>
-                              <p><input type="button" value="11:30am" class="btn"></p>
+                              <p><input type="button" value="" class="btn" id="slot2_date"></p>
+                              <p><input type="button" value="" class="btn" id="slot2_from_time"></p>
+                              <p><input type="button" value="" class="btn" id="slot2_to_time"></p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
                               <input type="checkbox" onclick="onlyOneDate(this);" name="date_choice" value="date3" id="date3">
                               <span class="checkmark"></span>
                               </label>
-                              <p><input type="button" value="10-02-2020" class="btn"></p>
-                              <p><input type="button" value="10:30am" class="btn"></p>
-                              <p><input type="button" value="11:30am" class="btn"></p>
+                              <p><input type="button" value="" class="btn" id="slot3_date"></p>
+                              <p><input type="button" value="" class="btn" id="slot3_from_time"></p>
+                              <p><input type="button" value="" class="btn" id="slot3_to_time"></p>
                            </div>
 
                            <div class="row">
                               <div class="col-sm-4"></div>
                               <div class="col-sm-4">
                                  <div class="inputfield">
-                                    <input type="submit" value="Submit" class="btn">
+                                    <input type="button" onclick="enter_slot()" value="Submit" class="btn">
                                  </div>
                               </div>
                               <div class="col-sm-4"></div>
@@ -509,6 +552,26 @@
             </div>
          </div>
       </div>
+	  <script>
+		function enter_slot() {
+			var slot = 0;
+			for(var i=1; i<=3; i++)
+				if(document.getElementById("date".concat(i)).checked)
+					slot = i;
+
+			if(slot != 0) {
+				$.ajax({
+					url: "consultation_slots.php",
+					method: "POST",
+					data: {do:"enter_slot", slot:slot},
+					success: function(data) {
+						alert("Consultation confirmed.");
+						window.location.replace("client_dashboard.php");
+					}
+				});
+			}
+		}
+	  </script>
       <!--end modal for choose slot --->
       <!-- Start footer -->
 	  <br><br>
