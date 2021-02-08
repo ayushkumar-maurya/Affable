@@ -37,11 +37,11 @@
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav">
-                     <li><a class="active" href="#section1">Who are we</a></li>
-                     <li><a href="#section2">How it works</a></li>
-                     <li><a href="#section3">SME Community</a></li>
-                     <li><a href="#section4">FAQ</a></li>
-                     <li><a href="#section5">Write to us</a></li>
+				  <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a class="active" href="#section1">Who are we</a></li>
+                     <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section2">How it works</a></li>
+                     <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section3">SME Community</a></li>
+                     <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section4">FAQ</a></li>
+                     <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section5">Write to us</a></li>
                      <li class="dropdown">
                         <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                         Sign In

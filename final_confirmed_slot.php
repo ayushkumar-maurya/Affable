@@ -27,11 +27,11 @@
 		echo json_encode($data);
 	}
 
-	// Inserting confirmed slot in consultation table
 	if($_POST['do'] == "enter_slot") {
 		$slot = $_POST['slot'];
 		$questionid = $_SESSION['questionid'];
 
+		// Retrieving data from consultation slots table
 		$stmt1 = $conn->prepare("SELECT * FROM consultation_slots WHERE questionid = :questionid");
 		$stmt1->execute(array(":questionid" => $questionid));
 		$row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
@@ -41,6 +41,7 @@
 		$from_time = $row1['slot'.$slot.'_from_time'];
 		$to_time = $row1['slot'.$slot.'_to_time'];
 
+		// Inserting final confirmed slot and mode of consultation into consultation table
 		$sql = "INSERT INTO consultation(clientEmailId, smeEmailId, questionId, mode, date, fromTime, toTime, status)";
 		$sql .= " VALUES(:clientEmailId, :smeEmailId, :questionId, :mode, :date, :fromTime, :toTime, 'Pending')";
 		$stmt2 = $conn->prepare($sql);
@@ -53,6 +54,26 @@
 			":fromTime" => $from_time,
 			":toTime" => $to_time
 		));
-		echo 1;
+
+		// Updating status in user question table
+		$stmt3 = $conn->prepare("UPDATE userquestion SET status='Consultation confirmed' WHERE questionid = :questionid");
+		$stmt3->execute(array(":questionid" => $questionid));
+
+		// Deleting consultation slots record from consultation slots table
+		$stmt4 = $conn->prepare("DELETE FROM consultation_slots WHERE questionid = :questionid");
+		$stmt4->execute(array(":questionid" => $questionid));
+
+		echo $sme_email;
+	}
+
+	// Sending an email to SME
+	if($_POST['do'] == "mail") {		
+		$subject = "Consultation slot confirmed by client";
+		$message = 'Consultation slot has be confirmed by the client.';
+
+		$header = "MIME-Version: 1.0 \r\n";
+		$header .= "Content-Type: text/html; charset=UTF-8 \r\n";
+		
+		mail($_POST['sme_email'], $subject, $message, $header);
 	}
 ?>

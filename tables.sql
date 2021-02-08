@@ -9,21 +9,12 @@ create table `user` (
 	primary key(email)
 );
 
-
 -- Category Table
 create table category (
 	categoryName varchar(100),
 	description varchar(200) not null,
 	primary key(categoryName)
 );
-
--- Category Table Sample Data
-insert into category(categoryName, description) values('RealEstate', 'Civil, Construction, Land Disputes, Residential Complex');
-insert into category(categoryName, description) values('IT', 'Software, Hardware, Training');
-insert into category(categoryName, description) values('Health and Fitness', 'Physical Health, Mental Health, Therapies');
-insert into category(categoryName, description) values('Entrepreneurship', 'Company laws, Legal matters, Mentorship');
-insert into category(categoryName, description) values('Others', 'Psychology, art, sports');
-
 
 -- UserQuestion Table
 create table userquestion (
@@ -36,10 +27,6 @@ create table userquestion (
 	primary key(questionid),
 	foreign key (category) references category(categoryName)
 );
-
--- UserQuestion Table Sample Data
-insert into userquestion(category, topic, question) values('IT', 'Web hosting', 'I need to know the best mode of web hosting');
-
 
 -- Consultation Table
 CREATE TABLE consultation (
@@ -56,4 +43,13 @@ CREATE TABLE consultation (
 	FOREIGN KEY (clientEmailId) REFERENCES user(email),
 	FOREIGN KEY (smeEmailId) REFERENCES sme_profile(email),
 	FOREIGN KEY (questionId) REFERENCES userquestion(questionid)
-	);
+);
+
+
+
+-- Category Table Sample Data
+insert into category(categoryName, description) values('RealEstate', 'Civil, Construction, Land Disputes, Residential Complex');
+insert into category(categoryName, description) values('IT', 'Software, Hardware, Training');
+insert into category(categoryName, description) values('Health and Fitness', 'Physical Health, Mental Health, Therapies');
+insert into category(categoryName, description) values('Entrepreneurship', 'Company laws, Legal matters, Mentorship');
+insert into category(categoryName, description) values('Others', 'Psychology, art, sports');

@@ -191,7 +191,7 @@
 					<script>
 						function retrieve_slots(questionid) {
 							$.ajax({
-								url: "consultation_slots.php",
+								url: "final_confirmed_slot.php",
 								method: "POST",
 								data: {do:"retreive_slots", questionid: questionid},
 								success: function(data) {
@@ -561,12 +561,17 @@
 
 			if(slot != 0) {
 				$.ajax({
-					url: "consultation_slots.php",
+					url: "final_confirmed_slot.php",
 					method: "POST",
 					data: {do:"enter_slot", slot:slot},
-					success: function(data) {
+					success: function(sme_email) {
 						alert("Consultation confirmed.");
 						window.location.replace("client_dashboard.php");
+						$.ajax({
+							url: "final_confirmed_slot.php",
+							method: "POST",
+							data: {do:"mail", sme_email:sme_email}
+						});
 					}
 				});
 			}
