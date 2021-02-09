@@ -473,8 +473,8 @@
 							if(status == 1) {
 								for(var i=0; i<3; i++)
 									document.getElementsByClassName("ques")[i].value="";
-								alert("Your question has been sent to our SME for review.");
 								window.location.replace("client_dashboard.php");
+								alert("Your question has been sent to our SME for review.");
 								$.ajax({
 									url: "userQuestion.php",
 									method: "POST",
@@ -565,8 +565,8 @@
 					method: "POST",
 					data: {do:"enter_slot", slot:slot},
 					success: function(sme_email) {
-						alert("Consultation confirmed.");
 						window.location.replace("client_dashboard.php");
+						alert("Consultation confirmed.");
 						$.ajax({
 							url: "final_confirmed_slot.php",
 							method: "POST",
