@@ -11,7 +11,7 @@
 		echo "Please fill out password field";
 	
 	else {
-		$stmt = $conn->prepare("SELECT name, email, password, verified FROM user WHERE email = :email");
+		$stmt = $conn->prepare("SELECT name, email, password, verified FROM sme_profile WHERE email = :email");
 		$stmt->execute(array(":email" => $email));
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 		
@@ -23,9 +23,9 @@
 		elseif($row['verified'] == 0)
 			echo "Account $email is not verified";
 		else
-			
-			$email=$row['email'];
+		   $email=$row['email'];
 		  // session_start();
 		   $_SESSION['email']=$email;
+		   
 	}
 ?>

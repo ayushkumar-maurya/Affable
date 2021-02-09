@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
    <head>
@@ -37,7 +38,7 @@
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav">
-				  <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a class="active" href="#section1">Who are we</a></li>
+                     <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a class="active" href="#section1">Who are we</a></li>
                      <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section2">How it works</a></li>
                      <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section3">SME Community</a></li>
                      <li type="button" data-toggle="collapse" data-target="#navbarSupportedContent"><a href="#section4">FAQ</a></li>
@@ -48,7 +49,7 @@
                         </a>
                         <div class="dropdown-menu">
                            <a class="dropdown-item" href="#" type="button" id="userSignIn" data-toggle="modal" data-target="#signInUser" onclick="hideuserOTPsection();">Sign In as user</a>
-                           <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#signInSME" onclick="hidesmeOTPsection();">Sign In as SME</a>
+                           <a class="dropdown-item" href="#" type="button" id="smeSignIn" data-toggle="modal" data-target="#signInSME" onclick="hidesmeOTPsection();">Sign In as SME</a>
                         </div>
                      </li>
                      <li class="dropdown">
@@ -56,8 +57,8 @@
                         Register
                         </a>
                         <div class="dropdown-menu">
-                           <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#registerUser">Register as user</a>
-                           <a class="dropdown-item" href="#" type="button" data-toggle="modal" data-target="#registerSME">Register as SME</a>
+                           <a class="dropdown-item" href="#" type="button"  id="userRegister" data-toggle="modal" data-target="#registerUser">Register as user</a>
+                           <a class="dropdown-item" href="#" type="button" id="smeRegister" data-toggle="modal" data-target="#registerSME">Register as SME</a>
                         </div>
                      </li>
                   </ul>
@@ -108,8 +109,13 @@
                            <div class="inputfield">
                               <input type="button" value="Register as user" class="btn" id="register" name="register">
 						   </div>
-						   <div class="alert success" role="alert" id="reg-message" style="display: none;">
+						   <div class="alert alert-danger" role="alert" id="reg-error" style="display: none;">
 						   </div>
+						    <div class="alert alert-success" role="alert" id="email-sent-msg-user" style="display: none;">
+							<p>Verification mail has been sent to your registered email id</p>
+						   </div>
+						 
+							
                            <!-- <div class="inputfield terms">
                               <p>By joining I agree to the terms and conditions of Affable</p>
                               </div> -->
@@ -118,7 +124,7 @@
                   </div>
                   <footer class="modal_content_footer">
                      <div class="modal_content_footer_body">
-                        <p>Already a member?<span><button class="link_button">Sign In</button></span></p>
+                        <p>Already a member?<span><button class="link_button" onclick="location.href='index.php?userSignIn=1';">Sign In</button></span></p>
                      </div>
                   </footer>
                </div>
@@ -139,19 +145,21 @@
 						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
 						success: function(error) {
 							if(error == 0) {
-								document.getElementById("reg-message").innerHTML = "Verification mail has been sent to your registered email id";
-								document.getElementById('reg-message').setAttribute('class', 'alert alert-success');
+								
+								//window.location.replace("/Affable");
 								$.ajax({
 									url: "user_registration_entry.php",
 									method: "POST",
 									data: {name:name, email:email, phone:phone, password:password}
+									
 								});
+								$('#reg-error').hide();
+								$('#email-sent-msg-user').show();
 							}
 							else {
-								document.getElementById("reg-message").innerHTML = error;
-								document.getElementById('reg-message').setAttribute('class', 'alert alert-danger');
+								document.getElementById("reg-error").innerHTML = error;
+								document.getElementById("reg-error").style.display = "block";
 							}
-							document.getElementById("reg-message").style.display = "block";
 						}
 					});
 				});
@@ -159,8 +167,7 @@
 		</script>
 
       <!--end modal for user registration --->
-      <!-- modal for SME registration --->
-      <div class="modal fade" id="registerSME" role="dialog">
+	       <div class="modal fade" id="registerSME" role="dialog">
          <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -184,23 +191,28 @@
                      <form action="" method="">
                         <div class="form">
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your name" name="username" required="">
+                              <input type="text" class="input" placeholder="Enter your name" id="sme-reg-name" name="sme-reg-name" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Email" name="email" required="">
+                              <input type="text" class="input" placeholder="Enter your Email" id="sme-reg-email" name="sme-reg-email" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Mobile number" name="mobile">
+                              <input type="text" class="input" placeholder="Enter your Mobile number" id="sme-reg-phone" name="sme-reg-phone">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Create your password" name="password" required="">
+                              <input type="password" class="input" placeholder="Create your password" id="sme-reg-password" name="sme-reg-password" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Confirm your password" name="cpassword" required="">
+                              <input type="password" class="input" placeholder="Confirm your password" id="sme-reg-cpassword" name="sme-reg-cpassword" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="submit" value="Register as SME" class="btn" name="submit">
-                           </div>
+                              <input type="button" value="Register as SME" class="btn" id="reg_sme" name="reg_sme">
+						   </div>
+						   <div class="alert alert-danger" role="alert" id="reg-error-sme" style="display: none;">
+						   </div>
+						   <div class="alert alert-success" role="alert" id="email-sent-msg-sme" style="display: none;">
+							<p>Verification mail has been sent to your registered email id</p>
+						   </div>
                            <!-- <div class="inputfield terms">
                               <p>By joining I agree to the terms and conditions of Affable</p>
                               </div> -->
@@ -209,13 +221,49 @@
                   </div>
                   <footer class="modal_content_footer">
                      <div class="modal_content_footer_body">
-                        <p>Already a member?<span><button class="link_button">Sign In</button></span></p>
+                        <p>Already a member?<span><button class="link_button" onclick="location.href='index.php?smeSignIn=1';">Sign In</button></span></p>
                      </div>
                   </footer>
                </div>
             </div>
          </div>
-      </div>
+	  </div>
+	  	<script>
+			$(document).ready(function() {
+				$('#reg_sme').click(function() {
+					var name = $('#sme-reg-name').val();
+					var email = $('#sme-reg-email').val();
+					var phone = $('#sme-reg-phone').val();
+					var password = $('#sme-reg-password').val();
+					var cpassword = $('#sme-reg-cpassword').val();
+					$.ajax({
+						url: "sme_registration_validation.php",
+						method: "POST",
+						data: {name:name, email:email, phone:phone, password:password, cpassword:cpassword},
+						success: function(error) {
+							if(error == 0) {
+								//window.location.replace("/Affable");
+								$.ajax({
+									url: "sme_registration_entry.php",
+									method: "POST",
+									data: {name:name, email:email, phone:phone, password:password}
+								});
+								$('#reg-error-sme').hide();
+								$('#email-sent-msg-sme').show();
+							}
+							else {
+								document.getElementById("reg-error-sme").innerHTML = error;
+								document.getElementById("reg-error-sme").style.display = "block";
+							}
+						}
+					});
+				});
+			});
+		</script> 
+		<!-- modal for SME registration --->
+	  
+
+	  
       <!-- end modal for SME registration --->
       <!-- modal for user login --->
       <div class="modal fade" id="signInUser" role="dialog">
@@ -272,12 +320,14 @@
                   </div>
                   <footer class="modal_content_footer">
                      <div class="modal_content_footer_body">
-                        <p>New member?<span><button class="link_button">Register</button></span></p>
+                        <p>New member?<span><button class="link_button" onclick="location.href='index.php?userRegister=1';">Register</button></span></p>
                      </div>
                   </footer>
                </div>
             </div>
-            <div class="modal-content otp_modal_content" id="otp_modal_content_user">
+            
+			
+			<div class="modal-content otp_modal_content" id="otp_modal_content_user">
                <div class="modal-header">
                   <h2 class="modal_title"></h2>
                </div>
@@ -302,27 +352,69 @@
                   </div>
                </div>
             </div>
-            <div class="modal-content otp_modal_content" id="forgot_password_modal_content_user">
+			
+			
+			
+			
+			<div class="modal-content otp_modal_content" id="forgot_password_modal_content_user">
                <div class="modal-header">
-                  <h2 class="modal_title">Recover Password</h2>
+                  <h2 class="modal_title">Reset Password</h2>
                </div>
                <div class="modal-body">
-                  <form>
+                  <form method="">
                      <div class="form">
                         <div class="inputfield">
-                           <input type="text" class="input" placeholder="Enter your email id to get new password" name="mobile">
+                           <input type="text" class="input" placeholder="Enter your email id to get new password" id="reset-email-user"  name="reset-email-user">
                         </div>
                         <div class="inputfield">
-                           <input value="SUMBIT" class="btn" name="submit" type="button">
+                           <input value="Submit" class="btn" id="sendmail-user" name="sendmail-user" type="button">
                         </div>
+						<div class="alert alert-danger" role="alert" id="reset-email-error-user" style="display: none;">
+						</div>
+						
+						<center><progress max="100"  id="loader-user" style="height:20px; width: 200px; display: none;"></progress>
+						</center>
+						<div class="alert alert-success" role="alert" id="reset-msg-user" style="display: none;">
+							<p>Your Password Reset Link is Sent to your Registered email ID</p>
+						</div>
+						
+						
                      </div>
                   </form>
-                  <div class="inputfield terms forgot_password_link" style="margin-top: 7px; margin-bottom: -10px;">
-                     <p>Check your registered email id to get new password and return to login</p>
-                  </div>
-               </div>
+			</div>
             </div>
-         </div>
+			
+			<script>
+				$(document).ready(function() {
+					$('#sendmail-user').click(function() {
+						var email = $('#reset-email-user').val();
+						
+						$('#loader-user').show();
+						
+						$.ajax({
+							url: "user_forgot_password.php",
+							method: "POST",
+							data: {email:email},
+							success: function(error) {
+								$('#loader-user').hide();
+								if(error == 0)
+									//window.location.replace("/Affable");
+									$('#reset-msg-user').show();
+
+								else {
+									document.getElementById("reset-email-error-user").innerHTML = error;
+									document.getElementById("reset-email-error-user").style.display = "block";
+									
+								}
+							}
+							
+						});
+					});
+				});
+			</script>
+	
+	
+	</div>
 	  </div>
 	  <script>
 		$(document).ready(function() {
@@ -345,6 +437,9 @@
 			});
 		});
 	  </script>
+
+	  
+	  
       <!-- end modal for user login --->
       <!-- modal for SME login --->
       <div class="modal fade" id="signInSME" role="dialog">
@@ -367,20 +462,22 @@
                      <div class="form_separator">
                         <span>OR</span>
                      </div>
-                     <form>
+                     <form method="">
                         <div class="form">
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your Email" name="email" required="">
+                              <input type="text" class="input" placeholder="Enter your Email" id="sme-email" name="sme-email" required="">
                            </div>
                            <div class="inputfield">
-                              <input type="password" class="input" placeholder="Enter your password" name="password">
+                              <input type="password" class="input" placeholder="Enter your password" id="sme-password" name="sme-password" required="">
                            </div>
                            <div class="inputfield terms forgot_password_link" style="margin-bottom: -10px;">
                               <p onclick="forgotPasswordsme();">Forgot password</p>
                            </div>
                            <div class="inputfield">
-                              <input type="submit" value="LOGIN AS SME" class="btn" name="submit">
-                           </div>
+                              <input type="button" value="LOGIN AS SME" class="btn" id="login_sme" name="login_sme">
+						   </div>
+						   <div class="alert alert-danger" role="alert" id="signin-error-sme" style="display: none;">
+						   </div>
                         </div>
                      </form>
                      <div class="form_separator">
@@ -389,7 +486,7 @@
                      <form>
                         <div class="form">
                            <div class="inputfield">
-                              <input type="text" class="input" placeholder="Enter your email id to signin with OTP" name="mobile">
+                              <input type="text" class="input" placeholder="Enter your email id to signin with OTP" name="email">
                            </div>
                            <div class="inputfield">
                               <input value="GET OTP TO MOBILE NUMBER" class="btn" name="submit" type="button" onclick="otpboxSME();">
@@ -399,7 +496,7 @@
                   </div>
                   <footer class="modal_content_footer">
                      <div class="modal_content_footer_body">
-                        <p>New member?<span><button class="link_button">Register</button></span></p>
+                        <p>New member?<span><button class="link_button" onclick="location.href='index.php?smeRegister=1';">Register</button></span></p>
                      </div>
                   </footer>
                </div>
@@ -429,28 +526,88 @@
                   </div>
                </div>
             </div>
-            <div class="modal-content otp_modal_content" id="forgot_password_modal_content_sme">
+           
+
+
+
+			<div class="modal-content otp_modal_content" id="forgot_password_modal_content_sme">
                <div class="modal-header">
-                  <h2 class="modal_title">Recover Password</h2>
+                  <h2 class="modal_title">Reset Password</h2>
                </div>
                <div class="modal-body">
-                  <form>
+                  <form method="">
                      <div class="form">
                         <div class="inputfield">
-                           <input type="text" class="input" placeholder="Enter your email id to get new password" name="mobile">
+                           <input type="text" class="input" placeholder="Enter your email id to get new password" id="reset-email-sme"  name="reset-email-sme">
                         </div>
                         <div class="inputfield">
-                           <input value="SUMBIT" class="btn" name="submit" type="button">
+                           <input value="Submit" class="btn" id="sendmail-sme" name="sendmail-sme" type="button">
                         </div>
-                     </div>
+						<div class="alert alert-danger" role="alert" id="reset-email-error-sme" style="display: none;">
+						</div>
+						<center><progress max="100"  id="loader-sme" style="height:20px; width: 200px; display: none;"></progress>
+						</center>
+						<div class="alert alert-success" role="alert" id="reset-msg-sme" style="display: none;">
+							<p>Your Password Reset Link is Sent to your Registered email ID</p>
+						</div>
+					</div>
                   </form>
-                  <div class="inputfield terms forgot_password_link" style="margin-top: 7px; margin-bottom: -10px;">
-                     <p>Check your registered email id to get new password and return to login</p>
-                  </div>
-               </div>
+			</div>
             </div>
+			
+			<script>
+				$(document).ready(function() {
+					$('#sendmail-sme').click(function() {
+						var email = $('#reset-email-sme').val();
+						$('#loader-sme').show();
+						
+						$.ajax({
+							url: "sme_forgot_password.php",
+							method: "POST",
+							data: {email:email},
+							success: function(error) {
+								$('#loader-sme').hide();
+								if(error == 0)
+									//window.location.replace("/Affable");
+									$('#reset-msg-sme').show();
+								else {
+									document.getElementById("reset-email-error-sme").innerHTML = error;
+									document.getElementById("reset-email-error-sme").style.display = "block";
+									
+								}
+							}
+						});
+					});
+				});
+			</script>
+			
+			
+			
+			
+			
          </div>
-      </div>
+	  </div>
+	  <script>
+		$(document).ready(function() {
+			$('#login_sme').click(function() {
+				var email = $('#sme-email').val();
+				var password = $('#sme-password').val();
+				$.ajax({
+					url: "sme_signin_validation.php",
+					method: "POST",
+					data: {email:email, password:password},
+					success: function(error) {
+						if(error == 0)
+							window.location.replace("sme_dashboard.php");
+						else {
+							document.getElementById("signin-error-sme").innerHTML = error;
+							document.getElementById("signin-error-sme").style.display = "block";
+						}
+					}
+				});
+			});
+		});
+	  </script>
       <!-- end modal for SME login --->
       <!-- start banner Area -->
       <section class="home-banner-area relative" id="home" data-parallax="scroll" data-image-src="images/header-bg.jpg">
@@ -866,10 +1023,26 @@
       <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
       <!-- For accordion in FAQ section --->
-      <script>
-	  	if(<?= isset($_GET['usersignin']); ?>)
+       <script>
+	  	if(<?= isset($_GET['userSignIn']); ?>)
 			document.getElementById('userSignIn').click();
 	  </script>
+	  
+	  <script>
+	  	if(<?= isset($_GET['smeSignIn']); ?>)
+			document.getElementById('smeSignIn').click();
+	  </script>
+	  
+	  	  <script>
+	  	if(<?= isset($_GET['userRegister']); ?>)
+			document.getElementById('userRegister').click();
+	  </script>
+	  
+	  	  <script>
+	  	if(<?= isset($_GET['smeRegister']); ?>)
+			document.getElementById('smeRegister').click();
+	  </script>
+	  
 	  <script>
          const accordion = document.getElementsByClassName('contentBx');
          

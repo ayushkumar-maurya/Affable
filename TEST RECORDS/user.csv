@@ -1,0 +1,9 @@
+"email","name","phoneNumber","password","verified","vkey"
+"user1@gmail.com","user1","9876524367","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user2@gmail.com","user2","7638647364","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user3@gmail.com","user3","9873654632","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user4@gmail.com","user4","8765345223","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user5@gmail.com","user5","7638965463","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user6@gmail.com","user6","8762987364","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user7@gmail.com","user7","9837654263","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL
+"user8@gmail.com","user8","9876374653","$2y$10$mLyNeSjU9OVHbNMIDdgNceFQPhnMeyyqKae5GsUviZHO8Pf5S2MnS","1",NULL

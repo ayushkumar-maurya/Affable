@@ -21,7 +21,7 @@
 	));
 
 	// Sending verification email
-	$subject = 'SME User Registration Verification';
+	$subject = 'User Registration Verification';
 	
 	$message = "You have been registered for SME Portal.<br>";
 	$message .= "Please <a href='".BASE_URL."/user_registration_verification.php?vkey=".$vkey."&email=".$email."'>click here</a> to Login.";

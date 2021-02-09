@@ -59,6 +59,7 @@ function viewSections() {
 	document.getElementById('sme_profile').setAttribute('style', 'display: none;');
 }
 
+/*
 function thoughtChecker() {
 	var smethoughts = document.getElementById('SMEthoughts');
 	if (smethoughts.value != '') {
@@ -71,6 +72,7 @@ function thoughtChecker() {
 		}, 3000);
 	}
 }
+*/
 
 var mode_id = "";
 
