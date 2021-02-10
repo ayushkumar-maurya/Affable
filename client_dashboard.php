@@ -94,6 +94,7 @@
                <div class="col-sm-9">
                   <div class="row">
 					<div class="col-sm-6 client_request">
+					<p>Email: <?= $_SESSION['email'] ?></p>
 					<h1>requests</h1>
 					
 					<?php						

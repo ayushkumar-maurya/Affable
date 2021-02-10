@@ -134,7 +134,8 @@ else{
                <div class="col-sm-9">
             <div class="row">
                <div class="col-12 col-lg-6 col-sm-12 client_request">
-                  <h1>client requests</h1>
+				  <p>Email: <?= $_SESSION['email'] ?></p>
+				  <h1>client requests</h1>
 
 				<?php
 					// Retrieving sme category from table
@@ -151,14 +152,25 @@ else{
 						$request = $row2;
 						$questionid = $request['questionid'];
 
-						// Checking whether SME has answered the client question
-						$stmt4 = $conn->prepare("SELECT answered_by FROM sme_answer WHERE questionid = :questionid");
-						$stmt4->execute(array(":questionid" => $request['questionid']));
+						// Checking whether another SME has answered the client question
+						$stmt4 = $conn->prepare("SELECT count(*) AS cnt FROM sme_answer WHERE questionid = :questionid AND answered_by <> :email");
+						$stmt4->execute(array(
+							":questionid" => $questionid,
+							":email" => $_SESSION['email']
+						));
 						$row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
+						if($row4['cnt'] == 1)
+							continue;
 
-						if($stmt4->rowCount() > 0 && $request['status'] != 'In review')
-							if($request['status'] != 'Declined' && $row4['answered_by'] != $_SESSION['email'])
-								continue;
+						// Checking whether SME has declined request
+						$stmt5 = $conn->prepare("SELECT count(*) AS dcnt FROM declined_requests WHERE questionid = :questionid AND sme_email = :email");
+						$stmt5->execute(array(
+							":questionid" => $questionid,
+							":email" => $_SESSION['email']
+						));
+						$row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
+						if($row5['dcnt'] == 1)
+							continue;
 
 						// Retrieving client name from table
 						$stmt3 = $conn->prepare("SELECT name FROM user WHERE email = :email");
@@ -193,6 +205,10 @@ else{
                                  <label>Your thoughts on the matter</label>
                                  <textarea class="textarea" required="" id="SMEthoughts_<?= $questionid ?>"></textarea>
                               </div>
+
+							  <?php
+								if($request['status'] != 'Accepted' && $request['status'] != 'Consultation confirmed') {
+							  ?>
                               <div class="row">
                                  <div class="col-sm-2"></div>
                                  <div class="col-sm-4">
@@ -207,6 +223,7 @@ else{
                                  </div>
                                  <div class="col-sm-2"></div>
                               </div>
+							  <?php } ?>
                            </form>
                         </div>
                      </div>

@@ -45,6 +45,16 @@ CREATE TABLE consultation (
 	FOREIGN KEY (questionId) REFERENCES userquestion(questionid)
 );
 
+-- Declined Requests Table
+CREATE TABLE declined_requests (
+    declineId int AUTO_INCREMENT,
+    questionid int,
+    sme_email varchar(100),
+    PRIMARY KEY (declineId),
+    FOREIGN KEY (questionid) REFERENCES userquestion(questionid),
+    FOREIGN KEY (sme_email) REFERENCES sme_profile(email)
+);
+
 
 
 -- Category Table Sample Data
