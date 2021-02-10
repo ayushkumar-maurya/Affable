@@ -3911,6 +3911,9 @@ h6 {
 #appointment{
     display: none;
 }
+#emailResponse{
+    display: none;
+}
 
 .modal_content_footer {
     display: -webkit-box;

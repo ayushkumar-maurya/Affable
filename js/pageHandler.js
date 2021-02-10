@@ -84,13 +84,28 @@ function onlyOne(checkbox) {
 	})
 
 	if (mode_id == 'chat' || mode_id == 'call') {
+		document.getElementById('savebutton').style.visibility = "visible";
 		if (document.getElementById(mode_id).checked) {
 			document.getElementById('appointment').style.display = "block";
+			document.getElementById('emailResponse').style.display = "none";
+
 		} else {
 			document.getElementById('appointment').style.display = "none";
+			document.getElementById('emailResponse').style.display = "none";
+			
 		}
 	} else {
-		document.getElementById('appointment').style.display = "none";
+		if (document.getElementById(mode_id).checked){
+			document.getElementById('appointment').style.display = "none";
+		document.getElementById('emailResponse').style.display = "block";
+		document.getElementById('savebutton').style.visibility = "hidden";
+
+		}
+		else{
+			document.getElementById('appointment').style.display = "none";
+		document.getElementById('emailResponse').style.display = "none";
+		document.getElementById('savebutton').style.visibility = "hidden";
+		}
 	}
 }
 

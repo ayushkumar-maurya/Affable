@@ -21,7 +21,7 @@
 		
 		$key=md5(time()+123456789% rand(4000, 55000000));
         //insert this temporary key into database
-        $sql_insert=mysqli_query($db,"INSERT INTO forget_password(email,temp_key) VALUES('$email','$key')");
+        $sql_insert=mysqli_query($db,"INSERT INTO forgot_password(email,temp_key) VALUES('$email','$key')");
         //sending email about update
         $to      = $email;
 		$subject = 'SME Portal Password Reset';

@@ -7,7 +7,7 @@ include("connection.php");
 if(isset($_GET['key']) && isset($_GET['email'])) {
     $key=$_GET['key'];
     $email=$_GET['email'];
-    $check=mysqli_query($db,"SELECT * FROM forget_password WHERE email='$email' and temp_key='$key'");
+    $check=mysqli_query($db,"SELECT * FROM forgot_password WHERE email='$email' and temp_key='$key'");
     //if key doesnt matches
     if (mysqli_num_rows($check)!=1) {
       echo "This url is invalid or already been used. Please verify and try again.";
@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$password = $_POST['password_1'];
 			$hash = password_hash($password, PASSWORD_DEFAULT);
             //destroy the key from table
-            mysqli_query($db,"DELETE FROM forget_password where email='$email' and temp_key='$key'");
+            mysqli_query($db,"DELETE FROM forgot_password where email='$email' and temp_key='$key'");
             //update password in database
             mysqli_query($db,"UPDATE sme_profile set password='$hash' where email='$email'");
         }

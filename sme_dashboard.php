@@ -118,7 +118,7 @@ else{
       </header>
       <!-- End Header Area -->
       <!-- Start client request section -->
-      <br>
+       <br><br><br>
       <section class="section-gap" id="section1">
          <div class="container-fluid">
 		 <div class="row">
@@ -134,7 +134,7 @@ else{
                <div class="col-sm-9">
             <div class="row">
                <div class="col-12 col-lg-6 col-sm-12 client_request">
-                  <h1>Client Requests</h1>
+                  <h1>client requests</h1>
 
 				<?php
 					// Retrieving sme category from table
@@ -234,20 +234,7 @@ else{
 					}
 				</script>
 				
-				<div class="col-12 col-lg-6 col-sm-12" style="padding: 50px;">
-                  <br>
-                  <img class="img-fluid" src="images/write_to_us.jpg" alt="">
-                  <!-- <video controls class="img-fluid" loop autoplay muted>
-                     <source src="images/test_video.mp4" type="video/mp4">
-                     </video> -->
-               </div>
-            <div class="col-sm-6" style="padding: 50px;">
-                        <br>
-                        <img class="img-fluid" src="images/write_to_us.jpg" alt="">
-                        <!-- <video controls class="img-fluid" loop autoplay muted>
-                           <source src="images/test_video.mp4" type="video/mp4">
-                           </video> -->
-                     </div>
+
                      <div class="col-12 col-sm-6 client_request">
                         <h1>consultations</h1>
 
@@ -830,20 +817,43 @@ else{
                               </div>
                            </div>
                            <br>
-                           <!-- <div class="row">
-                              <div class="col-sm-3 col-lg-4"></div>
-                              <div class="col-sm-6 col-lg-4" style="text-align: center;">
-                                 <div class="inputfield terms appointment">
-                                    <label class="check">
-                                    <input type="checkbox" onclick="finalValidation();" id="finalValidate">
-                                    <span class="checkmark"></span>
-                                    </label>
-                                    <p>I confirm the above details</p>
-                                 </div>
-                              </div>
-                              <div class="col-sm-3 col-lg-4"></div>
-                              </div> -->
-                           <div class="row">
+                     
+					 
+					 
+					 
+					        <!--Email reply starts --->
+                           <div id="emailResponse">
+                              <label>From: pratitibera99@gmail.com</label><br>
+                              <label>Topic: How can I have my own startup? What is the minimum cost for having one?</label><br>
+                              <label>Question: How can I have my own startup? What is the minimum cost for having one?</label><br>
+                              <textarea class="textarea" required="" id="SMEthoughts" style="width: 100%;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease; height: 120px; resize: none;" placeholder="Your thoughts..."></textarea>
+  <br>
+  <div class="text-center">
+                              <button class="btn" style="
+   padding: 8px 10px;
+  font-size: 15px; 
+  border: 0px;
+  background: #F3834B;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;">EMAIL CLIENT</button>
+                        </div>
+						</div>
+
+                           <br>
+                           <!-- email reply ends ---->
+					 
+					 
+					 
+					 
+                           <div class="row" id="savebutton">
                               <div class="col-sm-4 col-lg-5"></div>
                               <div class="col-sm-4 col-lg-2">
                                  <div class="inputfield">
@@ -1025,6 +1035,7 @@ else{
 	  
 	  
       <!-- Start footer -->
+	  <br><br>
       <footer style="background-color: #f2f2f2">
          <div class="container">
             <div class="row">

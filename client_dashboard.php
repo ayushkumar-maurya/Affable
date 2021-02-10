@@ -48,7 +48,7 @@
 				  	 <li><a href="#">CONSULTATIONS</a></li>
 					 <!-- <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li> -->
                      <li><a href="#section2">FAQS</a></li>
-                     <li><a href="#section4">YOUR REQUESTS</a></li>
+                     <li><a href="#section4">MESSAGES</a></li>
                      <li class="notifications_humberger"><a href="#section3">NOTIFICATIONS</a></li>
                      <li class="dropdown profile_humberger">
                         <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
