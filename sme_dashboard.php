@@ -144,12 +144,21 @@ else{
 					$categoryname = $row1['categoryname'];
 
 					// Retrieving user requests from table
-					$stmt2 = $conn->prepare("SELECT questionid, topic, question, email FROM userquestion WHERE category = :categoryname");
+					$stmt2 = $conn->prepare("SELECT questionid, topic, question, email, status FROM userquestion WHERE category = :categoryname");
 					$stmt2->execute(array(":categoryname" => $categoryname));
 
 					while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
 						$request = $row2;
 						$questionid = $request['questionid'];
+
+						// Checking whether SME has answered the client question
+						$stmt4 = $conn->prepare("SELECT answered_by FROM sme_answer WHERE questionid = :questionid");
+						$stmt4->execute(array(":questionid" => $request['questionid']));
+						$row4 = $stmt4->fetch(PDO::FETCH_ASSOC);
+
+						if($stmt4->rowCount() > 0 && $request['status'] != 'In review')
+							if($request['status'] != 'Declined' && $row4['answered_by'] != $_SESSION['email'])
+								continue;
 
 						// Retrieving client name from table
 						$stmt3 = $conn->prepare("SELECT name FROM user WHERE email = :email");

@@ -62,7 +62,7 @@
 		echo 1;
 	}
 
-	// Sending an email to SME
+	// Sending an email to Client
 	if($_POST['do'] == "mail") {	
 		$subject = "Request accepted";
 		$message = 'Your request is accepted by our SME.';
