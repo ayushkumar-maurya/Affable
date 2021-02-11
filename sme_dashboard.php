@@ -85,7 +85,8 @@ else{
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav sme_dashboard_navbar">
-                     <li><a class="active" href="#section1" onclick="viewSections();">CLIENT REQUESTS</a></li>
+				     <li>Email: <?= $_SESSION['email'] ?></li>
+					 <li><a class="active" href="#section1" onclick="viewSections();">CLIENT REQUESTS</a></li>
                      <li><a href="#section2">CONSULTATIONS</a></li>
                      <li><a href="#section3">TESTIMONIALS</a></li>
                      <li><a href="#section4">WEBINARS</a></li>
@@ -134,7 +135,6 @@ else{
                <div class="col-sm-9">
             <div class="row">
                <div class="col-12 col-lg-6 col-sm-12 client_request">
-				  <p>Email: <?= $_SESSION['email'] ?></p>
 				  <h1>client requests</h1>
 
 				<?php
@@ -200,15 +200,14 @@ else{
                                  <label>Question</label>
                                  <label style="width: 100%;"><?= htmlentities($request['question']) ?></label>
                               </div>
+							  <?php
+								if($request['status'] != 'Accepted' && $request['status'] != 'Consultation confirmed') {
+							  ?>
                               <div class="inputfield">
                                  <label for="Tooltips" class="error thoughts" id="error_<?= $questionid ?>"></label>
                                  <label>Your thoughts on the matter</label>
                                  <textarea class="textarea" required="" id="SMEthoughts_<?= $questionid ?>"></textarea>
                               </div>
-
-							  <?php
-								if($request['status'] != 'Accepted' && $request['status'] != 'Consultation confirmed') {
-							  ?>
                               <div class="row">
                                  <div class="col-sm-2"></div>
                                  <div class="col-sm-4">
@@ -266,16 +265,17 @@ else{
 
 						<?php						
 							// Retrieving consultaions from table
-							$stmt1 = $conn->prepare("SELECT consultationId, clientEmailId, questionId, mode, date, fromTime FROM consultation WHERE smeEmailId = :email");
+							$stmt1 = $conn->prepare("SELECT consultationId, clientEmailId, questionId, mode, date, fromTime, status FROM consultation WHERE smeEmailId = :email");
 							$stmt1->execute(array(":email" => $_SESSION['email']));
 
 							$consultation_count = 1;
 							while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 								$consultation = $row1;
+								$questionid = $consultation['questionId'];
 								
 								// Retrieving user question from table
 								$stmt2 = $conn->prepare("SELECT category, question FROM userquestion WHERE questionId = :questionId");
-								$stmt2->execute(array(":questionId" => $consultation['questionId']));
+								$stmt2->execute(array(":questionId" => $questionid));
 								$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 								$category = $row2['category'];
 								$question = $row2['question'];
@@ -320,6 +320,9 @@ else{
                                     <label>Time</label>
                                     <label style="width: 100%;" id="consultation_time_1"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
+								 <?php
+									if($consultation['status'] != "Cancelled") {
+								 ?>
                                  <div class="row">
                                        <div class="col-sm-2"></div>
                                        <div class="col-sm-4">
@@ -329,11 +332,12 @@ else{
                                        </div>
                                        <div class="col-sm-4">
                                           <div class="inputfield">
-                                             <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="cancelConsultation(this.id);">
+                                             <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="question_id('<?= $questionid ?>'); cancelConsultation(this.id);">
                                           </div>
                                        </div>
                                        <div class="col-sm-2"></div>
                                     </div>
+									<?php } ?>
                               </form>
                            </div>
                         </div>
@@ -349,6 +353,11 @@ else{
          </div>
       </section>
       <br>
+	  <script>
+	  	function question_id(questionid) {
+			document.getElementById("cancelConst").setAttribute("onclick", "cancel_consultations('" + questionid + "');");
+		}
+	  </script>
       <!-- end client request section -->
 <!--Profile section of SME--->
       <div class="container" id="sme_profile">
@@ -774,7 +783,7 @@ else{
                                     </label>
                                     <p>chat</p>
                                     <label class="check">
-                                    <input type="checkbox" onclick="onlyOne(this);" class="selectmode" name="consultation_mode" value="email" id="email">
+                                    <input type="checkbox" onclick="onlyOne(this);" class="selectmode" name="consultation_mode" value="email" id="mail email">
                                     <span class="checkmark"></span>
                                     </label>
                                     <p>email</p>
@@ -1015,37 +1024,37 @@ else{
                         <form>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox" checked="">
+                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason1" checked="">
                               <span class="checkmark"></span>
                               </label>
-                              <p>Got busy with something else</p>
+                              <p id="reason1">Got busy with something else</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox">
+                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason2">
                               <span class="checkmark"></span>
                               </label>
-                              <p>Clashing with another consultation</p>
+                              <p id="reason2">Clashing with another consultation</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox">
+                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason3">
                               <span class="checkmark"></span>
                               </label>
-                              <p>Personal constraint</p>
+                              <p id="reason3">Personal constraint</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox">
+                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason4">
                               <span class="checkmark"></span>
                               </label>
-                              <p>Not listed</p>
+                              <p id="reason4">Not listed</p>
                            </div>
                            <div class="row">
                               <div class="col-sm-4"></div>
                               <div class="col-sm-4">
                                  <div class="inputfield">
-                                    <input type="submit" value="Submit" class="btn">
+                                    <input type="button" value="Submit" id="cancelConst" class="btn">
                                  </div>
                               </div>
                               <div class="col-sm-4"></div>
@@ -1057,6 +1066,39 @@ else{
             </div>
          </div>
       </div>
+	  <script>
+		function onlyOneReason(reasonid) {
+			for(var i=0; i<4; i++)
+				document.getElementsByClassName("cancelReason")[i].checked = false;
+			document.getElementById(reasonid.id).checked = true;
+		}
+
+	  	function cancel_consultations(questionid) {
+			var reason = "";
+			for(var i=0; i<4; i++)
+				if(document.getElementsByClassName("cancelReason")[i].checked) {
+					reason = document.getElementById("reason".concat(i+1)).innerHTML;
+					break
+				}
+			
+			$.ajax({
+				url: "cancel_consultations.php",
+				method: "POST",
+				data: {do:"entry", questionid: questionid, reason: reason},
+				success: function(status) {
+					window.location.replace("sme_dashboard.php");
+					if(status.trim() == "1") {
+						alert("The consultation has been cancelled.");
+						$.ajax({
+							url: "cancel_consultations.php",
+							method: "POST",
+							data: {do:"mail", questionid: questionid, reason: reason}
+						});
+					}
+				}
+			});
+		}
+	  </script>
       <!--end modal for cancel consultation --->
 	  
 	  

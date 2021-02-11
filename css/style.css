@@ -1298,6 +1298,16 @@ th {
     margin-bottom: 20px
 }
 
+.home-banner-area .banner-content h3 {
+    color: #fff;
+    font-size: 30px;
+    line-height: 70px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    margin-top: 50px;
+}
+
 @media (max-width: 991.98px) {
     .home-banner-area .banner-content h1 {
         font-size: 45px;
@@ -1321,7 +1331,7 @@ th {
 .home-banner-area .banner-content p {
     font-size: 18px;
     font-weight: 300;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     color: #fff
 }
 
@@ -4595,3 +4605,26 @@ h6 {
 }
 
 
+/* Email section */
+#emailResponse textarea{
+    width: 100%;
+  outline: none;
+  border: 1px solid #d5dbd9;
+  font-size: 15px;
+  padding: 8px 10px;
+  border-radius: 3px;
+  transition: all 0.3s ease; 
+  height: 120px; 
+  resize: none;
+}
+
+#emailResponse button{
+    padding: 8px 10px;
+  font-size: 15px; 
+  border: 0px;
+  background: #F3834B;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+  outline: none;
+}

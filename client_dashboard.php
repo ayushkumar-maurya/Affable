@@ -45,7 +45,8 @@
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav sme_dashboard_navbar">
-				  	 <li><a href="#">CONSULTATIONS</a></li>
+				  	 <li>Email: <?= $_SESSION['email'] ?></li>
+					 <li><a href="#">CONSULTATIONS</a></li>
 					 <!-- <li><a href="#" data-toggle="modal" data-target="#postQuestion">POST YOUR REQUEST</a></li> -->
                      <li><a href="#section2">FAQS</a></li>
                      <li><a href="#section4">MESSAGES</a></li>
@@ -94,7 +95,6 @@
                <div class="col-sm-9">
                   <div class="row">
 					<div class="col-sm-6 client_request">
-					<p>Email: <?= $_SESSION['email'] ?></p>
 					<h1>requests</h1>
 					
 					<?php						
@@ -222,7 +222,7 @@
 
 					<?php						
 						// Retrieving consultaions from table
-						$stmt1 = $conn->prepare("SELECT consultationId, smeEmailId, questionId, mode, date, fromTime FROM consultation WHERE clientEmailId = :email");
+						$stmt1 = $conn->prepare("SELECT consultationId, smeEmailId, questionId, mode, date, fromTime, status FROM consultation WHERE clientEmailId = :email");
 						$stmt1->execute(array(":email" => $_SESSION['email']));
 
 						$consultation_count = 1;
@@ -276,9 +276,13 @@
                                     <label>Time</label>
                                     <label style="width: 100%;"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
+								 <?php
+									if($consultation['status'] != "Cancelled") {
+								 ?>
                                  <div class="inputfield">
-                                    <input type="submit" value="Click to connect" class="btn">
+                                    <input type="submit" value="Click to connect" class="btn" disabled="">
                                  </div>
+								 <?php } ?>
                               </form>
                            </div>
                         </div>

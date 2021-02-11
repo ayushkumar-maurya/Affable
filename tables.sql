@@ -47,10 +47,21 @@ CREATE TABLE consultation (
 
 -- Declined Requests Table
 CREATE TABLE declined_requests (
-    declineId int AUTO_INCREMENT,
+	declineId int AUTO_INCREMENT,
+	questionid int,
+	sme_email varchar(100),
+	PRIMARY KEY (declineId),
+	FOREIGN KEY (questionid) REFERENCES userquestion(questionid),
+	FOREIGN KEY (sme_email) REFERENCES sme_profile(email)
+);
+
+-- Cancelled Consultations Table
+CREATE table cancelled_consultations (
+	cancelid int AUTO_INCREMENT,
     questionid int,
     sme_email varchar(100),
-    PRIMARY KEY (declineId),
+    reason text,
+    PRIMARY KEY (cancelid),
     FOREIGN KEY (questionid) REFERENCES userquestion(questionid),
     FOREIGN KEY (sme_email) REFERENCES sme_profile(email)
 );
