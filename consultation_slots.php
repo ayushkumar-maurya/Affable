@@ -52,6 +52,7 @@
 		echo $client_email;
 	}
 
+	/*
 	if($_POST['do'] == "decline_request") {
 		$questionid = $_POST['questionid'];
 		
@@ -68,7 +69,8 @@
 
 		echo 1;
 	}
-
+	*/
+	
 	// Sending an email to Client
 	if($_POST['do'] == "mail") {	
 		$subject = "Request accepted";

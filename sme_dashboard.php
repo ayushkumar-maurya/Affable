@@ -162,6 +162,7 @@ else{
 						if($row4['cnt'] == 1)
 							continue;
 
+						/*
 						// Checking whether SME has declined request
 						$stmt5 = $conn->prepare("SELECT count(*) AS dcnt FROM declined_requests WHERE questionid = :questionid AND sme_email = :email");
 						$stmt5->execute(array(
@@ -171,6 +172,7 @@ else{
 						$row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
 						if($row5['dcnt'] == 1)
 							continue;
+						*/
 
 						// Retrieving client name from table
 						$stmt3 = $conn->prepare("SELECT name FROM user WHERE email = :email");
@@ -216,10 +218,12 @@ else{
                                     </div>
                                  </div>
                                  <div class="col-sm-4">
+									<!--
 								 	<div class="inputfield">
 										<input type="button" value="DECLINE" class="btn" onclick="decline_req('<?= $questionid ?>');" style="background-color: #F3834B">
 									</div>
-                                 </div>
+									-->
+								 </div>
                                  <div class="col-sm-2"></div>
                               </div>
 							  <?php } ?>
@@ -253,10 +257,12 @@ else{
 						}
 					}
 					
+					/*
 					function decline_req(questionid) {
 						document.getElementById("confirmBtn").setAttribute("onclick", "decline_confirm('" + questionid + "');");
 						$('#declineRequest').modal('show');
 					}
+					*/
 				</script>
 				
 
@@ -265,7 +271,7 @@ else{
 
 						<?php						
 							// Retrieving consultaions from table
-							$stmt1 = $conn->prepare("SELECT consultationId, clientEmailId, questionId, mode, date, fromTime, status FROM consultation WHERE smeEmailId = :email");
+							$stmt1 = $conn->prepare("SELECT consultationId, clientEmailId, questionId, mode, date, fromTime FROM consultation WHERE smeEmailId = :email AND status <> 'Cancelled'");
 							$stmt1->execute(array(":email" => $_SESSION['email']));
 
 							$consultation_count = 1;
@@ -320,9 +326,6 @@ else{
                                     <label>Time</label>
                                     <label style="width: 100%;" id="consultation_time_1"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
-								 <?php
-									if($consultation['status'] != "Cancelled") {
-								 ?>
                                  <div class="row">
                                        <div class="col-sm-2"></div>
                                        <div class="col-sm-4">
@@ -337,7 +340,6 @@ else{
                                        </div>
                                        <div class="col-sm-2"></div>
                                     </div>
-									<?php } ?>
                               </form>
                            </div>
                         </div>
@@ -994,6 +996,7 @@ else{
             </div>
          </div>
       </div>
+	  <!--
 	  <script>
 		function decline_confirm(questionid) {
 			$.ajax({
@@ -1009,6 +1012,7 @@ else{
 			});
 		}
 	  </script>
+	  -->
       <!--end modal for request decline confirmation --->
 	  
 	  

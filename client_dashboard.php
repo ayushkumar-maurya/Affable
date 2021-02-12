@@ -222,7 +222,7 @@
 
 					<?php						
 						// Retrieving consultaions from table
-						$stmt1 = $conn->prepare("SELECT consultationId, smeEmailId, questionId, mode, date, fromTime, status FROM consultation WHERE clientEmailId = :email");
+						$stmt1 = $conn->prepare("SELECT consultationId, smeEmailId, questionId, mode, date, fromTime FROM consultation WHERE clientEmailId = :email AND status <> 'Cancelled'");
 						$stmt1->execute(array(":email" => $_SESSION['email']));
 
 						$consultation_count = 1;
@@ -276,13 +276,9 @@
                                     <label>Time</label>
                                     <label style="width: 100%;"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
-								 <?php
-									if($consultation['status'] != "Cancelled") {
-								 ?>
                                  <div class="inputfield">
                                     <input type="submit" value="Click to connect" class="btn" disabled="">
                                  </div>
-								 <?php } ?>
                               </form>
                            </div>
                         </div>
