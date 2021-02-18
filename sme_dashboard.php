@@ -58,6 +58,41 @@ else{
       <!--Page css -->
       <link rel="stylesheet" href="css/style.css">
 	  <script src="js/jquery-2.2.4.min.js"></script>
+	  <script src="chat_app_scripts.js"></script>
+      <style>
+         ::placeholder {
+  color: #031426;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #031426;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+ color: #031426;
+}
+
+textarea:focus{
+   outline: none;
+}
+      </style>
+	  <style>
+	  	.alert {
+			padding: 5px;
+			width: 70%;
+		}
+
+		.alert-success {
+			margin-left: auto; 
+			margin-right: 0;
+		}
+
+		.date-time {
+			font-size: 0.8rem;
+			color: #343a40;
+		}
+	  </style>
 </head>
    <body onload="sme_dashboard();" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -387,17 +422,19 @@ else{
 							$consultation_count = 1;
 							while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 								$consultation = $row1;
+								$questionId = $consultation['questionId'];
+								$clientEmailId = $consultation['clientEmailId'];
 								
 								// Retrieving user question from table
 								$stmt2 = $conn->prepare("SELECT category, question FROM userquestion WHERE questionId = :questionId");
-								$stmt2->execute(array(":questionId" => $questionid));
+								$stmt2->execute(array(":questionId" => $questionId));
 								$row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 								$category = $row2['category'];
 								$question = $row2['question'];
 
 								// Retrieving client name from table
 								$stmt3 = $conn->prepare("SELECT name FROM user WHERE email = :email");
-								$stmt3->execute(array(":email" => $consultation['clientEmailId']));
+								$stmt3->execute(array(":email" => $clientEmailId));
 								$row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 								$client = $row3['name'];
 						?>
@@ -440,12 +477,12 @@ else{
                                        <div class="col-sm-2"></div>
                                        <div class="col-sm-4">
                                           <div class="inputfield">
-                                             <input type="submit" value="Connect" class="btn" disabled="">
+                                             <input type="button" value="Connect" class="btn" data-backdrop="static" data-keyboard="false" onclick="chat('<?= $clientEmailId ?>', '<?= htmlentities($client) ?>', '<?= $questionId ?>');">
                                           </div>
                                        </div>
                                        <div class="col-sm-4">
                                           <div class="inputfield">
-                                              <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="question_id('<?= $questionid ?>'); cancelConsultation(this.id);">
+                                              <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="question_id('<?= $questionId ?>'); cancelConsultation(this.id);">
                                           </div>
                                        </div>
                                        <div class="col-sm-2"></div>
@@ -1740,7 +1777,45 @@ else{
 	  
 	  
 	  
-	  
+      <!-- modal for chat connect --->
+      <div class="modal fade" id="connectToChat" role="dialog">
+         <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body" style="padding: 0px;">
+                  <div class="container-fluid">
+         <div class="row" style="color: #031426; height: 80px; font-size: 20px; -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); box-shadow: 0px 2px 7px rgba(0,0,0,0.25); padding: 8px;">
+            <div class="col-3 col-sm-3">
+               <img src="images/img1.jpg" style="width: 80%; border-radius: 50%; margin-right: 12px; margin-left: 20px;">
+            </div>
+            <div class="col-9 col-sm-9" style="padding: 15px;">
+               <h4 style="color: #031426; font-weight: 600;"><span id="chatModalLabel"></span>
+                  <a href="#">
+                     <i class="fas fa-ellipsis-v" style="margin-right: 26px; float: right; color: #031426;"></i>
+                  </a>
+                  <button class="btn" style="background-color: red; float: right; margin-right: 25px; margin-top: -10px;">Disconnect</button>
+               </h4> 
+            </div>
+         </div>
+         <div style="height: 60vh;" id="chats"></div>
+         <div class="row" style="height: 12vh; -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); box-shadow: 5px -1px 3px 0px rgba(0,0,0,0.25); padding: 15px; padding-left: 50px;">
+            <div class="col-7 col-sm-7" style="padding: 0px;">
+               <textarea placeholder="Write a message" style=" width:100%; height: 55px; resize: none; border: 1px solid white;" id="msg"></textarea>
+            </div>
+            <div class="col-5 col-sm-5">
+               <a href="#" id="send-msg"><i class="fas fa-paper-plane" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
+                  <a href="#"><i class="far fa-image" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
+               <a href="#"><i class="fas fa-paperclip" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
+            </div>
+         </div>
+
+      </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--end modal for chat connect --->
       <!-- Start footer -->
 	  <br><br>
       <footer style="background-color: #f2f2f2">
