@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta charset="UTF-8">
       <!-- Site Title -->
-      <title>AFFABLE || HOME</title>
+      <title>SME4U || HOME</title>
       <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400,700|Roboto:400,500" rel="stylesheet">
       <!--fontawesome-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
@@ -657,7 +657,7 @@
          <div class="container">
             <div class="row align-items-center justify-content-center">
                <div class="col-lg-7 col-md-12 about-left">
-                  <img class="img-fluid" src="images/about.png" alt="">
+                  <img class="img-fluid" src="images/newimages/connect1.jpg" alt="">
                </div>
                <div class="col-lg-5 col-md-12 about-right">
                   <div class="section-title text-left">
@@ -683,30 +683,30 @@
             <div class="row feature_inner">
                <div class="col-lg-3 col-md-6">
                   <div class="feature-item">
-                     <img src="images/how_it_works_1.jpg">
+                     <img src="images/newimages/joinus.jpg">
                      <h4>Register first</h4>
-                     <p>Register with us with your details, post the gist of your question</p>
+                     <p>Register with us with your details first time, post your request for consultation</p>
                   </div>
                </div>
                <div class="col-lg-3 col-md-6">
                   <div class="feature-item">
                      <img src="images/how_it_works_2.jpg">
-                     <h4>Initiate payment</h4>
-                     <p>Pay the consultation fee as mentioned</p>
+                     <h4> SME provides consultation slots</h4>
+                     <p>Client confirms convenient slot</p>
                   </div>
                </div>
                <div class="col-lg-3 col-md-6">
                   <div class="feature-item">
                      <img src="images/how_it_works_3.jpg">
                      <h4>Avail consultation</h4>
-                     <p>We will connect SME that matches your question</p>
+                     <p>Make payment and proceed with consultation</p>
                   </div>
                </div>
                <div class="col-lg-3 col-md-6">
                   <div class="feature-item">
                      <img src="images/how_it_works_4.jpg">
                      <h4>Share feedback</h4>
-                     <p>You can chat , email or talk to SME</p>
+                     <p>help us in serving better</p>
                   </div>
                </div>
             </div>
@@ -721,70 +721,70 @@
                <div class="popular-carousel" data-flickity='{ "autoPlay": true, "prevNextButtons": false, "wrapAround": true, "pageDots": false }' data-wow-delay="0.2s">
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service.jpg">
+                        <img src="images/newimages/realestate1.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service1.jpg">
+                        <img src="images/newimages/realestate2.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service2.jpg">
+                        <img src="images/newimages/health1.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service3.jpg">
+                        <img src="images/newimages/health2.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service4.jpg">
+                        <img src="images/newimages/entre1.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service5.jpg">
+                        <img src="images/newimages/entre2.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service6.jpg">
+                        <img src="images/newimages/it1.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service7.jpg">
+                        <img src="images/newimages/newimage1.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service8.jpg">
+                        <img src="images/newimages/bridge.jpg">
                      </div>
                      <div class="info">
                      </div>
                   </div>
                   <div class="single-item">
                      <div class="img">
-                        <img src="images/service9.jpg">
+                        <img src="images/newimages/newimage3.jpg">
                      </div>
                      <div class="info">
                      </div>
@@ -800,39 +800,60 @@
             <h1>Frequently Asked Questions</h1>
             <div class="accordion">
                <div class="contentBx">
-                  <div class="label">How is the weather in Oblast, Russia ?</div>
+                  <div class="label">What is this portal all about?</div>
                   <div class="content">
-                     <p>We connect you to Subject Matter Experts from various areas of expertise who will answer your questions and help you in taking right decisions in all your phases of life.</p>
+                     <p>This is a Portal that maintains profiles of SMEs (Subject Matter Experts) from different areas who are willing to answer questions from clients through chatting, email or call that helps clients to take wise decisions in different phases of their lives.</p>
                   </div>
                </div>
                <div class="contentBx">
-                  <div class="label">How can I apply for a scholarship in Kemerovo state medical university?</div>
+                  <div class="label">Who can be a SME or what is the criteria to become a SME?</div>
                   <div class="content">
-                     <p></p>
+                     <p>We have certain categories or areas for which for which any professional who claims to be a SME can register and create a profile. </p>
                   </div>
                </div>
                <div class="contentBx">
-                  <div class="label">Does the Kemerovo State Medical University provide post graduate courses?</div>
+                  <div class="label">What are the benefits for SME? 
+                  </div>
                   <div class="content">
-                     <p></p>
+                     <p>
+                         SME gets an opportunity to earn through consultation
+                         
+                     </p>
                   </div>
                </div>
                <div class="contentBx">
-                  <div class="label">What is Kemerovo State Medical University fee structure?</div>
+                  <div class="label">What are the benefits for client or user?</div>
                   <div class="content">
-                     <p></p>
+                     <p>
+                         Our SMEs answer your questions with a consultation and help you in taking rational and wise decisions
+                         
+                     </p>
                   </div>
                </div>
                <div class="contentBx">
-                  <div class="label">What is Kemerovo state medical college admission procedure?</div>
+                  <div class="label">What will be the mode of Consultation?</div>
                   <div class="content">
-                     <p></p>
+                     <p>
+                         Online chatting or call or through email
+                     </p>
                   </div>
                </div>
                <div class="contentBx">
-                  <div class="label">What is Kemerovo state medical university ranking ?</div>
+                  <div class="label">Will there be a review consultation?</div>
                   <div class="content">
-                     <p></p>
+                     <p>
+                         Yes we provide that option as well.
+                         
+                     </p>
+                  </div>
+               </div>
+                <div class="contentBx">
+                  <div class="label">What if we are not satisfied with the answers provided by SME?</div>
+                  <div class="content">
+                     <p>
+                        There will be an online survey conducted after every consultation where you can express your views based on which necessary action will be taken, in genuine conditions consultation fees will be refunded.
+                         
+                     </p>
                   </div>
                </div>
             </div>
@@ -855,7 +876,7 @@
                ></div>
             <div class="row">
                <div class="col-lg-4">
-                  <img src="images/write_to_us.jpg" style="max-width: 100%;">
+                  <img src="images/newimages/writetous.jpg" style="max-width: 100%;">
                </div>
                <div class="col-lg-5">
                   <form class="contact_form" id="contactForm" novalidate="novalidate">
@@ -1017,7 +1038,8 @@
       <script src="js/jquery.magnific-popup.min.js"></script>
       <script src="js/jquery.sticky.js"></script>
       <script src="js/main.js"></script>
-      <script src="js/pageHandler.js"></script>
+      <script src="pageHandler.js"></script>
+	  <script src="check.js"></script>
       <!-- For carousel --->
       <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js"></script>

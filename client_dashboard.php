@@ -95,6 +95,7 @@
                <div class="col-sm-9">
                   <div class="row">
 					<div class="col-sm-6 client_request">
+					<p>Email: <?= $_SESSION['email'] ?></p>
 					<h1>requests</h1>
 					
 					<?php						
@@ -276,9 +277,11 @@
                                     <label>Time</label>
                                     <label style="width: 100%;"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
+								
                                  <div class="inputfield">
-                                    <input type="submit" value="Click to connect" class="btn" disabled="">
+                                     <input type="submit" value="Click to connect" class="btn" disabled="">
                                  </div>
+							
                               </form>
                            </div>
                         </div>
@@ -294,6 +297,53 @@
 
 		 </div>
       </section>
+	  
+	   <!-- Start FAQ section -->
+      <section id="section4">
+         <div class="container faqs">
+            <h1>Frequently Asked Questions</h1>
+            <div class="accordion">
+               <div class="contentBx">
+                  <div class="label">How is the weather in Oblast, Russia ?</div>
+                  <div class="content">
+                     <p>We connect you to Subject Matter Experts from various areas of expertise who will answer your questions and help you in taking right decisions in all your phases of life.</p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">How can I apply for a scholarship in Kemerovo state medical university?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">Does the Kemerovo State Medical University provide post graduate courses?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo State Medical University fee structure?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo state medical college admission procedure?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo state medical university ranking ?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end FAQ section -->
+	  
       <br>
       <!-- end client request section -->
       <!-- modal for user change password --->
@@ -610,7 +660,8 @@
       <script src="js/jquery.magnific-popup.min.js"></script>
       <script src="js/jquery.sticky.js"></script>
       <script src="js/main.js"></script>
-      <script src="js/pageHandler.js"></script>
+      <script src="pageHandler.js"></script>
+	  <script src="check.js"></script>
       <!-- For carousel --->
       <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js"></script>

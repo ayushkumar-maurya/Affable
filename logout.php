@@ -3,7 +3,7 @@ include_once 'connection.php';
 
 if (isset($_SESSION['email']))
 {
-	session_unset();
+	unset($_SESSION['email']);
 	header("Location:index.php");
 }
 

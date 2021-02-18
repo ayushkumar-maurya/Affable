@@ -69,7 +69,7 @@
 	// Sending an email to SME
 	if($_POST['do'] == "mail") {		
 		$subject = "Consultation slot confirmed by client";
-		$message = 'Consultation slot has be confirmed by the client.';
+		$message = 'Consultation slot has been confirmed by the client.';
 
 		$header = "MIME-Version: 1.0 \r\n";
 		$header .= "Content-Type: text/html; charset=UTF-8 \r\n";

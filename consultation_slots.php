@@ -52,25 +52,23 @@
 		echo $client_email;
 	}
 
-	/*
-	if($_POST['do'] == "decline_request") {
+/* 	if($_POST['do'] == "decline_request") {
 		$questionid = $_POST['questionid'];
 		
 		// Updating status of client question as declined
 		$stmt1 = $conn->prepare("UPDATE userquestion SET status = 'Declined' WHERE questionid = :questionid");
 		$stmt1->execute(array(":questionid" => $questionid));
-		
+
 		// Inserting data in declined requests table
 		$stmt2 = $conn->prepare("INSERT INTO declined_requests (questionid, sme_email) VALUES(:questionid, :email)");
 		$stmt2->execute(array(
 			":questionid" => $questionid,
 			":email" => $_SESSION['email']
 		));
-
+		
 		echo 1;
-	}
-	*/
-	
+	} */
+
 	// Sending an email to Client
 	if($_POST['do'] == "mail") {	
 		$subject = "Request accepted";
@@ -81,5 +79,8 @@
 		
 		mail($_POST['client_email'], $subject, $message, $header);
 	}
+	
+
+
 
 ?>

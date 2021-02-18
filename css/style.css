@@ -1298,16 +1298,6 @@ th {
     margin-bottom: 20px
 }
 
-.home-banner-area .banner-content h3 {
-    color: #fff;
-    font-size: 30px;
-    line-height: 70px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-    margin-top: 50px;
-}
-
 @media (max-width: 991.98px) {
     .home-banner-area .banner-content h1 {
         font-size: 45px;
@@ -3921,6 +3911,7 @@ h6 {
 #appointment{
     display: none;
 }
+
 #emailResponse{
     display: none;
 }
@@ -4627,4 +4618,14 @@ h6 {
   cursor: pointer;
   border-radius: 3px;
   outline: none;
+}
+
+.home-banner-area .banner-content h3 {
+    color: #fff;
+    font-size: 30px;
+    line-height: 70px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    margin-top: 50px;
 }

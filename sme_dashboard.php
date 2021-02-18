@@ -3,7 +3,7 @@ require_once ('connection.php');
 //session_start();
 if(isset($_SESSION['email'])){
 	$email=$_SESSION['email'];
-	$results = mysqli_query($db,"SELECT name, phone, email, pincode, postal_addr, categoryname, experience, skillset, sme_cert, sme_language, webinars, sme_fees, mode_of_cons, photo_loc, resume_loc, review_rating FROM sme_profile WHERE email = '{$email}'") or die(mysqli_error($db));
+	$results = mysqli_query($db,"SELECT name, about_sme, phone, email, pincode, postal_addr, categoryname, experience, skillset, sme_cert, sme_language, webinars, sme_fees, mode_of_cons, photo_loc, resume_loc, review_rating, sme_designation FROM sme_profile WHERE email = '{$email}'") or die(mysqli_error($db));
 	$row_cnt=mysqli_num_rows($results);
 	
 	if($row_cnt==1){
@@ -20,10 +20,12 @@ if(isset($_SESSION['email'])){
 		$sme_language=$row['sme_language'];
 		$webinars=$row['webinars'];
 		$sme_fees=$row['sme_fees'];
+		$about_sme=$row['about_sme'];
 		$mode_of_cons=$row['mode_of_cons'];
 		$photo_loc=$row['photo_loc'];
 		$resume_loc=$row['resume_loc'];
 		$review_rating=$row['review_rating'];
+		$sme_designation=$row['sme_designation'];
 		
 	}
 	
@@ -58,21 +60,7 @@ else{
 	  <script src="js/jquery-2.2.4.min.js"></script>
 </head>
    <body onload="sme_dashboard();" data-spy="scroll" data-target=".navbar" data-offset="50">
-      <!-- <div class="alert hide" id="alert1">
-         <span class="fas fa-exclamation-circle"></span>
-         <span class="msg">Please share your thoughts before accepting!</span>
-         <div class="close-btn">
-           <span class="fas fa-times"></span>
-         </div>
-         </div>
-         
-         <div class="alert hide" id="alert2">
-         <span class="fas fa-exclamation-circle"></span>
-         <span class="msg">Please enter a future date!</span>
-         <div class="close-btn">
-           <span class="fas fa-times"></span>
-         </div>
-         </div> -->
+
       <!-- Start Header Area -->
       <header class="default-header" style="background-color: #38489E;">
          <nav class="navbar navbar-expand-lg navbar-light">
@@ -85,11 +73,74 @@ else{
                </button>
                <div class="collapse navbar-collapse justify-content-end align-items-center" id="navbarSupportedContent">
                   <ul class="navbar-nav sme_dashboard_navbar">
-				     <li>Email: <?= $_SESSION['email'] ?></li>
+                     <li>Email: <?= $_SESSION['email'] ?></li>
 					 <li><a class="active" href="#section1" onclick="viewSections();">CLIENT REQUESTS</a></li>
-                     <li><a href="#section2">CONSULTATIONS</a></li>
-                     <li><a href="#section3">TESTIMONIALS</a></li>
-                     <li><a href="#section4">WEBINARS</a></li>
+                     <li><a href="#section1">CONSULTATIONS</a></li>
+                     <li><a href="#section2">TESTIMONIALS</a></li>
+					 
+					 
+					 
+					 <div class="bs-example">
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"> MY WEBINARS</a>
+							<div class="dropdown-menu">
+								<table>
+								<?php 
+								$query = "SELECT * FROM sme_webinar WHERE sme_email = '{$email}'";
+								 $select_webinar = mysqli_query($db, $query);
+								 $rowcount=mysqli_num_rows($select_webinar);
+									
+								if($rowcount==0)
+								{
+								 echo "No Webinars Posted";
+								}
+								 else{
+									 
+									while($row9 = mysqli_fetch_assoc($select_webinar))
+									{
+										$webinar_id = $row9['webinar_id'];
+										$webinar_topic = $row9['webinar_topic'];
+										$webinar_desc=$row9['webinar_desc'];
+										$who_attend=$row9['who_attend'];
+										$key_takeaways=$row9['key_takeaways'];
+										$webinar_fees=$row9['webinar_fees'];
+										$webinar_date=$row9['webinar_date'];
+										$webinar_from_time=$row9['webinar_from_time'];
+										$webinar_to_time=$row9['webinar_to_time'];
+										$course_image=$row9['course_image'];
+										$webinar_venue=$row9['webinar_venue'];
+										
+									?>
+										<tr>		
+										<td><a class="dropdown-item" href="webinar.php?webinar_id= <?php echo $webinar_id ?>" target="_blank"><?php echo $webinar_topic ?></a></td>
+										<td><a class="dropdown-item" data-toggle="modal" data-target="#editWebinar" onclick="getWebinar('<?= $webinar_id ?>');">EDIT</a></td>
+										<td><a class="dropdown-item" onclick="deletewebinar('<?= $webinar_id ?>');">DELETE</a></td>
+
+										<input id="webinar_id" value="<?php echo $webinar_id; ?>" style="display: none;">
+										<input id="webinar_topic_<?php echo $webinar_id; ?>" value="<?php echo $webinar_topic; ?>" style="display: none;">
+										<input id="webinar_desc_<?php echo $webinar_id; ?>" value="<?php echo $webinar_desc; ?>" style="display: none;">
+										<input id="who_attend_<?php echo $webinar_id; ?>" value="<?php echo $who_attend; ?>" style="display: none;">
+										<input id="key_takeaways_<?php echo $webinar_id; ?>" value="<?php echo $key_takeaways; ?>" style="display: none;">
+										<input id="webinar_fees_<?php echo $webinar_id; ?>" value="<?php echo $webinar_fees; ?>" style="display: none;">
+										<input id="webinar_date_<?php echo $webinar_id; ?>" value="<?php echo $webinar_date; ?>" style="display: none;">
+										<input id="webinar_from_time_<?php echo $webinar_id; ?>" value="<?php echo $webinar_from_time; ?>" style="display: none;">
+										<input id="webinar_to_time_<?php echo $webinar_id; ?>" value="<?php echo $webinar_to_time; ?>" style="display: none;">
+										<input id="webinar_venue_<?php echo $webinar_id; ?>" value="<?php echo $webinar_venue; ?>" style="display: none;">
+										<input id="course_image_<?php echo $webinar_id; ?>" value="<?php echo $course_image; ?>" style="display: none;">
+										
+										
+										</tr>
+										
+									<?php }} ?>
+							</table>		
+							</div>
+						</div>
+					</div>
+					
+					 
+					 
+					 
+                    
                      <li class="notifications_humberger"><a href="#section3">NOTIFICATIONS</a></li>
                      <li class="dropdown profile_humberger">
                         <a class="dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
@@ -130,28 +181,38 @@ else{
                      <h5>Send the topic and question to consult our SME</h5>
                      <img src="images/how_it_works_4.jpg">
                   </div>
-                  <button class="btn" data-toggle="modal" data-target="#postQuestion">POST A REQUEST</button>
+                  <button class="btn" data-toggle="modal" data-target="#postWebinar">POST A WEBINAR</button>
                </div>
                <div class="col-sm-9">
             <div class="row">
                <div class="col-12 col-lg-6 col-sm-12 client_request">
-				  <h1>client requests</h1>
-
+              <h1>client requests</h1>
+	  
 				<?php
 					// Retrieving sme category from table
 					$stmt1 = $conn->prepare("SELECT categoryname FROM sme_profile WHERE email = :email");
 					$stmt1->execute(array(":email" => $_SESSION['email']));
 					$row1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 					$categoryname = $row1['categoryname'];
+					
+					if (empty($categoryname)){ ?>
+					
+					<div class="alert alert-danger" role="alert">
+					<p><center>Please Update your Profile to start receiving Client requests</center></p>
+					</div>
+					<?php
+					}
+					
 
 					// Retrieving user requests from table
 					$stmt2 = $conn->prepare("SELECT questionid, topic, question, email, status FROM userquestion WHERE category = :categoryname");
 					$stmt2->execute(array(":categoryname" => $categoryname));
-
+					
 					while($row2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
 						$request = $row2;
 						$questionid = $request['questionid'];
-
+						
+						
 						// Checking whether another SME has answered the client question
 						$stmt4 = $conn->prepare("SELECT count(*) AS cnt FROM sme_answer WHERE questionid = :questionid AND answered_by <> :email");
 						$stmt4->execute(array(
@@ -162,8 +223,7 @@ else{
 						if($row4['cnt'] == 1)
 							continue;
 
-						/*
-						// Checking whether SME has declined request
+						/* // Checking whether SME has declined request
 						$stmt5 = $conn->prepare("SELECT count(*) AS dcnt FROM declined_requests WHERE questionid = :questionid AND sme_email = :email");
 						$stmt5->execute(array(
 							":questionid" => $questionid,
@@ -171,8 +231,7 @@ else{
 						));
 						$row5 = $stmt5->fetch(PDO::FETCH_ASSOC);
 						if($row5['dcnt'] == 1)
-							continue;
-						*/
+							continue; */
 
 						// Retrieving client name from table
 						$stmt3 = $conn->prepare("SELECT name FROM user WHERE email = :email");
@@ -180,8 +239,9 @@ else{
 						$row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 						$from = $row3['name'];
 				?>
-				  
+				
 				<button class="accordion"><?= htmlentities($request['topic']) ?></button>
+				
                   <div class="panel">
                      <div class="profile_section">
                         <div class="form">
@@ -189,6 +249,7 @@ else{
 								<div class="inputfield terms">
                                  <label>ID: </label>
                                  <label style="width: 100%;"><?= $questionid ?></label>
+								 
                               </div>
                               <div class="inputfield terms">
                                  <label>From: </label>
@@ -197,19 +258,31 @@ else{
                               <div class="inputfield terms">
                                  <label>Category: </label>
                                  <label style="width: 100%;"><?= htmlentities($categoryname) ?></label>
+								 
                               </div>
                               <div class="inputfield">
                                  <label>Question</label>
                                  <label style="width: 100%;"><?= htmlentities($request['question']) ?></label>
                               </div>
-							  <?php
+							   <?php
 								if($request['status'] != 'Accepted' && $request['status'] != 'Consultation confirmed') {
 							  ?>
+							  
                               <div class="inputfield">
                                  <label for="Tooltips" class="error thoughts" id="error_<?= $questionid ?>"></label>
                                  <label>Your thoughts on the matter</label>
                                  <textarea class="textarea" required="" id="SMEthoughts_<?= $questionid ?>"></textarea>
-                              </div>
+
+								<input id="topic_<?= $questionid ?>" value="<?= htmlentities($request['topic']) ?>" style="display: none;">
+								<input id="question_<?= $questionid ?>" value="<?= htmlentities($request['question']) ?>" style="display: none;">
+                              	<input id="user_<?= $questionid ?>" value="<?= htmlentities($request['email']) ?>" style="display: none;">
+								<input id="sme_name" value="<?php echo $name;?>" style="display: none;">
+								<input id="sme_email" value="<?php echo $email;?>" style="display: none;">
+								<input id="Qid" value="<?php echo $questionid;?>" style="display: none;">
+								
+							 </div>
+							  
+
                               <div class="row">
                                  <div class="col-sm-2"></div>
                                  <div class="col-sm-4">
@@ -218,25 +291,62 @@ else{
                                     </div>
                                  </div>
                                  <div class="col-sm-4">
-									<!--
+								 <!--
 								 	<div class="inputfield">
 										<input type="button" value="DECLINE" class="btn" onclick="decline_req('<?= $questionid ?>');" style="background-color: #F3834B">
 									</div>
 									-->
-								 </div>
+                                 </div>
                                  <div class="col-sm-2"></div>
                               </div>
+							  
 							  <?php } ?>
                            </form>
                         </div>
                      </div>
                   </div> 
+				  
 				<?php } ?>
                </div>
 			   
+			   
+			   
 			   <script>
+					function getWebinar(webinarid) {
+						document.getElementById('webinar_id1').value = document.getElementById('webinar_id').value;
+						document.getElementById('webinar_topic1').value = document.getElementById('webinar_topic_'.concat(webinarid)).value;
+						document.getElementById('webinar_desc1').value = document.getElementById('webinar_desc_'.concat(webinarid)).value;
+						document.getElementById('who_attend1').value = document.getElementById('who_attend_'.concat(webinarid)).value;
+						document.getElementById('key_takeaways1').value = document.getElementById('key_takeaways_'.concat(webinarid)).value;
+						document.getElementById('webinar_fees1').value = document.getElementById('webinar_fees_'.concat(webinarid)).value;
+						document.getElementById('date11').value = document.getElementById('webinar_date_'.concat(webinarid)).value;
+						document.getElementById('startone11').value = document.getElementById('webinar_from_time_'.concat(webinarid)).value;
+						document.getElementById('one11').value = document.getElementById('webinar_to_time_'.concat(webinarid)).value;
+						document.getElementById('webinar_venue1').value = document.getElementById('webinar_venue_'.concat(webinarid)).value;
+						document.getElementById('course_image1').value = document.getElementById('course_image_'.concat(webinarid)).value;
+						document.getElementById('del_web_name').innerHTML = document.getElementById('webinar_topic_'.concat(webinarid)).value;
+					}
+					
+				
+			   
+					function deletewebinar(webinarid) {
+						document.getElementById('del_web_name').innerHTML = document.getElementById('webinar_topic_'.concat(webinarid)).value;
+						document.getElementById("del_web").setAttribute("onclick", "confirm_delete_webinar('" + webinarid + "');");
+						$('#deletewebinar').modal('show');
+					} 
+			   
+			   
+			   
+			   
+			   
+			   
+		
 					function thoughtChecker(questionid) {
 						var smethoughts = document.getElementById('SMEthoughts_'.concat(questionid));
+						//document.getElementById('label_user').innerHTML = document.getElementById('user_'.concat(questionid)).value;
+						document.getElementById('label_topic').innerHTML = document.getElementById('topic_'.concat(questionid)).value;
+						document.getElementById('label_question').innerHTML = document.getElementById('question_'.concat(questionid)).value;
+						
 						if (smethoughts.value != '') {
 							document.getElementById('appointment').style.display = "none";
 							for(var i=0; i<3; i++)
@@ -257,15 +367,15 @@ else{
 						}
 					}
 					
-					/*
-					function decline_req(questionid) {
+					/* function decline_req(questionid) {
 						document.getElementById("confirmBtn").setAttribute("onclick", "decline_confirm('" + questionid + "');");
 						$('#declineRequest').modal('show');
-					}
-					*/
+					} */
+					
+					
 				</script>
 				
-
+					
                      <div class="col-12 col-sm-6 client_request">
                         <h1>consultations</h1>
 
@@ -277,7 +387,6 @@ else{
 							$consultation_count = 1;
 							while($row1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
 								$consultation = $row1;
-								$questionid = $consultation['questionId'];
 								
 								// Retrieving user question from table
 								$stmt2 = $conn->prepare("SELECT category, question FROM userquestion WHERE questionId = :questionId");
@@ -326,6 +435,7 @@ else{
                                     <label>Time</label>
                                     <label style="width: 100%;" id="consultation_time_1"><?= htmlentities($consultation['fromTime']) ?></label>
                                  </div>
+								
                                  <div class="row">
                                        <div class="col-sm-2"></div>
                                        <div class="col-sm-4">
@@ -335,11 +445,12 @@ else{
                                        </div>
                                        <div class="col-sm-4">
                                           <div class="inputfield">
-                                             <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="question_id('<?= $questionid ?>'); cancelConsultation(this.id);">
+                                              <input type="button" value="Cancel" class="btn" id="cancelConsultation_1" onclick="question_id('<?= $questionid ?>'); cancelConsultation(this.id);">
                                           </div>
                                        </div>
                                        <div class="col-sm-2"></div>
                                     </div>
+								
                               </form>
                            </div>
                         </div>
@@ -354,6 +465,126 @@ else{
             </div>
          </div>
       </section>
+	  
+	
+	   <section id="section2">
+         <div class="container-fluid" style="background-color: #f4f4f4;">
+            <div class="grp_box" style="padding: 40px;
+               background: #f5f5f5;
+               margin-bottom: 30px;
+               height: 650px;
+               -webkit-transition: all ease-in-out 0.5s;
+               -o-transition: all ease-in-out 0.5s;
+               transition: all ease-in-out 0.5s; text-align: center;">
+               <h4 style="margin-bottom: 15px;
+                  font-size: 26px; font-family: 'Georgia'; color: black;">The best hire the brightest
+                  <span type="button" data-toggle="modal" data-target="#edit_profile"><i class="fas fa-pen" style="margin-left: 10px;"></i></span>
+               </h4>
+               <h5 style="margin-bottom: 65px;
+                  font-size: 16px; font-family: 'Georgia'; color: grey;">Over 3,000 customers rely on the resumator to hire the best candidates every year</h5>
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-4">
+                        <img src="images/img1.jpg" style="width: 50%; border-radius: 50%;">
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 20px; font-family: 'Georgia'; color: black;">Sanjay Agarwal</h4>
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 12px; font-family: 'Georgia'; color: black;">Management Head</h4>
+                        <p style="font-size: 16px; margin-bottom: 1rem; margin-top: 1.5rem;">A Passionate Java Full Stack Trainer
+                           with 25+ years of experience with a
+                           demonstrated history of training
+                           working professionals in IT sector.
+                           An Enthusiastic Entrepreneur
+                           having zeal to explore more
+                           opportunities in learning and
+                           development.
+                        </p>
+                     </div>
+                     <div class="col-md-4">
+                        <img src="images/img2.jpg" style="width: 50%; border-radius: 50%;">
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 20px; font-family: 'Georgia'; color: black;">Sanjay Agarwal</h4>
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 12px; font-family: 'Georgia'; color: black;">Marketing Head</h4>
+                        <p style="font-size: 16px; margin-bottom: 1rem; margin-top: 1.5rem;">A Passionate Java Full Stack Trainer
+                           with 25+ years of experience with a
+                           demonstrated history of training
+                           working professionals in IT sector.
+                           An Enthusiastic Entrepreneur
+                           having zeal to explore more
+                           opportunities in learning and
+                           development.
+                        </p>
+                     </div>
+                     <div class="col-md-4">
+                        <img src="images/img3.jpg" style="width: 50%; border-radius: 50%;">
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 20px; font-family: 'Georgia'; color: black;">Sanjay Agarwal</h4>
+                        <h4 style="margin-bottom: 15px; margin-top: 1.5rem;
+                           font-size: 12px; font-family: 'Georgia'; color: black;">Development Head</h4>
+                        <p style="font-size: 16px; margin-bottom: 1rem; margin-top: 1.5rem;">A Passionate Java Full Stack Trainer
+                           with 25+ years of experience with a
+                           demonstrated history of training
+                           working professionals in IT sector.
+                           An Enthusiastic Entrepreneur
+                           having zeal to explore more
+                           opportunities in learning and
+                           development.
+                        </p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Start FAQ section -->
+      <section>
+         <div class="container faqs">
+            <h1>Frequently Asked Questions</h1>
+            <div class="accordion">
+               <div class="contentBx">
+                  <div class="label">How is the weather in Oblast, Russia ?</div>
+                  <div class="content">
+                     <p>We connect you to Subject Matter Experts from various areas of expertise who will answer your questions and help you in taking right decisions in all your phases of life.</p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">How can I apply for a scholarship in Kemerovo state medical university?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">Does the Kemerovo State Medical University provide post graduate courses?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo State Medical University fee structure?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo state medical college admission procedure?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+               <div class="contentBx">
+                  <div class="label">What is Kemerovo state medical university ranking ?</div>
+                  <div class="content">
+                     <p></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end FAQ section -->
+	  
+	  
+	  
       <br>
 	  <script>
 	  	function question_id(questionid) {
@@ -369,7 +600,8 @@ else{
                <form method="POST" action="sme_dashboard.php?email=<?php echo $email?>">
                   <div class="row">
                      <div class="col-sm-2">
-						<img src="Data/photo_loc/<?php echo $photo_loc;?>" style="max-width: 100%;">
+						
+						<?php echo '<img src="'.$photo_loc.'" style="max-width: 100%;" >'?>
 
                      </div>
                      <div class="col-sm-5">
@@ -402,6 +634,11 @@ else{
                            <label><?php echo $postal_addr;?></label>
 						</div>
 						
+						<div class="inputfield">
+						<label>Designation</label>
+                           <label><?php echo $sme_designation;?></label>
+						</div>
+						
 						
                         <div class="inputfield">
 						<label>Category</label>
@@ -414,17 +651,23 @@ else{
                            <label><?php echo $experience;?></label>
 						</div>
 						
-						
-                        <div class="inputfield">
-						<label>Skillset</label>
-                           <label><?php echo $skillset;?></label>
+						 <div class="inputfield">
+						<label>About me</label>
+                           <label><?php echo $about_sme;?></label>
 						</div>
-						
-						
+											
+  
                      </div>
 					 
 					  <div class="col-sm-5" style="border-left: 1px solid #38489E;">
 					  
+					  
+					    <div class="inputfield">
+						<label>Skillset</label>
+                           <label><?php echo $skillset;?></label>
+						</div>
+						
+					    
                         <div class="inputfield">
 						<label>Certifications and recognitions</label>
                            <label><?php echo $sme_cert;?></label>
@@ -454,13 +697,7 @@ else{
                            <label><?php echo $mode_of_cons;?></label>
 						</div>
 						
-						
-                        <div class="inputfield">
-						<label>Upload profile photo</label>
-                           <label><?php echo $photo_loc;?></label>
-						</div>
-						
-						
+
                         <div class="inputfield">
 						<label>Upload resume</label>
                            <label><?php echo $resume_loc;?></label>
@@ -498,7 +735,7 @@ else{
             <!-- Modal content-->
             <div class="modal-content">
                <div class="modal-body">
-                  <div class="profile_section">
+                  <div class="profile_section edit_profile">
                      <div class="title">EDIT YOUR PROFILE</div>
                      <div class="form">
                         
@@ -510,7 +747,7 @@ else{
 
 						  <div class="row">
 						  <div class="col-sm-3">
-							 <img src="Data/photo_loc/<?php echo $photo_loc;?>" style="max-width: 100%;">
+							 <?php echo '<img src="'.$photo_loc.'" style="max-width: 100%;" >'?>
 						  </div>
                         
 							<div class="col-sm-9">
@@ -545,20 +782,25 @@ else{
                            </div>
 						   
 						   
+						   
+						   
                               </div>
                            </div><br>
 						   
-						   
+						   <div class="inputfield">
+                              <label>Designation</label>
+                              <input type="input" class="input"  id="sme_designation" name="sme_designation"  placeholder="Director of Tech Solutions Pvt. Ltd." value="<?php echo $sme_designation;?>">
+                           </div>
 						   
                            <div class="inputfield">
                               <label>Category</label>
                               <div class="custom_select">
-                                 <select name="categoryname" required="">
-                                    <option value="Entrepreneurship">Entrepreneurship</option>
-                                    <option value="Health and Fitness">Health and Fitness</option>
-                                    <option value="IT">IT</option>
-									<option value="RealEstate">RealEstate</option>
-                                    <option value="Others">Others</option>
+                                 <select name="categoryname" class="input" required="">
+                                    <option class="input" value="Entrepreneurship">Entrepreneurship</option>
+                                    <option class="input" value="Health and Fitness">Health and Fitness</option>
+                                    <option class="input" value="IT">IT</option>
+									<option class="input" value="RealEstate">RealEstate</option>
+                                    <option class="input" value="Others">Others</option>
                                  </select>
                               </div>                           
 							  </div>
@@ -572,14 +814,19 @@ else{
 						   
                            <div class="inputfield">
                               <label>Skillset</label>
-                              <input type="input" class="input" id="skillset"   name="skillset" placeholder="Excellent in Frontend Web development using HTML, CSS and JavaScript" value="<?php echo $skillset;?>">
+							  <textarea type="input" name="skillset" id="skillset" class="input" placeholder="Excellent in Frontend Web development using HTML, CSS and JavaScript"><?php echo $skillset;?></textarea>
                            </div>
 						   
 						   
                            <div class="inputfield">
                               <label>Certifications and recognitions</label>
-                              <input type="input" class="input"  id="sme_cert" name="sme_cert" placeholder="Graduate from B.P. Poddar Institute of Management and Technology" value="<?php echo $sme_cert;?>">
+							  <textarea type="input" name="sme_cert" id="sme_cert" class="input" placeholder="Graduate from B.P. Poddar Institute of Management and Technology"><?php echo $sme_cert;?></textarea>
                            </div>
+						   
+						    <div class="inputfield">
+                              <label>About me</label> 
+							<textarea type="input" name="about_sme" id="about_sme" class="input" placeholder="write about yourself..."><?php echo $about_sme;?></textarea>
+						   </div>
 						   
 						   
                            <div class="inputfield">
@@ -594,7 +841,8 @@ else{
 							  <label class="check">
                               <input type="radio" name="webinars" value="Yes" checked="">
 							  </label>
-                              <p>Yes</p>
+							  <p>Yes</p>
+                             
                              
 							 <label class="check">
                               <input type="radio" name="webinars" value="No">
@@ -602,6 +850,7 @@ else{
                               <p>No</p>
                              
 							 </div>
+							 
 						   
 						   
                            <div class="inputfield">
@@ -612,21 +861,27 @@ else{
 						   
                            <div class="inputfield">
                               <label>Mode of Consultation</label>
+							  
                               <label class="check">
                               <input type="checkbox" name="MOC[ ]" value="Chat" checked="">
                               <span class="checkmark"></span>
                               </label>
                               <p>Chat</p>
+							  
+							  
                               <label class="check">
                               <input type="checkbox" name="MOC[ ]" value="Email" checked="">
                               <span class="checkmark"></span>
                               </label>
                               <p>Email</p>
+							  
+							  
                               <label class="check">
                               <input type="checkbox" name="MOC[ ]" value="Call">
                               <span class="checkmark"></span>
                               </label>
-                              <p>Call</p>                      
+                              <p>Call</p>  
+							  
 						  </div>
 						   
 						   
@@ -642,7 +897,18 @@ else{
 						   
                            <div class="inputfield">
                               <label>Upload profile photo</label>
-                              <input type="file" id="photo_loc" name="photo_loc" value="<?php echo $photo_loc;?>">
+                              <input type="file" required="" id="photo_loc" name="photo_loc" value="<?php echo $photo_loc;?>">
+							  
+							  <a class="trigger_popup_fricc">Profile photo template</a>
+								<div class="hover_bkgr_fricc">
+								<span class="helper"></span>
+								<div>
+									<div class="popupCloseButton">&times;</div>
+									<p>Upload your Profile photo like this portrait dimension, to get best fit on webinar page.</p>
+									<img src="images/profile_photo.jpeg" style="max-width: 100%;" >
+								</div>
+								</div>
+							  
                            </div>
 						   
 						   
@@ -780,17 +1046,17 @@ else{
                                  <div class="inputfield terms appointment">
                                     <label class="label">select mode</label>
                                     <label class="check">
-                                    <input type="checkbox" onclick="onlyOne(this);" class="selectmode" name="consultation_mode" value="chat" id="chat">
+                                    <input type="checkbox" onclick="onlyOne1(this);" class="selectmode" name="consultation_mode" value="chat" id="chat">
                                     <span class="checkmark"></span>
                                     </label>
                                     <p>chat</p>
                                     <label class="check">
-                                    <input type="checkbox" onclick="onlyOne(this);" class="selectmode" name="consultation_mode" value="email" id="mail email">
+                                    <input type="checkbox" onclick="onlyOne1(this);" class="selectmode" name="consultation_mode" value="email" id="mail email">
                                     <span class="checkmark"></span>
                                     </label>
                                     <p>email</p>
                                     <label class="check">
-                                    <input type="checkbox" onclick="onlyOne(this);" class="selectmode" name="consultation_mode" value="call" id="call">
+                                    <input type="checkbox" onclick="onlyOne1(this);" class="selectmode" name="consultation_mode" value="call" id="call">
                                     <span class="checkmark"></span>
                                     </label>
                                     <p>call</p>
@@ -855,50 +1121,72 @@ else{
                            </div>
                            <br>
                      
+						
 					 
 					 
-					 
-					        <!--Email reply starts --->
-                           <div id="emailResponse">
-                              <label>From: pratitibera99@gmail.com</label><br>
-                              <label>Topic: How can I have my own startup? What is the minimum cost for having one?</label><br>
-                              <label>Question: How can I have my own startup? What is the minimum cost for having one?</label><br>
-                              <textarea class="textarea" required="" id="SMEthoughts" style="width: 100%;
-  outline: none;
-  border: 1px solid #d5dbd9;
-  font-size: 15px;
-  padding: 8px 10px;
-  border-radius: 3px;
-  transition: all 0.3s ease; height: 120px; resize: none;" placeholder="Your thoughts..."></textarea>
-  <br>
-  <div class="text-center">
-                              <button class="btn" style="
-   padding: 8px 10px;
-  font-size: 15px; 
-  border: 0px;
-  background: #F3834B;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 3px;
-  outline: none;">EMAIL CLIENT</button>
-                        </div>
+					    <!--Email reply starts --->
+                        <div id="emailResponse">
+							<!--  <label>From :&nbsp;</label><label id="label_user"></label><br>-->
+							  <label>Topic :&nbsp;</label><label id="label_topic"></label><br>
+							  <label>Question :&nbsp;</label><label id="label_question"></label><br>
+                              
+                              <textarea class="textarea" required="" id="sme_thoughts" style="width: 100%;outline: none;border: 1px solid #d5dbd9;font-size: 15px;padding: 8px 10px;border-radius: 3px;transition: all 0.3s ease; height: 120px; resize: none;" placeholder="Your thoughts..."></textarea>
+							 <input type="file" name="file" id="file">
+							<br>
+							<!--<div class="text-center">
+                            <button class="btn" id="email_client" style="padding: 8px 10px;font-size: 15px; border: 0px;background: #F3834B;color: #fff;cursor: pointer;border-radius: 3px;outline: none;">EMAIL CLIENT</button>
+							</div>-->
 						</div>
-
-                           <br>
+						<br>
+						
                            <!-- email reply ends ---->
 					 
-					 
-					 
-					 
-                           <div class="row" id="savebutton">
+							<div class="row" id="savebutton">
                               <div class="col-sm-4 col-lg-5"></div>
                               <div class="col-sm-4 col-lg-2">
                                  <div class="inputfield">
-                                    <input type="button" id="saveBtn" value="SAVE" class="btn" onclick="finalValidation();">
+                                    <input type="button" id="saveBtn" value="SUBMIT" class="btn" onclick="finalValidation();">
                                  </div>
                               </div>
                               <div class="col-sm-4 col-lg-5"></div>
                            </div>
+						   
+						<script>
+						function onlyOne1(checkbox) {
+						mode_id = checkbox.id;
+						var checkboxes = document.getElementsByName('consultation_mode')
+						checkboxes.forEach((item) => {
+							if (item !== checkbox) item.checked = false
+						})
+
+						if (mode_id == 'chat' || mode_id == 'call') {
+							document.getElementById('savebutton').style.visibility = "visible";
+							if (document.getElementById(mode_id).checked) {
+								document.getElementById('appointment').style.display = "block";
+								document.getElementById('emailResponse').style.display = "none";
+
+							} else {
+								document.getElementById('appointment').style.display = "none";
+								document.getElementById('emailResponse').style.display = "none";
+								
+							}
+						} else {
+							if (document.getElementById(mode_id).checked){
+								document.getElementById('appointment').style.display = "none";
+							document.getElementById('emailResponse').style.display = "block";
+							document.getElementById('savebutton').style.visibility = "visible";
+
+							}
+							else{
+								document.getElementById('appointment').style.display = "none";
+							document.getElementById('emailResponse').style.display = "block";
+							document.getElementById('savebutton').style.visibility = "visible";
+							}
+						}
+					}
+					</script>
+						   
+						   
                         </form>
                      </div>
                   </div>
@@ -923,14 +1211,36 @@ else{
 					method: "POST",
 					data: {do:"accept_request", questionid:questionid, answer:answer, mode_of_cons: mode_of_cons},
 					success: function(client_email) {
+						
 						var client_email = client_email.trim();
+						var fd = new FormData();
+						var files = $('#file')[0].files[0];
+						var sme_thoughts = document.getElementById("sme_thoughts").value;
+						var topic = document.getElementById('topic_'.concat(questionid)).value;
+						var question = document.getElementById('question_'.concat(questionid)).value;
+						var sme_name = document.getElementById('sme_name').value;
+						var sme_email = document.getElementById('sme_email').value;
+						var Qid = document.getElementById('Qid').value;
+						
+						fd.append('file',files);
+						fd.append('sme_thoughts',sme_thoughts);
+						fd.append('client_email',client_email);
+						fd.append('question',question);
+						fd.append('topic',topic);
+						fd.append('sme_name',sme_name);
+						fd.append('sme_email',sme_email);
+						fd.append('Qid',Qid);
+						
 						window.location.replace("sme_dashboard.php");
-						alert("Request accepted.");
 						$.ajax({
-							url: "consultation_slots.php",
-							method: "POST",
-							data: {do:"mail", client_email:client_email}
+								url: 'email_response.php',
+								type: 'post',
+								data: fd,
+								contentType: false,
+								processData: false
+								
 						});
+						alert("Email Sent");
 					}
 				});
 			}
@@ -996,8 +1306,23 @@ else{
             </div>
          </div>
       </div>
-	  <!--
-	  <script>
+	  
+	  
+	  
+	   <div class="modal fade" id="deletewebinar" role="dialog">
+         <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body" style="text-align: center;">
+                  <a style="color: #38489E; font-size: 18px; font-weight: bold;" >Are you sure you want to delete a webinar -&nbsp;</a><a style="color: #38489E; font-size: 18px; font-weight: bold;" id="del_web_name"></a><br><br>
+                  <button class="btn" id="del_web" style="background-color: #F3834B;">CONFIRM</button>
+               </div>
+            </div>
+         </div>
+      </div>
+	  
+	  
+	  <!-- <script>
 		function decline_confirm(questionid) {
 			$.ajax({
 				url: "consultation_slots.php",
@@ -1011,8 +1336,23 @@ else{
 				}
 			});
 		}
+	  </script> -->
+	  
+	  <script>
+		function confirm_delete_webinar(webinarid) {
+			$.ajax({
+				url: "delete_webinar.php",
+				method: "POST",
+				data: {webinarid: webinarid},
+				success: function(status) {
+					if(status.trim() == "1") {
+						window.location.replace("sme_dashboard.php");
+						alert("Webinar Deleted.");
+					}
+				}
+			});
+		}
 	  </script>
-	  -->
       <!--end modal for request decline confirmation --->
 	  
 	  
@@ -1028,17 +1368,17 @@ else{
                         <form>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason1" checked="">
+                                <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason1" checked="">
                               <span class="checkmark"></span>
                               </label>
-                              <p id="reason1">Got busy with something else</p>
+                               <p id="reason1">Got busy with something else</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
-                              <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason2">
+                               <input type="checkbox" onclick="onlyOneReason(this)" class="cancelReason" id="cancelReason2">
                               <span class="checkmark"></span>
                               </label>
-                              <p id="reason2">Clashing with another consultation</p>
+                               <p id="reason2">Clashing with another consultation</p>
                            </div>
                            <div class="inputfield terms">
                               <label class="check">
@@ -1084,7 +1424,7 @@ else{
 					reason = document.getElementById("reason".concat(i+1)).innerHTML;
 					break
 				}
-			
+
 			$.ajax({
 				url: "cancel_consultations.php",
 				method: "POST",
@@ -1104,6 +1444,301 @@ else{
 		}
 	  </script>
       <!--end modal for cancel consultation --->
+	  
+	  
+	  
+	  
+	  
+	  <!-- modal for post webinar--->
+      <div class="modal fade" id="postWebinar" role="dialog">
+         <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body">
+                  <div class="profile_section">
+                     <div class="title">POST A WEBINAR</div>
+                     <div class="form">
+                        <form method="POST" action="post_webinar.php" enctype="multipart/form-data" >
+							
+                           <div class="inputfield">
+                              <label>Webinar topic</label>
+                              <input type="text" name="webinar_topic" id="webinar_topic" class="input" required="">
+                           </div>
+                           <div class="inputfield">
+                              <label>Description(Within 200 words)</label>
+                              <textarea type="text" name="webinar_desc" id="webinar_desc" class="textarea" required="" placeholder="Objective of the course"></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Who can attend?</label>
+                              <textarea type="text" name="who_attend" id="who_attend" class="textarea" required="" placeholder="Target audience"></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Key takeaways (Within 100 words)</label>
+                              <textarea type="text" name="key_takeaways" id="key_takeaways" class="textarea" required=""></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Fees</label>
+                              <input type="text" name="webinar_fees" id="webinar_fees" class="input" required="">
+                           </div>
+						   
+						   <div class="inputfield">
+                              <label>Webinar Venue</label>
+                              <input type="text" name="webinar_venue" id="webinar_venue" class="input" placeholder="Zoom call, Google meet, etc." required="">
+                           </div>
+						   
+						   <div class="inputfield">
+                              <label>Course Image</label>
+                              <input type="file" required="" name="course_image" id="course_image" >
+							  
+							    <a class="trigger_popup_fricc">Course image template</a>
+								<div class="hover_bkgr_fricc">
+								<span class="helper"></span>
+								<div>
+									<div class="popupCloseButton">&times;</div>
+									<p>Upload your Course image poster like this portrait dimension, to get best fit on webinar page.</p>
+									<img src="images/service1.jpg" style="max-width: 100%;" >
+								</div>
+								</div>
+							  
+							  
+                           </div>
+						   
+						   
+						   
+						   
+						   
+						   <style>/* Popup box BEGIN */
+							.hover_bkgr_fricc{
+								
+								cursor:pointer;
+								display:none;
+								height:100%;
+								position:fixed;
+								text-align:center;
+								top:0;
+								width:100%;
+								z-index:10000;
+							}
+							.hover_bkgr_fricc .helper{
+								display:inline-block;
+								height:100%;
+								vertical-align:middle;
+							}
+							.hover_bkgr_fricc > div {
+								background-color: #fff;
+								box-shadow: 10px 10px 60px #555;
+								display: inline-block;
+								height: auto;
+								max-width: 550px;
+								min-height: 100px;
+								vertical-align: middle;
+								width: 40%;
+								position: relative;
+								border-radius: 8px;
+								padding: 15px 5%;
+							}
+							.popupCloseButton {
+								background-color: #fff;
+								border: 3px solid #999;
+								border-radius: 50px;
+								cursor: pointer;
+								display: inline-block;
+								font-family: arial;
+								font-weight: bold;
+								position: absolute;
+								top: -20px;
+								right: -20px;
+								font-size: 25px;
+								line-height: 30px;
+								width: 30px;
+								height: 30px;
+								text-align: center;
+							}
+							.popupCloseButton:hover {
+								background-color: #ccc;
+							}
+							.trigger_popup_fricc {
+								cursor: pointer;
+								font-size: 20px;
+								margin: 20px;
+								display: inline-block;
+								font-weight: bold;
+							}
+							/* Popup box BEGIN */</style>
+						   
+						   <script>
+						   $(window).load(function () {
+							$(".trigger_popup_fricc").click(function(){
+							   $('.hover_bkgr_fricc').show();
+							});
+							$('.hover_bkgr_fricc').click(function(){
+								$('.hover_bkgr_fricc').hide();
+							});
+							$('.popupCloseButton').click(function(){
+								$('.hover_bkgr_fricc').hide();
+							});
+						});
+						   </script>
+						  
+						  
+						  
+                           <div class="inputfield">
+						    <label for="Tooltips" class="error" id="iddate"></label>
+                              <label>Date</label>
+                              <input type="date" id="date" name="date" class="input" required="" onblur="dateChecker(this);">
+                           </div>
+
+                           <div class="inputfield">
+                              <label>Start time</label>
+                              <input type="time"  id="startone1" name="startone1" class="input" required="" onblur="timeChecker(this);">
+                           </div>
+						   <label for="Tooltips" class="error" id="idone1"></label>
+                           <div class="inputfield">
+                              <label>End time</label>
+                              <input type="time" id="one1" name="one1" class="input" required="" onblur="timeChecker(this);">
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6">
+                                 <div class="inputfield">
+                                    <input type="submit" name="post_webinar" id="post_webinar" value="POST WEBINAR" class="btn">
+                                 </div>
+							<div class="alert alert-danger" role="alert" id="post-webinar-error" style="display: none;">
+						   </div>
+						    <div class="alert alert-success" role="alert" id="email-sent-msg-user" style="display: none;">
+							<p>Your Webinar has been Posted</p>
+						   </div>
+                              </div>
+                              <div class="col-sm-3"></div>
+                           </div>
+                        </form>
+						
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+	  
+
+      <!--end modal for post webinar --->
+	  
+	  
+	  
+	  
+	  
+	  	<!-- modal for EDIT webinar--->
+      <div class="modal fade" id="editWebinar" role="dialog">
+         <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-body">
+                  <div class="profile_section">
+                     <div class="title">Edit Your WEBINAR</div>
+                     <div class="form">
+                        <form method="POST" action="edit_webinar.php" enctype="multipart/form-data" >
+							
+                           <div class="inputfield">
+                              <label>Webinar topic</label>
+							  
+                              <input type="text" name="webinar_topic1" id="webinar_topic1" class="input" required="">
+                           </div>
+                           <div class="inputfield">
+                              <label>Description(Within 200 words)</label>
+                              <textarea type="text" name="webinar_desc1" id="webinar_desc1" class="textarea" required="" placeholder="Objective of the course"></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Who can attend?</label>
+                              <textarea type="text" name="who_attend1" id="who_attend1" class="textarea" required="" placeholder="Target audience"></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Key takeaways (Within 100 words)</label>
+                              <textarea type="text" name="key_takeaways1" id="key_takeaways1" class="textarea" required=""></textarea>
+                           </div>
+                           <div class="inputfield">
+                              <label>Fees</label>
+                              <input type="text" name="webinar_fees1" id="webinar_fees1" class="input" required="">
+                           </div>
+						   
+						   <div class="inputfield">
+                              <label>Webinar Venue</label>
+                              <input type="text" name="webinar_venue1" id="webinar_venue1" class="input"  required="">
+                           </div>
+						   
+						   <div class="inputfield">
+                              <label>Course Image</label>
+                              <input type="file" required="" name="course_image1" id="course_image1" >
+							  
+							    <a class="trigger_popup_fricc">Course image template</a>
+								<div class="hover_bkgr_fricc">
+								<span class="helper"></span>
+								<div>
+									<div class="popupCloseButton">&times;</div>
+									<p>Upload your Course image poster like this portrait dimension, to get best fit on webinar page.</p>
+									<img src="images/service1.jpg" style="max-width: 100%;" >
+								</div>
+								</div>
+							  
+							  
+                           </div>
+						  
+                           <div class="inputfield">
+						    <label for="Tooltips" class="error" id="iddate11"></label>
+                              <label>Date</label>
+                              <input type="date" id="date11" name="date11" class="input" required="" onblur="dateChecker(this);">
+                           </div>
+
+                           <div class="inputfield">
+                              <label>Start time</label>
+                              <input type="time"  id="startone11" name="startone11" class="input" required="" onblur="timeChecker(this);">
+                           </div>
+						   <label for="Tooltips" class="error" id="idone11"></label>
+                           <div class="inputfield">
+                              <label>End time</label>
+                              <input type="time" id="one11" name="one11" class="input" required="" onblur="timeChecker(this);">
+                           </div>
+						   
+						   <input id="webinar_id1" name="webinar_id1" style="display: none;">
+
+						   
+						   
+                           <div class="row">
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6">
+                                 <div class="inputfield">
+                                    <input type="submit" name="edit_webinar" id="edit_webinar" value="UPDATE WEBINAR" class="btn">
+                                 </div>
+							<div class="alert alert-danger" role="alert" id="post-webinar-error" style="display: none;">
+						   </div>
+						    <div class="alert alert-success" role="alert" id="email-sent-msg-user" style="display: none;">
+							<p>Your Webinar has been Posted</p>
+						   </div>
+                              </div>
+                              <div class="col-sm-3"></div>
+                           </div>
+                        </form>
+						
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+	  
+
+      <!--end modal for EDIT webinar --->
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
       <!-- Start footer -->
@@ -1131,13 +1766,15 @@ else{
       <!-- end footer -->
       <!--- Scripts section --->
       <!-- sticky nav -->
+      <script src="js/jquery-2.2.4.min.js"></script>
       <script src="js/parallax.min.js"></script>
       <script src="js/owl.carousel.min.js"></script>
       <script src="js/isotope.pkgd.min.js"></script>
       <script src="js/jquery.magnific-popup.min.js"></script>
       <script src="js/jquery.sticky.js"></script>
       <script src="js/main.js"></script>
-      <script src="js/pageHandler.js"></script>
+     <script src="pageHandler.js"></script>
+	  <script src="check.js"></script>
       <!-- For carousel --->
       <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/easytimer@1.1.1/src/easytimer.min.js"></script>

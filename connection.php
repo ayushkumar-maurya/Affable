@@ -11,6 +11,7 @@
 	session_start();
 ?>
 
+
 <?php
  $db = mysqli_connect('localhost', 'root', '') or
         die ('Unable to connect. Check connection.');
