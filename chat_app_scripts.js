@@ -53,8 +53,6 @@ function chat(userid, user, questionid) {
 
 	document.getElementById("send-msg").setAttribute("onclick", "sendMsg('"+ userid +"', '" + questionid + "')");
 	// document.getElementById("clr-msgs").setAttribute("onclick", "clearChats('"+ userid +"', '" + user + "')");
-
-	$('#connectToChat').modal('show');
 }
 
 function sendMsg(userid, questionid) {
@@ -78,4 +76,13 @@ function sendMsg(userid, questionid) {
 			// document.getElementById("attachedFile").value = "";
 		}
 	});
+}
+
+function disconnectChat() {
+	$('#disconnectChatModal').modal('show');
+}
+
+function closeChat() {
+	$('#disconnectChatModal').modal('hide');
+	$('#connectToChat').modal('hide');
 }

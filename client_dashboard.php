@@ -316,7 +316,7 @@ textarea:focus{
                                  </div>
 								
                                  <div class="inputfield">
-                                     <input type="button" value="Click to connect" class="btn" data-backdrop="static" data-keyboard="false" onclick="chat('<?= $smeEmailId ?>', '<?= $sme_code ?>', '<?= $questionId ?>');">
+                                     <input type="button" value="Click to connect" class="btn" data-toggle="modal" data-target="#connectToChat" data-backdrop="static" data-keyboard="false" onclick="chat('<?= $smeEmailId ?>', '<?= $sme_code ?>', '<?= $questionId ?>');">
                                  </div>
 							
                               </form>
@@ -682,7 +682,7 @@ textarea:focus{
                   <a href="#">
                      <i class="fas fa-ellipsis-v" style="margin-right: 26px; float: right; color: #031426;"></i>
                   </a>
-                  <button class="btn" style="background-color: red; float: right; margin-right: 25px; margin-top: -10px;">Disconnect</button>
+                  <button class="btn" style="background-color: red; float: right; margin-right: 25px; margin-top: -10px;" onclick="disconnectChat();">Disconnect</button>
                </h4> 
             </div>
          </div>
@@ -705,6 +705,18 @@ textarea:focus{
          </div>
       </div>
       <!--end modal for chat connect --->
+	  <!-- modal for disconnect chat --->
+      <div class="modal fade" id="disconnectChatModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center;">
+					<p style="color: #38489E; font-size: 18px; font-weight: bold;">Are you sure you want to disconnect?</p>
+					<button class="btn" onclick="closeChat();" style="background-color: #F3834B;">Disconnect</button>
+				</div>
+			</div>
+		</div>
+      </div>
       <!-- Start footer -->
 	  <br><br>
       <footer style="background-color: #f2f2f2">
