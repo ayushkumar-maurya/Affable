@@ -689,7 +689,7 @@ textarea:focus{
          <div style="height: 60vh;" id="chats"></div>
          <div class="row" style="height: 12vh; -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); box-shadow: 5px -1px 3px 0px rgba(0,0,0,0.25); padding: 15px; padding-left: 50px;">
             <div class="col-7 col-sm-7" style="padding: 0px;">
-               <textarea placeholder="Write a message" style=" width:100%; height: 55px; resize: none; border: 1px solid white;" id="msg"></textarea>
+               <textarea placeholder="Write a message" style=" width:100%; height: 55px; resize: none; border: 1px solid white;" id="msg" onkeydown="return (event.keyCode!=13);"></textarea>
             </div>
             <div class="col-5 col-sm-5">
                <a href="#" id="send-msg"><i class="fas fa-paper-plane" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
