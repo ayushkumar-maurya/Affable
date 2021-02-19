@@ -57,7 +57,7 @@ function chat(userid, user, questionid) {
 	document.getElementById("msg").value = "";
 
 	document.getElementById("send-msg").setAttribute("onclick", "sendMsg('"+ userid +"', '" + questionid + "')");
-	// document.getElementById("clr-msgs").setAttribute("onclick", "clearChats('"+ userid +"', '" + user + "')");
+	document.getElementById("clr-msgs").setAttribute("onclick", "clearChats('"+ userid +"', '" + user + "', '" + questionid + "')");
 }
 
 function sendMsg(userid, questionid) {
@@ -90,6 +90,23 @@ function disconnectChat() {
 function closeChat() {
 	$('#disconnectChatModal').modal('hide');
 	$('#connectToChat').modal('hide');
+}
+
+function clearChats(userid, user, questionid) {
+	document.getElementById("confirm-clr-msgs").setAttribute("onclick", "confirmClearChats('"+ userid +"', '" + user + "', '" + questionid + "')");
+	$('#clrChatsModal').modal('show');
+}
+
+function confirmClearChats(userid, user, questionid) {
+	$.ajax({
+		url: "clear_chats.php",
+		method: "POST",
+		data: {userid:userid, questionid:questionid},
+		success: function() {
+			chat(userid, user, questionid);
+			$('#clrChatsModal').modal('hide');
+		}
+	});
 }
 
 $(document).ready(function() {

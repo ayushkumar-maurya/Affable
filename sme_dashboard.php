@@ -1791,7 +1791,7 @@ else{
                               <span class="fas fa-ellipsis-v"></span>
                               <div class="dropdown-content">
                                  <a href="#">Export chat</a>
-                                 <a href="#">Clear chat</a>
+                                 <a href="#" id="clr-msgs">Clear chat</a>
                               </div>
                            </div>
                         </div>
@@ -1821,6 +1821,18 @@ else{
 				<div class="modal-body" style="text-align: center;">
 					<p style="color: #38489E; font-size: 18px; font-weight: bold;">Are you sure you want to disconnect?</p>
 					<button class="btn" onclick="closeChat();" style="background-color: #F3834B;">Disconnect</button>
+				</div>
+			</div>
+		</div>
+      </div>
+	  <!-- modal for clear chat --->
+      <div class="modal fade" id="clrChatsModal" role="dialog">
+		<div class="modal-dialog modal-sm">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body" style="text-align: center;">
+					<p style="color: #38489E; font-size: 18px; font-weight: bold;">Are you sure you want to clear chats?</p>
+					<button class="btn" id="confirm-clr-msgs" style="background-color: #F3834B;">Clear</button>
 				</div>
 			</div>
 		</div>
