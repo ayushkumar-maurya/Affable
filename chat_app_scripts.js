@@ -1,10 +1,17 @@
 function msgFormat(who) {
 	var msgDiv = document.createElement("DIV");
-	if(who == 0)
+	var attachClass;
+
+	if(who == 0) {
 		msgDiv.id = "user1";
-	else
+		attachClass = "user1Attach";
+	}
+	else {
 		msgDiv.id = "user2";
-	return msgDiv;
+		attachClass = "user2Attach";
+	}
+
+	return [msgDiv, attachClass];
 }
 
 function retrieve_chats(userid, questionid) {
@@ -15,23 +22,22 @@ function retrieve_chats(userid, questionid) {
 		success: function(msgs) {
 			var msgs = JSON.parse(msgs);
 			for(var msg of msgs) {
-				var msgDiv = msgFormat(msg[4]);
+				var format = msgFormat(msg[4]);
+				var msgDiv = format[0];
 
 				var html = "";
 				if(msg[0] != '')
 					html += (msg[0] + "<br>");
 				if(msg[1] != '')
-					html += ("Download <a href='attachments/" + msg[2] + "' class='alert-link' download>" + msg[1] + "</a><br>");
+					html += ("Download <a href='attachments/" + msg[2] + "' class='" + format[1] + "' download>" + msg[1] + "</a><br>");
 				html += "<span class='date-time'>" + msg[3] + "</span>";
 
 				msgDiv.innerHTML = html;
 				document.getElementById("chats").appendChild(msgDiv);
 				
-				/*
 				$("#chats").animate({ 
                     scrollTop: document.getElementById("chats").scrollHeight 
-                }, 0); 
-				*/
+                }, 0);
 
 				msgCnt++;
 			}
@@ -56,13 +62,13 @@ function chat(userid, user, questionid) {
 
 function sendMsg(userid, questionid) {
 	var msg = document.getElementById("msg").value;
-	// var attachedFile = $('#attachedFile')[0].files[0];
+	var attachedFile = $('#attachedFile')[0].files[0];
 
 	var formData = new FormData();
 	formData.append('userid', userid);
 	formData.append('msg', msg);
 	formData.append('questionid', questionid);
-	// formData.append('attachedFile',attachedFile);
+	formData.append('attachedFile',attachedFile);
 
 	$.ajax({
 		url: "send_message.php",
@@ -72,7 +78,7 @@ function sendMsg(userid, questionid) {
 		processData: false,
 		success: function() {
 			document.getElementById("msg").value = "";
-			// document.getElementById("attachedFile").value = "";
+			document.getElementById("attachedFile").value = "";
 		}
 	});
 }

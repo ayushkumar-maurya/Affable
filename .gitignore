@@ -1,0 +1,5 @@
+attachments/*
+!attachments/README.md
+
+export_chat/*
+!export_chat/README.md

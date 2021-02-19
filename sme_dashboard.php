@@ -72,9 +72,18 @@ else{
          } 
       </style>
 	  <style>
-		.date-time {
+		a.user1Attach {
+			color: #87898f;
+			font-weight: bold;
+			text-decoration: underline;
+		}
+		a.user2Attach {
+			color: #fff;
+			font-weight: bold;
+			text-decoration: underline;
+		}
+		span.date-time {
 			font-size: 0.8rem;
-			color: #343a40;
 		}
 	  </style>
 </head>
@@ -1793,8 +1802,8 @@ else{
                            <textarea placeholder="Write a message" id="msg" onkeydown="return (event.keyCode!=13);"></textarea>
                         </div>
                         <div class="col-3 col-sm-3">
-                           <label for="upload-photo"><i class="fas fa-paperclip"></i></label>
-                           <input type="file" name="photo" id="upload-photo"/>
+                           <label for="attachedFile"><i class="fas fa-paperclip"></i></label>
+                           <input type="file" name="attachedFile" id="attachedFile"/>
                            <a href="#" id="send-msg"><i class="fas fa-paper-plane"></i></a>
                         </div>
                      </div>

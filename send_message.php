@@ -17,7 +17,6 @@ function insert($msg, $isFile, $conn, $userid, $questionid) {
 		":isFile" => $isFile
 	));
 
-	/*
 	// Inserting attached file name into database table and uploading file if present
 	if($isFile == 1) {
 		$msgid = $conn->lastInsertId();
@@ -37,7 +36,6 @@ function insert($msg, $isFile, $conn, $userid, $questionid) {
 			":tempname" => $temp_name
 		));		
 	}
-	*/
 }
 
 
