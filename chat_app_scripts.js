@@ -1,10 +1,9 @@
 function msgFormat(who) {
 	var msgDiv = document.createElement("DIV");
 	if(who == 0)
-		msgDiv.setAttribute("class", "alert alert-primary");
+		msgDiv.id = "user1";
 	else
-		msgDiv.setAttribute("class", "alert alert-success");
-	msgDiv.setAttribute("role", "alert");
+		msgDiv.id = "user2";
 	return msgDiv;
 }
 

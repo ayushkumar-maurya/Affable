@@ -34,33 +34,17 @@
 	  <script src="chat_app_scripts.js"></script>
       <style>
          ::placeholder {
-  color: #031426;
-  opacity: 1; /* Firefox */
-}
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
- color: #031426;
-}
-
-::-ms-input-placeholder { /* Microsoft Edge */
- color: #031426;
-}
-
-textarea:focus{
-   outline: none;
-}
+			color: #38489E;
+         opacity: 1; /* Firefox */
+         }
+         :-ms-input-placeholder { /* Internet Explorer 10-11 */
+         color: #38489E;
+         }
+         ::-ms-input-placeholder { /* Microsoft Edge */
+         color: #38489E;
+         } 
       </style>
 	  <style>
-	  	.alert {
-			padding: 5px;
-			width: 70%;
-		}
-
-		.alert-success {
-			margin-left: auto; 
-			margin-right: 0;
-		}
-
 		.date-time {
 			font-size: 0.8rem;
 			color: #343a40;
@@ -331,8 +315,6 @@ textarea:focus{
                </div>
             </div>
          </div>
-
-		 </div>
       </section>
 	  
 	   <!-- Start FAQ section -->
@@ -672,34 +654,38 @@ textarea:focus{
             <!-- Modal content-->
             <div class="modal-content">
                <div class="modal-body" style="padding: 0px;">
-                  <div class="container-fluid">
-         <div class="row" style="color: #031426; height: 80px; font-size: 20px; -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); box-shadow: 0px 2px 7px rgba(0,0,0,0.25); padding: 8px;">
-            <div class="col-3 col-sm-3">
-               <img src="images/img1.jpg" style="width: 80%; border-radius: 50%; margin-right: 12px; margin-left: 20px;">
-            </div>
-            <div class="col-9 col-sm-9" style="padding: 15px;">
-               <h4 style="color: #031426; font-weight: 600;"><span id="chatModalLabel"></span>
-                  <a href="#">
-                     <i class="fas fa-ellipsis-v" style="margin-right: 26px; float: right; color: #031426;"></i>
-                  </a>
-                  <button class="btn" style="background-color: red; float: right; margin-right: 25px; margin-top: -10px;" onclick="disconnectChat();">Disconnect</button>
-               </h4> 
-            </div>
-         </div>
-         <div style="height: 60vh;" id="chats"></div>
-         <div class="row" style="height: 12vh; -moz-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); -webkit-box-shadow: 0px 2px 7px rgba(0,0,0,0.25); box-shadow: 5px -1px 3px 0px rgba(0,0,0,0.25); padding: 15px; padding-left: 50px;">
-            <div class="col-7 col-sm-7" style="padding: 0px;">
-               <textarea placeholder="Write a message" style=" width:100%; height: 55px; resize: none; border: 1px solid white;" id="msg" onkeydown="return (event.keyCode!=13);"></textarea>
-            </div>
-            <div class="col-5 col-sm-5">
-               <a href="#" id="send-msg"><i class="fas fa-paper-plane" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
-                  <a href="#"><i class="far fa-image" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
-               <a href="#"><i class="fas fa-paperclip" style="float: right; margin-right: 20px; font-size: 26px; color: #031426;"></i></a>
-            </div>
-         </div>
-
-      </div>
-
+			   <div class="chat_modal container-fluid">
+                     <div class="row header_row">
+                        <div class="col-3 col-sm-3">
+                           <img src="images/img1.jpg">
+                        </div>
+                        <div class="col-8 col-sm-8">
+                           <h4><span id="chatModalLabel"></span>
+                              <button class="btn" type="button" onclick="disconnectChat();">Disconnect</button>
+                           </h4>
+                        </div>
+                        <div class="col-1 col-sm-1" style="padding: 15px;">
+                           <div class="dropdown">
+                              <span class="fas fa-ellipsis-v"></span>
+                              <div class="dropdown-content">
+                                 <a href="#">Export chat</a>
+                                 <a href="#">Clear chat</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="chat_body" id="chats"></div>
+                     <div class="row footer_row">
+                        <div class="col-9 col-sm-9" style="padding: 0px;">
+                           <textarea placeholder="Write a message" id="msg" onkeydown="return (event.keyCode!=13);"></textarea>
+                        </div>
+                        <div class="col-3 col-sm-3">
+                           <label for="upload-photo"><i class="fas fa-paperclip"></i></label>
+                           <input type="file" name="photo" id="upload-photo"/>
+                           <a href="#" id="send-msg"><i class="fas fa-paper-plane"></i></a>
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
