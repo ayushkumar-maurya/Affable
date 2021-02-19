@@ -2,6 +2,12 @@
 	include "connection.php";
 	if(!isset($_SESSION['email']))
 		header("Location: index.php");
+	else {
+		$stmt = $conn->prepare("SELECT name FROM user WHERE email = :email");
+		$stmt->execute(array(":email" => $_SESSION['email']));
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		$_SESSION['user'] = $row['name'];
+	}
 
 	if(isset($_SESSION['questionid']))
 		unset($_SESSION['questionid']);
@@ -677,7 +683,7 @@
                            <div class="dropdown">
                               <span class="fas fa-ellipsis-v"></span>
                               <div class="dropdown-content">
-                                 <a href="#">Export chat</a>
+                                 <a href="#" id="export-chat">Export chat</a>
                                  <a href="#" id="clr-msgs">Clear chat</a>
                               </div>
                            </div>
@@ -694,6 +700,7 @@
                            <a href="#" id="send-msg"><i class="fas fa-paper-plane"></i></a>
                         </div>
                      </div>
+					 <a href="" id="exportLink" style="display: none;" download></a>
                   </div>
                </div>
             </div>

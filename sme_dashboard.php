@@ -3,11 +3,12 @@ require_once ('connection.php');
 //session_start();
 if(isset($_SESSION['email'])){
 	$email=$_SESSION['email'];
-	$results = mysqli_query($db,"SELECT name, about_sme, phone, email, pincode, postal_addr, categoryname, experience, skillset, sme_cert, sme_language, webinars, sme_fees, mode_of_cons, photo_loc, resume_loc, review_rating, sme_designation FROM sme_profile WHERE email = '{$email}'") or die(mysqli_error($db));
+	$results = mysqli_query($db,"SELECT sme_code, name, about_sme, phone, email, pincode, postal_addr, categoryname, experience, skillset, sme_cert, sme_language, webinars, sme_fees, mode_of_cons, photo_loc, resume_loc, review_rating, sme_designation FROM sme_profile WHERE email = '{$email}'") or die(mysqli_error($db));
 	$row_cnt=mysqli_num_rows($results);
 	
 	if($row_cnt==1){
 		$row=mysqli_fetch_array($results);
+		$sme_code = $row['sme_code'];
 		$name=$row['name'];
 		$phone=$row['phone'];
 		$email=$row['email'];
@@ -28,7 +29,7 @@ if(isset($_SESSION['email'])){
 		$sme_designation=$row['sme_designation'];
 		
 	}
-	
+	$_SESSION['user'] = $sme_code;
 }
 else{
 	header("Location:index.php?smeSignIn=1");
@@ -1790,7 +1791,7 @@ else{
                            <div class="dropdown">
                               <span class="fas fa-ellipsis-v"></span>
                               <div class="dropdown-content">
-                                 <a href="#">Export chat</a>
+                                 <a href="#" id="export-chat">Export chat</a>
                                  <a href="#" id="clr-msgs">Clear chat</a>
                               </div>
                            </div>
@@ -1807,6 +1808,7 @@ else{
                            <a href="#" id="send-msg"><i class="fas fa-paper-plane"></i></a>
                         </div>
                      </div>
+					 <a href="" id="exportLink" style="display: none;" download></a>
                   </div>
                </div>
             </div>
